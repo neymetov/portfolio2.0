@@ -1,0 +1,283 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Services from '../components/Services.astro';
+import StoryArt from '../components/StoryArt.astro';
+import site from '../content/site.json';
+import { featuredProjects } from '../lib/projects';
+
+export const prerender = true;
+
+const meetupImages = [
+  { src: '/images/figma/meetup-1.png', tilt: 0 },
+  { src: '/images/figma/meetup-2.png', tilt: 0 },
+  { src: '/images/figma/meetup-3.png', tilt: 10 },
+  { src: '/images/figma/meetup-4.png', tilt: 0 },
+  { src: '/images/figma/meetup-5.png', tilt: -10 },
+];
+const slidesOf = (project: (typeof featuredProjects)[number]) => {
+  const images = project.gallery.length ? project.gallery : project.cover ? [project.cover] : [];
+  return images.length ? images : ['', ''];
+};
+---
+<BaseLayout title={`${site.name} — About`} active="about">
+  <PageHeader title={site.name} />
+
+  <div class="sheet about">
+    <section class="hero-lead">
+      <h1>{site.heroLead} <em>{site.heroAccent}</em></h1>
+    </section>
+
+    <section class="hero-stage" aria-label={`Portrait of ${site.name}`}>
+      <div class="orbit orbit--1" aria-hidden="true"><i><img src="/images/figma/orbit-1.svg" alt="" width="527" height="244" /></i></div>
+      <div class="orbit orbit--2" aria-hidden="true"><i><img src="/images/figma/orbit-2.svg" alt="" width="527" height="244" /></i></div>
+      {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+        <img class="portrait" style={`--n:${n - 1}`} src={`/images/hero/${n}.png`} alt={n === 6 ? site.name : ''} aria-hidden={n === 6 ? undefined : 'true'} width="333" height="421" fetchpriority={n === 1 ? 'high' : undefined} />
+      ))}
+      <div class="years"><small>years of<br />experience</small><strong>{site.years}</strong></div>
+    </section>
+
+    <section class="story" aria-label="Story">
+      <div class="fan" data-fan tabindex="0">
+        {site.stories.map((story) => (
+          <article class="story-card">
+            {story.art && story.art !== 'none' ? <StoryArt kind={story.art} /> : story.image && <img class="story-card__art" src={story.image} alt="" width="357" height="224" loading="lazy" />}
+            <div class="story-card__text">
+              <h2>{story.title}</h2>
+              <p>{story.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="experience" aria-labelledby="experience-title">
+      <div class="exp-scroll" data-exp style={`--n:${site.experience.length}`}>
+       <div class="exp-stage">
+        <h2 id="experience-title" class="display-title">experience</h2>
+        <ol class="timeline" style={`--accent:${site.experience[0]?.color || '#0704d7'}`}>
+          {site.experience.map((item, index) => (
+            <li class:list={['timeline__item', { 'is-active': index === 0, 'is-passed': index === 0 }]} data-color={item.color || undefined}>
+              <button type="button" class="timeline__year" aria-label={`${item.year}: ${item.role}, ${item.company}`} aria-current={index === 0 ? 'step' : undefined}>{item.year}</button>
+              <div class:list={['timeline__photo', { 'timeline__photo--logo': item.photo }]}>
+                <img src={item.photo || '/images/figma/avatar-dscf7689.jpg'} alt="" width="100" height="100" loading="lazy" />
+              </div>
+              <div class="timeline__copy">
+                <h3>{item.company}</h3>
+                <strong>{item.role}</strong>
+                {item.text && <p>{item.text}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+       </div>
+      </div>
+    </section>
+
+    <section class="meetups">
+      <h2 class="display-title">meetups <em>&amp;</em> workshops</h2>
+      <p>{site.meetupText}</p>
+    </section>
+
+    <section class="collage" data-collage aria-label="Meetups and workshops photos">
+      <div class="collage__stack">
+        {meetupImages.map(({ src, tilt }) => <img src={src} alt="" width="240" height="240" loading="lazy" style={`--tilt:${tilt}deg`} />)}
+      </div>
+    </section>
+
+    {featuredProjects.length > 0 && (
+      <section class="featured" aria-labelledby="featured-title">
+        <h2 id="featured-title" class="display-title">some <em>big</em> projects</h2>
+        {featuredProjects.map((project, index) => (
+          <article class="featured-item">
+            <div class:list={['carousel', index % 2 === 0 ? 'carousel--left' : 'carousel--right']} tabindex="0" role="group" aria-label={`${project.title} preview`}>
+              {slidesOf(project).map((image) => (
+                <div class="carousel__slide">{image ? <img src={image} alt="" loading="lazy" /> : <span />}</div>
+              ))}
+            </div>
+            <div class="featured-item__info">
+              {project.emblem && <img class="featured-item__emblem" src={project.emblem} alt="" width="42" height="42" loading="lazy" />}
+              <h3>{project.title}</h3>
+              <a class="text-link" href={`/works/${project.slug}`}>
+                Read the case <img src="/images/figma/icon-arrow-right-16.svg" alt="" width="16" height="16" />
+              </a>
+            </div>
+          </article>
+        ))}
+        <a class="pill pill--pink" href="/works">see all projects</a>
+      </section>
+    )}
+
+    <Services />
+  </div>
+</BaseLayout>
+
+<script>
+  // Runs on first load and after every client-side navigation; window listeners are dropped before the next swap.
+  const init = () => {
+    const controller = new AbortController();
+    const { signal } = controller;
+    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
+
+    // Story fan: native horizontal scroll-snap, made endless by cloning the cards and silently re-centring the scroll.
+    // Each card tilts and drops along an arc by its distance from the centre.
+    const fan = document.querySelector<HTMLElement>('[data-fan]');
+    if (fan) {
+      const originals = [...fan.querySelectorAll<HTMLElement>('.story-card')];
+      const COPIES = 5;
+      const PITCH = 288; // card width 255 + gap 33, as in the Figma fan
+      for (let copy = 1; copy < COPIES; copy++) {
+        originals.forEach((card) => {
+          const clone = card.cloneNode(true) as HTMLElement;
+          clone.setAttribute('aria-hidden', 'true');
+          clone.inert = true;
+          fan.append(clone);
+        });
+      }
+      const cards = [...fan.querySelectorAll<HTMLElement>('.story-card')];
+      const setWidth = () => cards[originals.length].offsetLeft - cards[0].offsetLeft;
+      const origin = () => cards[0].offsetLeft + cards[0].offsetWidth / 2 - fan.clientWidth / 2; // scrollLeft with card 0 centred
+
+      // The illustration of the centred card plays once it arrives (and while the fan is on screen).
+      let visible = false;
+      const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; place(); }, { threshold: 0.35 });
+      io.observe(fan);
+      signal.addEventListener('abort', () => io.disconnect());
+
+      const place = (settled = false) => {
+        const centre = fan.scrollLeft + fan.clientWidth / 2;
+        cards.forEach((card) => {
+          const d = (card.offsetLeft + card.offsetWidth / 2 - centre) / PITCH;
+          const clamped = Math.max(-3, Math.min(3, d));
+          card.style.transform = `translateY(${(14.3 * clamped * clamped).toFixed(1)}px) rotate(${(clamped * 7).toFixed(2)}deg)`;
+          card.style.zIndex = String(10 - Math.round(Math.abs(d)));
+          const active = visible && Math.abs(d) < 0.4;
+          if (active && !card.classList.contains('is-active')) {
+            card.classList.add('is-active');
+            // after the silent re-centre the identical clone takes over without replaying
+            if (settled) card.classList.add('is-settled');
+          } else if (!active) {
+            card.classList.remove('is-active', 'is-settled');
+          }
+        });
+      };
+      // Every set is identical, so shifting by whole sets is invisible.
+      const recentre = (force: boolean) => {
+        const set = setWidth();
+        const rel = fan.scrollLeft - origin();
+        const outside = force ? rel < 1.5 * set || rel > 3.5 * set : rel < 0.25 * set || rel > (COPIES - 0.25) * set;
+        if (!outside) return;
+        fan.scrollLeft = origin() + 2 * set + ((rel % set) + set) % set;
+        place(true);
+      };
+
+      let raf = 0;
+      let settle = 0;
+      fan.addEventListener('scroll', () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => { recentre(false); place(); });
+        clearTimeout(settle);
+        settle = window.setTimeout(() => recentre(true), 150);
+      }, { passive: true });
+      window.addEventListener('resize', () => { recentre(true); place(); }, { signal });
+
+      fan.style.scrollSnapType = 'none';
+      fan.scrollLeft = origin() + 2 * setWidth();
+      fan.style.scrollSnapType = '';
+      place();
+    }
+
+    // Experience: the plate stays pinned while scrolling; year, photo and details step through the jobs.
+    const scroller = document.querySelector<HTMLElement>('[data-exp]');
+    const stage = scroller?.querySelector<HTMLElement>('.exp-stage');
+    const timeline = scroller?.querySelector<HTMLElement>('.timeline');
+    if (scroller && stage && timeline) {
+      const items = [...timeline.querySelectorAll<HTMLElement>('.timeline__item')];
+      const stickyTop = () => parseFloat(getComputedStyle(stage).top) || 0;
+      const range = () => Math.max(1, scroller.offsetHeight - stage.offsetHeight);
+      let current = -1;
+
+      const setFill = (item: HTMLElement) => {
+        const photo = item.querySelector<HTMLElement>('.timeline__photo')!;
+        // offset-based, so the entry animation (translateY) doesn't skew the measurement
+        timeline.style.setProperty('--fill', `${item.offsetTop + photo.offsetTop + photo.offsetHeight}px`);
+      };
+      const activate = (index: number) => {
+        if (index === current) return;
+        current = index;
+        items.forEach((item, i) => {
+          item.classList.toggle('is-active', i === index);
+          item.classList.toggle('is-passed', i <= index);
+          item.querySelector('button')!.toggleAttribute('aria-current', i === index);
+        });
+        timeline.style.setProperty('--accent', items[index].dataset.color || '#0704d7');
+        setFill(items[index]);
+      };
+      const update = () => {
+        const progress = (stickyTop() - scroller.getBoundingClientRect().top) / range();
+        activate(Math.min(items.length - 1, Math.max(0, Math.floor(progress * items.length))));
+      };
+
+      let frame = 0;
+      const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
+      window.addEventListener('scroll', schedule, { passive: true, signal });
+      window.addEventListener('resize', () => { const i = current; current = -1; activate(i); schedule(); }, { signal });
+
+      items.forEach((item, index) =>
+        item.querySelector('button')!.addEventListener('click', () => {
+          const top = scroller.getBoundingClientRect().top + window.scrollY - stickyTop() + ((index + 0.5) / items.length) * range();
+          window.scrollTo({ top, behavior: 'smooth' });
+        }),
+      );
+      update();
+    }
+
+    // Meetups collage: every photo can be dragged anywhere; a short wiggle hints at it when the stack reaches the middle of the screen.
+    const collage = document.querySelector<HTMLElement>('[data-collage]');
+    if (collage) {
+      const photos = [...collage.querySelectorAll<HTMLImageElement>('.collage__stack img')];
+      let top = photos.length;
+      let touched = false;
+
+      photos.forEach((photo, i) => {
+        photo.style.setProperty('--d', `${i * 70}ms`);
+        let sx = 0, sy = 0, ox = 0, oy = 0, minX = 0, maxX = 0;
+        photo.addEventListener('pointerdown', (event) => {
+          touched = true;
+          collage.classList.remove('is-hinting');
+          photo.setPointerCapture(event.pointerId);
+          photo.classList.add('is-dragging');
+          photo.style.zIndex = String(++top);
+          sx = event.clientX; sy = event.clientY;
+          ox = parseFloat(photo.style.getPropertyValue('--x')) || 0;
+          oy = parseFloat(photo.style.getPropertyValue('--y')) || 0;
+          // photos may leave the screen, but not so far that they cannot be found again
+          minX = -window.innerWidth; maxX = window.innerWidth;
+        }, { signal });
+        photo.addEventListener('pointermove', (event) => {
+          if (!photo.hasPointerCapture(event.pointerId)) return;
+          const x = Math.min(maxX, Math.max(minX, ox + event.clientX - sx));
+          const y = Math.min(360, Math.max(-360, oy + event.clientY - sy));
+          photo.style.setProperty('--x', `${x}px`);
+          photo.style.setProperty('--y', `${y}px`);
+        }, { signal });
+        const drop = () => photo.classList.remove('is-dragging');
+        photo.addEventListener('pointerup', drop, { signal });
+        photo.addEventListener('pointercancel', drop, { signal });
+      });
+
+      let timer = 0;
+      const io = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting || touched) return;
+        collage.classList.remove('is-hinting');
+        void collage.offsetWidth; // restart the animation on every re-entry
+        collage.classList.add('is-hinting');
+        clearTimeout(timer);
+        timer = window.setTimeout(() => collage.classList.remove('is-hinting'), 1600);
+      }, { rootMargin: '-35% 0px -35% 0px' });
+      io.observe(collage);
+      signal.addEventListener('abort', () => { io.disconnect(); clearTimeout(timer); });
+    }
+  };
+  document.addEventListener('astro:page-load', init);
+</script>

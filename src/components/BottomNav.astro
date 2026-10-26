@@ -1,0 +1,53 @@
+---
+interface Props { active: 'works' | 'about' | 'contacts' }
+const { active } = Astro.props;
+const order = ['works', 'about', 'contacts'] as const;
+const items = [
+  { id: 'works', label: 'Works', href: '/works' },
+  { id: 'about', label: 'About', href: '/' },
+  { id: 'contacts', label: 'Contacts', href: '/contacts' },
+] as const;
+---
+<nav class="bottom-nav" aria-label="Primary navigation" style={`--i:${order.indexOf(active)}`} transition:persist>
+  <div class="bottom-nav__inner glass">
+    <span class="nav-pill" aria-hidden="true"></span>
+    {items.map((item) => (
+      <a class:list={['pill', { 'is-active': active === item.id }]} href={item.href} data-astro-prefetch="viewport" data-nav={item.id} aria-current={active === item.id ? 'page' : undefined}>{item.label}</a>
+    ))}
+  </div>
+</nav>
+
+<script>
+  // The nav persists between pages: the black pill slides to the tapped tab at once, and the URL keeps it in sync afterwards.
+  const order = ['works', 'about', 'contacts'];
+  const move = (id: string) => {
+    const nav = document.querySelector<HTMLElement>('.bottom-nav');
+    const index = order.indexOf(id);
+    if (!nav || index < 0) return;
+    nav.style.setProperty('--i', String(index));
+    nav.querySelectorAll<HTMLAnchorElement>('[data-nav]').forEach((link) => {
+      const on = link.dataset.nav === id;
+      link.classList.toggle('is-active', on);
+      if (on) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  };
+  const sync = () => {
+    const path = location.pathname.replace(/\/$/, '') || '/';
+    move(path === '/' ? 'about' : path.startsWith('/works') ? 'works' : path.startsWith('/contacts') ? 'contacts' : '');
+  };
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+    const link = (event.target as Element).closest<HTMLAnchorElement>('.bottom-nav [data-nav]');
+    if (link) move(link.dataset.nav!);
+  });
+  document.addEventListener('astro:page-load', sync);
+
+  // Name the nav for the transition only; outside of it the glass must blur the page behind.
+  const nameNav = (name: string) => {
+    const nav = document.querySelector<HTMLElement>('.bottom-nav');
+    if (nav) nav.style.viewTransitionName = name;
+  };
+  document.addEventListener('astro:before-preparation', () => nameNav('bottom-nav'));
+  document.addEventListener('astro:page-load', () => setTimeout(() => nameNav(''), 500));
+</script>

@@ -1,0 +1,44 @@
+---
+// Layered illustrations for the fan cards, positioned in card coordinates (255 × 344) exactly as in Figma.
+// The 3D objects are PNGs with alpha, the pink parts are vectors, so every layer can be animated on its own.
+interface Props { kind: string }
+const { kind } = Astro.props;
+const art = '/images/stories/art';
+---
+<div class={`art art--${kind}`} aria-hidden="true">
+  {kind === 'knight' && (
+    <>
+      <svg class="art__diamonds" viewBox="0 0 112.71 112.71" width="112.71" height="112.71">
+        <rect class="d d1" x="37.5703" y="75.1396" width="37.5693" height="37.5704" />
+        <rect class="d d2" x="0" y="37.5703" width="37.5703" height="37.5693" />
+        <rect class="d d3" x="75.1396" y="37.5703" width="37.5704" height="37.5693" />
+        <rect class="d d4" x="37.5703" y="0" width="37.5693" height="37.5703" />
+      </svg>
+      <img class="art__knight" src={`${art}/knight.png`} alt="" width="101" height="87" />
+    </>
+  )}
+  {kind === 'bridge' && (
+    <>
+      <img class="art__bridge" src={`${art}/bridge.png`} alt="" width="146" height="109" />
+      <div class="art__arcs-outer"><img src={`${art}/arcs-outer.svg`} alt="" width="150" height="45" /></div>
+      <div class="art__arcs-inner"><img src={`${art}/arcs-inner.svg`} alt="" width="117" height="30" /></div>
+    </>
+  )}
+  {kind === 'folder' && (
+    <>
+      <img class="art__folder" src={`${art}/folder.png`} alt="" width="147" height="98" />
+      <i class="sq sq1"></i>
+      <i class="sq sq2"></i>
+      <i class="sq sq3"></i>
+    </>
+  )}
+  {kind === 'compass' && (
+    <>
+      <svg class="art__curve" viewBox="0 0 60.6068 80.6938" width="60.6068" height="80.6938" fill="none">
+        <path d="M1.10651 13.1474C28.1065 -16.3526 57.6065 17.6474 31.6065 33.1473C0.511806 51.6844 0.606509 74.6474 17.1065 78.6474C28.8778 81.501 38.6099 72.6473 40.3582 62.1473C42.1065 51.6473 47.5768 46.6474 60.6068 46.6474" pathLength="1" />
+      </svg>
+      <img class="art__compass" src={`${art}/compass.png`} alt="" width="98" height="98" />
+      <img class="art__arrow" src={`${art}/arrow.svg`} alt="" width="79" height="22" />
+    </>
+  )}
+</div>

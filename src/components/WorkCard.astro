@@ -1,0 +1,15 @@
+---
+import { placeholderImage } from '../lib/projects';
+
+interface Props { slug: string; title: string; summary: string; description: string; category: string; cover?: string }
+const { slug, title, summary, description, category, cover } = Astro.props;
+---
+<a class="work-card" href={`/works/${slug}`} data-category={category}>
+  <div class="work-card__image">
+    <img src={cover || placeholderImage} alt="" loading="lazy" width="343" height="343" />
+  </div>
+  <div class="work-card__body">
+    <h2>{title}</h2>
+    <p>{summary || description}</p>
+  </div>
+</a>

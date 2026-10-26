@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import Services from '../../components/Services.astro';
+import { categories, projects } from '../../lib/projects';
+
+export const prerender = true;
+---
+<BaseLayout title="Works — Elshan Neymatov" active="works">
+  <PageHeader title="Works" />
+  <div class="sheet">
+    <div class="filter-wrap">
+      <div class="filter-row glass" role="group" aria-label="Project category">
+        {categories.map((category, index) => (
+          <button type="button" class:list={['pill', { 'is-active': index === 0 }]} data-filter={category} aria-pressed={index === 0 ? 'true' : 'false'}>{category}</button>
+        ))}
+      </div>
+    </div>
+    <section class="work-list" aria-live="polite">
+      {projects.map((project) => <WorkCard {...project} />)}
+      <p class="work-list__empty" hidden>Nothing here yet.</p>
+    </section>
+    <Services />
+  </div>
+</BaseLayout>
+
+<script>
+  // Runs on first load and after every client-side navigation.
+  const init = () => {
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    if (!buttons.length) return;
+    const cards = [...document.querySelectorAll<HTMLElement>('.work-card')];
+    const empty = document.querySelector<HTMLElement>('.work-list__empty')!;
+
+    const apply = (category: string) => {
+      buttons.forEach((button) => {
+        const on = button.dataset.filter === category;
+        button.classList.toggle('is-active', on);
+        button.setAttribute('aria-pressed', String(on));
+      });
+      let visible = 0;
+      cards.forEach((card) => {
+        const show = card.dataset.category === category;
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      empty.hidden = visible > 0;
+    };
+
+    const fromUrl = new URLSearchParams(location.search).get('category');
+    const known = buttons.map((button) => button.dataset.filter!);
+    apply(fromUrl && known.includes(fromUrl) ? fromUrl : known[0]);
+
+    buttons.forEach((button) =>
+      button.addEventListener('click', () => {
+        apply(button.dataset.filter!);
+        history.replaceState(null, '', `?category=${encodeURIComponent(button.dataset.filter!)}`);
+      }),
+    );
+  };
+  document.addEventListener('astro:page-load', init);
+</script>

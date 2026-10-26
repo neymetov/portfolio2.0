@@ -1,0 +1,13 @@
+---
+import site from '../content/site.json';
+
+const href = (category: string) => (category === 'all' ? '/works' : `/works?category=${encodeURIComponent(category)}`);
+---
+<nav class="services" aria-label="Services">
+  {site.services.map((service) => (
+    <a href={href(service.category)}>
+      <span>{service.title}</span>
+      <span class="service-arrow" aria-hidden="true"><img src="/images/figma/icon-arrow-right-24.svg" alt="" width="24" height="24" /></span>
+    </a>
+  ))}
+</nav>

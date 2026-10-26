@@ -1,0 +1,100 @@
+{
+  "name": "Elshan Neymatov",
+  "heroLead": "Design works when one person owns it — from brand to product.",
+  "heroAccent": "I am that role.",
+  "years": 16,
+  "stories": [
+    {
+      "title": "Leading a design team",
+      "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
+      "image": "",
+      "art": "knight"
+    },
+    {
+      "title": "Leading a design team",
+      "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
+      "image": "",
+      "art": "bridge"
+    },
+    {
+      "title": "Leading a design team",
+      "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
+      "image": "",
+      "art": "folder"
+    },
+    {
+      "title": "Leading a design team",
+      "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
+      "image": "",
+      "art": "compass"
+    }
+  ],
+  "experience": [
+    {
+      "year": "2017",
+      "company": "Creative SHAMANS Bureau",
+      "role": "Senior Graphic Web Designer",
+      "text": "Apr 2017 – Jul 2017 · 4 mos · Azerbaijan",
+      "photo": "/images/figma/emblem-shamans.png",
+      "color": "#a32a5c"
+    },
+    {
+      "year": "2017",
+      "company": "Paradox Branding Studio",
+      "role": "Graphic Designer",
+      "text": "Jun 2017 – Jul 2020 · 3 yrs 2 mos · Azerbaijan",
+      "photo": "/images/figma/emblem-paradox.png",
+      "color": "#0704d7"
+    },
+    {
+      "year": "2020",
+      "company": "PASHA Bank",
+      "role": "Senior Graphic Specialist",
+      "text": "Jul 2020 – Nov 2023 · 3 yrs 5 mos · Baku",
+      "photo": "/images/figma/emblem-star.png",
+      "color": "#d9001b"
+    },
+    {
+      "year": "2023",
+      "company": "Guavapay",
+      "role": "Design Team Lead",
+      "text": "Dec 2023 – Nov 2025 · 2 yrs · Baku · Hybrid",
+      "photo": "/images/figma/emblem-g.png",
+      "color": "#2f8f6c"
+    },
+    {
+      "year": "2025",
+      "company": "Bir ecosystem",
+      "role": "Graphic Design Chapter Lead",
+      "text": "Dec 2025 – Present · Baku Ekonomic Zone · On-site",
+      "photo": "/images/figma/emblem-bir.png",
+      "color": "#111111"
+    }
+  ],
+  "meetupText": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
+  "services": [
+    {
+      "title": "Branding",
+      "category": "Branding"
+    },
+    {
+      "title": "Logo",
+      "category": "Branding"
+    },
+    {
+      "title": "User interface",
+      "category": "all"
+    },
+    {
+      "title": "Iconography",
+      "category": "Illustration"
+    },
+    {
+      "title": "Illustrations",
+      "category": "Illustration"
+    }
+  ],
+  "contactTitle": "Text to me",
+  "contactPrompt": "you can text to me right now",
+  "contactEmail": "hello@example.com"
+}
