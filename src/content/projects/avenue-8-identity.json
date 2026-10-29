@@ -1,0 +1,15 @@
+{
+  "title": "Avenue 8 Identity",
+  "subtitle": "Identity",
+  "category": "Branding",
+  "order": 1,
+  "summary": "Short description",
+  "description": "Short description",
+  "featured": true,
+  "emblem": "/images/projects/avenue-8-identity/emblem.gif",
+  "cover": "/images/projects/avenue-8-identity/cover.gif",
+  "gallery": [
+    "/images/projects/avenue-8-identity/gallery/0.png",
+    "/images/projects/avenue-8-identity/gallery/1.png"
+  ]
+}
