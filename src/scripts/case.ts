@@ -18,6 +18,18 @@ export const init = () => {
   listen(view, 'dragstart', (event: Event) => event.preventDefault());
   if (view.classList.contains('landing')) landing(view);
   else simple(view);
+
+  /* images load lazily and change the page height, so every scroll trigger below them must be measured again */
+  let timer = 0;
+  const remeasure = () => {
+    clearTimeout(timer);
+    timer = window.setTimeout(refresh, 150);
+  };
+  view.querySelectorAll('img').forEach((img) => {
+    if (!img.complete) listen(img, 'load', remeasure);
+  });
+  listen(window, 'load', remeasure);
+  onCleanup(() => clearTimeout(timer));
   view.querySelectorAll('video').forEach((video) => void video.play().catch(() => {}));
 };
 
@@ -74,25 +86,32 @@ const landing = (view: HTMLElement) => {
       const scrub = { trigger: '.lb-hero', start: 'top top', end: 'bottom top', scrub: true };
       gsap.fromTo(q('.lb-hero-text'), { yPercent: 0 }, { yPercent: -40, opacity: 0, ease: 'none', scrollTrigger: scrub });
     }
-    const reveal = (selector: string, from: gsap.TweenVars, trigger: string, start = 'top 85%', extra: gsap.TweenVars = {}) => {
-      const els = all(selector);
-      if (!els.length) return;
-      gsap.fromTo(els, from, { y: 0, yPercent: 0, opacity: 1, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger, start }, ...extra });
+    /* every block animates on its own trigger: a project can use the same block several times */
+    const reveal = (selector: string, from: gsap.TweenVars, container: string | null, start = 'top 85%', extra: gsap.TweenVars = {}) => {
+      const to = { y: 0, yPercent: 0, opacity: 1, duration: 1.1, ease: 'expo.out', ...extra };
+      if (container) {
+        all(container).forEach((box) => {
+          const items = [...box.querySelectorAll(selector)];
+          if (items.length) gsap.fromTo(items, from, { ...to, scrollTrigger: { trigger: box, start } });
+        });
+      } else {
+        all(selector).forEach((el) => gsap.fromTo(el, from, { ...to, scrollTrigger: { trigger: el, start } }));
+      }
     };
-    reveal('.lb-statement', { y: 40, opacity: 0 }, '.lb-intro', 'top 80%', { duration: 1.2 });
+    reveal('.lb-statement', { y: 40, opacity: 0 }, null, 'top 80%', { duration: 1.2 });
     reveal('.lb-meta > div', { y: 24, opacity: 0 }, '.lb-meta', 'top 85%', { duration: 1, stagger: 0.08 });
     reveal('.lb-story', { y: 120, rotate: 0, opacity: 0 }, '.lb-fan', 'top 85%', { duration: 1.2, stagger: 0.08, clearProps: 'transform,opacity' });
-    reveal('.lb-wide-fig', { y: 60, opacity: 0 }, '.lb-wide', 'top 85%', { duration: 1.2 });
-    reveal('.lb-gallery-grid figure', { y: 60, opacity: 0 }, '.lb-gallery', 'top 85%', { duration: 1.2, stagger: 0.1 });
+    reveal('.lb-wide-fig', { y: 60, opacity: 0 }, null, 'top 90%', { duration: 1.2 });
+    reveal('figure', { y: 60, opacity: 0 }, '.lb-gallery-grid', 'top 85%', { duration: 1.2, stagger: 0.1 });
 
     /* zoom: an inset, rounded image opens to the full sheet while scrolling */
-    const zoom = q('.lb-zoom-fig');
-    if (zoom) {
-      /* on phones the picture keeps its own proportions and is never scaled up, so no edge is ever cut off */
-      const phone = innerWidth <= 640;
-      gsap.fromTo(zoom, { clipPath: phone ? 'inset(4% 6% 4% 6% round 20px)' : 'inset(8% 14% 8% 14% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: '.lb-zoom', start: 'top 85%', end: 'center 45%', scrub: true } });
-      if (!phone) gsap.fromTo(q('.lb-zoom-fig img'), { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.lb-zoom', start: 'top bottom', end: 'bottom top', scrub: true } });
-    }
+    const phone = innerWidth <= 640;
+    all('.lb-zoom').forEach((section) => {
+      const fig = section.querySelector<HTMLElement>('.lb-zoom-fig');
+      if (!fig) return;
+      /* only the frame opens; the picture itself is never scaled or cropped */
+      gsap.fromTo(fig, { clipPath: phone ? 'inset(4% 6% 4% 6% round 20px)' : 'inset(8% 14% 8% 14% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: section, start: 'top 85%', end: 'center 45%', scrub: true } });
+    });
   }
 
   /* pinned: the phone stays, the active step swaps its screen and fills the progress bar */

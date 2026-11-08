@@ -301,8 +301,9 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 .lb-meta dt{font-size:13px;color:var(--t-muted);margin-bottom:6px}
 .lb-meta dd{font-size:17px}
 .lb-zoom{padding:0 0 40px}
-.lb-zoom-fig{margin:0;height:min(92vh,900px);overflow:hidden;clip-path:inset(8% 14% 8% 14% round 28px)}
-.lb-zoom-fig img{width:100%;height:100%;object-fit:cover;display:block}
+/* the image always fills the frame by width and keeps its own proportions: nothing is cropped */
+.lb-zoom-fig{margin:0;height:auto;overflow:hidden;clip-path:inset(8% 14% 8% 14% round 28px)}
+.lb-zoom-fig img{width:100%;height:auto;display:block}
 .lb-pinned{padding-top:140px}
 .lb-pin-grid{display:grid;grid-template-columns:1fr 1fr;gap:6vw}
 .lb-pin-col{position:relative}
@@ -326,6 +327,8 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 .lb-fan:hover .lb-story{transform:rotate(calc((var(--i) - (var(--n) - 1) / 2) * 3deg)) translateX(calc((var(--i) - (var(--n) - 1) / 2) * 34px))}
 .lb-fan .lb-story:hover{transform:translateY(-24px) scale(1.05)!important;z-index:5}
 .lb-wide{padding-top:120px}
+/* on desktop a wide image spans the same width as the zoom image */
+@media (min-width:641px){.lb-wide.lb-pad{max-width:none;padding-left:0;padding-right:0}}
 .lb-wide-fig{margin:0}
 .lb-wide-fig img{width:100%;display:block}
 .lb-gallery{padding-top:120px}
