@@ -480,6 +480,8 @@ export const mountRing = (canvas: HTMLCanvasElement): (() => void) | null => {
   const frame = () => {
     if (!visible || stopped) return;
     const now = performance.now() / 1000;
+    /* on phones the ring sits in the page flow, so it must scroll with it: no lift, bend or extra blur from scrolling */
+    const lift = innerWidth <= 640 ? 0 : heroP;
     const sv = lenis ? lenis.velocity : 0;
     if (SNAP) {
       if (!dragging) {
@@ -522,12 +524,12 @@ export const mountRing = (canvas: HTMLCanvasElement): (() => void) | null => {
         if (t > 1.8) card.start = null;
       }
       card.mesh.material.uniforms.uAngle.value = card.base + angle;
-      card.mesh.material.uniforms.uBend.value = 0.35 + heroP * 1.6;
+      card.mesh.material.uniforms.uBend.value = 0.35 + lift * 1.6;
     });
-    group.position.y = heroP * 2 + intro.y;
-    group.rotation.x = heroP * 0.22;
-    camera.lookAt(0, lookY - heroP * 0.4, -R);
-    postMat.uniforms.uStrength.value = (SNAP ? 0.55 : 1) + Math.min(Math.abs(vel) * 120 + (SNAP ? 0 : Math.abs(sv) * 0.04), 1.6) + heroP * 1.2;
+    group.position.y = lift * 2 + intro.y;
+    group.rotation.x = lift * 0.22;
+    camera.lookAt(0, lookY - lift * 0.4, -R);
+    postMat.uniforms.uStrength.value = (SNAP ? 0.55 : 1) + Math.min(Math.abs(vel) * 120 + (SNAP ? 0 : Math.abs(sv) * 0.04), 1.6) + lift * 1.2;
     renderer.setRenderTarget(rt);
     renderer.render(scene, camera);
     renderer.setRenderTarget(null);
