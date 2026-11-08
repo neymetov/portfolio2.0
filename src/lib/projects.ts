@@ -28,6 +28,7 @@ export interface Project {
   description: string;
   featured: boolean;
   cover: string;
+  shareImage?: string;
   coverVideo: string;
   gallery: GalleryItem[];
   landing: { discriminant: boolean; value: { theme: ThemeInput; blocks: Block[] } | null };

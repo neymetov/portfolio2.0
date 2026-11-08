@@ -11,7 +11,7 @@ const chats = [
   { id: 'tg', name: 'Telegram', url: tg, todo: 'Telegram username', chat: site.telegramChat },
 ];
 ---
-<BaseLayout title="Contacts — Elshan Neymatov" heading="Contacts" page="contacts">
+<BaseLayout title="Contacts — Elshan Neymatov" heading="Contacts" page="contacts" description={site.contactText}>
   <main id="view-contacts" class="view contacts-view">
     <section class="c-head">
       <h1 class="display">{site.contactTitle} <em>{site.contactAccent}</em></h1>

@@ -20,7 +20,7 @@ const fan = [
   { ft: 24, fx: 190, fy: -40 },
 ];
 ---
-<BaseLayout title={`${site.name} — brand designer and Chapter Lead`} heading={site.name} page="about">
+<BaseLayout title={`${site.name} — brand designer and Chapter Lead`} heading={site.name} page="about" description={`${site.heroLead} ${site.heroAccent}`}>
   <main id="view-about" class="view">
     <section class="hero" id="about">
       <canvas id="ring" data-stories={JSON.stringify(stories)} aria-label="Story cards on a rotating ring. Swipe to turn, tap a card to read it"></canvas>

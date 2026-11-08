@@ -139,6 +139,12 @@ export default config({
         description: fields.text({ label: 'Description (case page)', multiline: true }),
         featured: fields.checkbox({ label: 'Show in "some big projects" on About', defaultValue: false }),
         cover: image('Cover image'),
+        shareImage: fields.image({
+          label: 'Share image (link preview)',
+          description: 'Shown when the project link is sent in a messenger or social network. 1200 × 630 JPG or WebP under 1 MB works best. If empty, the cover or hero image is used (GIFs and very large files are skipped).',
+          directory: 'public/images/projects',
+          publicPath: '/images/projects/',
+        }),
         coverVideo: video('Cover video (mp4, optional: replaces the image on /works)'),
         gallery: fields.array(
           fields.object({

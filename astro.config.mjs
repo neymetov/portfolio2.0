@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import keystatic from '@keystatic/astro';
 
 export default defineConfig({
+  site: 'https://neymetov.com',
   output: 'server',
   adapter: cloudflare({ imageService: 'compile' }),
   integrations: [react(), keystatic()],

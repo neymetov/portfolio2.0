@@ -9,6 +9,7 @@ interface Props {
   heading: string;
   page: 'about' | 'works' | 'case' | 'contacts';
   description?: string;
+  image?: string;
   theme?: Theme | null;
 }
 
@@ -17,6 +18,7 @@ const {
   heading,
   page,
   description = 'Portfolio of brand designer and Chapter Lead Elshan Neymatov',
+  image = '/og-default.jpg',
   theme = null,
 } = Astro.props;
 
@@ -24,6 +26,10 @@ const {
 const themeStyle = theme
   ? `--frame-c:${theme.frame};--frame-ink:${theme.frameInk};--page-bg:${theme.bg}`
   : undefined;
+
+// Link previews need absolute addresses.
+const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), Astro.site).toString();
+const imageUrl = new URL(image, Astro.site).toString();
 
 const tabs = [
   { id: 'works', label: 'Works', href: '/works' },
@@ -39,9 +45,18 @@ const activeTab = page === 'case' ? 'works' : page;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#ff62ed" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/fonts/satoshi-700.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/satoshi-500.woff2" as="font" type="font/woff2" crossorigin />
