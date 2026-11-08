@@ -11,6 +11,11 @@ export const init = () => {
   if (!view) return;
   const next = view.querySelector<HTMLElement>('.cs-next');
   if (next) hoverCursor(next, 'next');
+  /* images and videos cannot be dragged out or saved from the context menu */
+  listen(view, 'contextmenu', (event: Event) => {
+    if ((event.target as Element).closest('img, video')) event.preventDefault();
+  });
+  listen(view, 'dragstart', (event: Event) => event.preventDefault());
   if (view.classList.contains('landing')) landing(view);
   else simple(view);
   view.querySelectorAll('video').forEach((video) => void video.play().catch(() => {}));
@@ -59,10 +64,9 @@ const landing = (view: HTMLElement) => {
     };
     reveal('.lb-statement', { y: 40, opacity: 0 }, '.lb-intro', 'top 80%', { duration: 1.2 });
     reveal('.lb-meta > div', { y: 24, opacity: 0 }, '.lb-meta', 'top 85%', { duration: 1, stagger: 0.08 });
-    reveal('.lb-sw', { y: 60, opacity: 0 }, '.lb-swatches', 'top 85%', { duration: 1, stagger: 0.08 });
-    reveal('.lb-specimen > span', { yPercent: 100, opacity: 0 }, '.lb-specimen', 'top 85%', { stagger: 0.1 });
     reveal('.lb-story', { y: 120, rotate: 0, opacity: 0 }, '.lb-fan', 'top 85%', { duration: 1.2, stagger: 0.08, clearProps: 'transform,opacity' });
     reveal('.lb-wide-fig', { y: 60, opacity: 0 }, '.lb-wide', 'top 85%', { duration: 1.2 });
+    reveal('.lb-gallery-grid figure', { y: 60, opacity: 0 }, '.lb-gallery', 'top 85%', { duration: 1.2, stagger: 0.1 });
 
     /* zoom: an inset, rounded image opens to the full sheet while scrolling */
     const zoom = q('.lb-zoom-fig');
@@ -74,7 +78,7 @@ const landing = (view: HTMLElement) => {
 
   /* pinned: the phone stays, the active step swaps its screen and fills the progress bar */
   const steps = all('.lb-step');
-  const shots = all('.lb-phone > img');
+  const shots = all('.lb-pin-img > img');
   const bars = all('.lb-progress i');
   const setStep = (i: number) => {
     steps.forEach((step, j) => step.classList.toggle('on', j === i));
@@ -83,27 +87,6 @@ const landing = (view: HTMLElement) => {
   };
   steps.forEach((step, i) => ScrollTrigger.create({ trigger: step, start: 'top 60%', end: 'bottom 60%', onToggle: (self) => self.isActive && setStep(i) }));
   if (steps.length) setStep(0);
-
-  /* palette: click copies the hex */
-  all<HTMLButtonElement>('.lb-sw').forEach((swatch) =>
-    listen(swatch, 'click', () => {
-      void navigator.clipboard?.writeText(swatch.dataset.hex ?? '').catch(() => {});
-      swatch.classList.add('copied');
-      const timer = setTimeout(() => swatch.classList.remove('copied'), 1200);
-      onCleanup(() => clearTimeout(timer));
-    }),
-  );
-
-  /* stories and the wide image open in the lightbox */
-  const figures = all<HTMLElement>('.lb-story, .lb-wide-fig');
-  const items: Media[] = figures.map((figure) => {
-    const image = figure.querySelector('img')!;
-    return { img: image.getAttribute('src')!, alt: image.alt };
-  });
-  figures.forEach((figure, index) => {
-    listen(figure, 'click', () => openLightbox(items, index));
-    hoverCursor(figure, 'view');
-  });
 
   refresh();
 };

@@ -182,9 +182,9 @@ export default config({
                       schema: fields.object({
                         video: video('Video (mp4)'),
                         poster: image('Poster / image'),
-                        kicker: fields.text({ label: 'Kicker', description: 'Small line above the title, e.g. Branding · Social' }),
                         title: fields.text({ label: 'Title', ...required }),
-                        sub: fields.text({ label: 'Subtitle' }),
+                        showSub: fields.checkbox({ label: 'Show description', defaultValue: true }),
+                        sub: fields.text({ label: 'Description' }),
                       }),
                     },
                     intro: {
@@ -202,30 +202,15 @@ export default config({
                       schema: fields.object({
                         image: fields.image({ label: 'Image', directory: 'public/images/projects', publicPath: '/images/projects/', validation: { isRequired: true } }),
                         alt: fields.text({ label: 'Alt text' }),
-                        caption: fields.text({ label: 'Caption' }),
-                      }),
-                    },
-                    palette: {
-                      label: 'Colour and type',
-                      schema: fields.object({
-                        title: fields.text({ label: 'Title' }),
-                        colors: fields.array(
-                          fields.object({ name: fields.text({ label: 'Name', ...required }), hex: colour({ label: 'Colour', defaultValue: '#20346d' }) }),
-                          { label: 'Colours', itemLabel: (props) => props.fields.name.value || 'Colour', validation: { length: { min: 1, max: 8 } } },
-                        ),
-                        specimen: fields.array(fields.text({ label: 'Line' }), {
-                          label: 'Type specimen (4 lines: caps, caps, script word, caps)',
-                          itemLabel: (props) => props.value || 'Line',
-                        }),
                       }),
                     },
                     pinned: {
-                      label: 'Pinned phone with steps',
+                      label: 'Pinned image with steps',
                       schema: fields.object({
                         title: fields.text({ label: 'Title' }),
                         steps: fields.array(
                           fields.object({
-                            image: image('Screen'),
+                            image: image('Image (shown in a square, any picture)'),
                             heading: fields.text({ label: 'Heading', ...required }),
                             text: fields.text({ label: 'Text', multiline: true }),
                           }),
@@ -233,11 +218,11 @@ export default config({
                         ),
                       }),
                     },
-                    stories: {
-                      label: 'Story fan',
+                    fan: {
+                      label: 'Image fan',
                       schema: fields.object({
                         title: fields.text({ label: 'Title' }),
-                        images: fields.array(image('Story'), { label: 'Stories (9:16)', itemLabel: () => 'Story', validation: { length: { min: 1 } } }),
+                        images: fields.array(image('Image'), { label: 'Images (any format)', itemLabel: () => 'Image', validation: { length: { min: 1 } } }),
                       }),
                     },
                     wide: {
@@ -246,6 +231,23 @@ export default config({
                         image: fields.image({ label: 'Image', directory: 'public/images/projects', publicPath: '/images/projects/', validation: { isRequired: true } }),
                         alt: fields.text({ label: 'Alt text' }),
                         caption: fields.text({ label: 'Caption' }),
+                      }),
+                    },
+                    gallery: {
+                      label: 'Image gallery',
+                      schema: fields.object({
+                        images: fields.array(
+                          fields.object({
+                            image: fields.image({ label: 'Image', directory: 'public/images/projects', publicPath: '/images/projects/', validation: { isRequired: true } }),
+                            alt: fields.text({ label: 'Alt text' }),
+                          }),
+                          {
+                            label: 'Images',
+                            description: 'Two columns: 2 images make one row side by side, 4 make a 2 × 2 grid, 6 make 2 × 3.',
+                            itemLabel: (props) => props.fields.alt.value || 'Image',
+                            validation: { length: { min: 2, max: 6 } },
+                          },
+                        ),
                       }),
                     },
                   },

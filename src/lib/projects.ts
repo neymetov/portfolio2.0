@@ -11,13 +11,13 @@ export interface GalleryItem {
 }
 
 export type Block =
-  | { discriminant: 'hero'; value: { video: string; poster: string; kicker: string; title: string; sub: string } }
+  | { discriminant: 'hero'; value: { video: string; poster: string; title: string; showSub?: boolean; sub: string } }
   | { discriminant: 'intro'; value: { text: string; meta: { label: string; value: string }[] } }
-  | { discriminant: 'zoom'; value: { image: string; alt: string; caption: string } }
-  | { discriminant: 'palette'; value: { title: string; colors: { name: string; hex: string }[]; specimen: string[] } }
+  | { discriminant: 'zoom'; value: { image: string; alt: string } }
   | { discriminant: 'pinned'; value: { title: string; steps: { image: string; heading: string; text: string }[] } }
-  | { discriminant: 'stories'; value: { title: string; images: string[] } }
-  | { discriminant: 'wide'; value: { image: string; alt: string; caption: string } };
+  | { discriminant: 'fan'; value: { title: string; images: string[] } }
+  | { discriminant: 'wide'; value: { image: string; alt: string; caption: string } }
+  | { discriminant: 'gallery'; value: { images: { image: string; alt: string }[] } };
 
 export interface Project {
   slug: string;

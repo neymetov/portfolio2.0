@@ -43,8 +43,8 @@
           "value": {
             "video": "/images/projects/avenue-8-identity/landing/value/blocks/0/value/video.mp4",
             "poster": "/images/projects/avenue-8-identity/landing/value/blocks/0/value/poster.jpg",
-            "kicker": "Branding · Wayfinding · Social",
             "title": "Avenue 8",
+            "showSub": true,
             "sub": "Identity for a residential address on the Caspian coast"
           }
         },
@@ -76,38 +76,7 @@
           "discriminant": "zoom",
           "value": {
             "image": "/images/projects/avenue-8-identity/landing/value/blocks/2/value/image.webp",
-            "alt": "Avenue 8 towers",
-            "caption": "Architecture sets the tone"
-          }
-        },
-        {
-          "discriminant": "palette",
-          "value": {
-            "title": "Colour and type",
-            "colors": [
-              {
-                "name": "Caspian navy",
-                "hex": "#20346d"
-              },
-              {
-                "name": "Shore sand",
-                "hex": "#d1b29f"
-              },
-              {
-                "name": "Sea glass",
-                "hex": "#639fa0"
-              },
-              {
-                "name": "Ivory",
-                "hex": "#f3ede6"
-              }
-            ],
-            "specimen": [
-              "WHERE",
-              "THE CASPIAN",
-              "whispers",
-              "LUXURY"
-            ]
+            "alt": "Avenue 8 towers"
           }
         },
         {
@@ -139,7 +108,7 @@
           }
         },
         {
-          "discriminant": "stories",
+          "discriminant": "fan",
           "value": {
             "title": "Story templates",
             "images": [

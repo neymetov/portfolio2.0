@@ -4,6 +4,8 @@ import type { Block } from '../lib/projects';
 interface Props { blocks: Block[] }
 const { blocks } = Astro.props;
 const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>';
+// Images are never draggable or clickable on a landing, so they cannot be dragged out or opened in a viewer.
+const still = { draggable: 'false' } as const;
 ---
 {blocks.map((block) => {
   if (block.discriminant === 'hero') {
@@ -12,9 +14,9 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
     return (
       <section class="lb-hero">
         <div class="lb-hero-media">
-          {b.video ? <video src={b.video} poster={b.poster || undefined} autoplay muted loop playsinline></video> : b.poster ? <img src={b.poster} alt="" /> : null}
+          {b.video ? <video src={b.video} poster={b.poster || undefined} autoplay muted loop playsinline disablepictureinpicture controlslist="nodownload noremoteplayback"></video> : b.poster ? <img src={b.poster} alt="" {...still} /> : null}
         </div>
-        <div class="lb-hero-text"><span class="lb-kicker">{b.kicker}</span><h1>{b.title}</h1><p>{b.sub}</p></div>
+        <div class="lb-hero-text"><h1>{b.title}</h1>{b.showSub !== false && b.sub && <p>{b.sub}</p>}</div>
         <a class="cs-back lb-back" href="/works"><Fragment set:html={back} />All works</a>
       </section>
     );
@@ -34,26 +36,7 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
     if (!b.image) return null;
     return (
       <section class="lb-zoom">
-        <figure class="lb-zoom-fig"><img src={b.image} alt={b.alt} /></figure>
-        {b.caption && <figcaption class="lb-cap">{b.caption}</figcaption>}
-      </section>
-    );
-  }
-  if (block.discriminant === 'palette') {
-    const b = block.value;
-    if (!b.colors.length) return null;
-    const [caps1 = '', caps2 = '', script = '', caps3 = ''] = b.specimen;
-    return (
-      <section class="lb-palette lb-pad">
-        <h2 class="lb-h2">{b.title}</h2>
-        <div class="lb-swatches">
-          {b.colors.map((colour) => (
-            <button class="lb-sw" style={`--c:${colour.hex}`} data-hex={colour.hex} aria-label={`${colour.name}, ${colour.hex}. Copy hex`}>
-              <span class="lb-sw-chip"></span><b>{colour.name}</b><span class="lb-hex">{colour.hex}</span>
-            </button>
-          ))}
-        </div>
-        <div class="lb-specimen"><span class="sp-caps">{caps1}</span><span class="sp-caps">{caps2}</span><span class="sp-script">{script}</span><span class="sp-caps">{caps3}</span></div>
+        <figure class="lb-zoom-fig"><img src={b.image} alt={b.alt} {...still} /></figure>
       </section>
     );
   }
@@ -64,17 +47,17 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
       <section class="lb-pinned lb-pad">
         <h2 class="lb-h2">{b.title}</h2>
         <div class="lb-pin-grid">
-          <div class="lb-phone-col">
-            <div class="lb-phone">
-              {b.steps.map((step, i) => <img src={step.image} alt="" class={i ? '' : 'on'} />)}
+          <div class="lb-pin-col">
+            <div class="lb-pin-img">
+              {b.steps.map((step, i) => <img src={step.image} alt="" class={i ? '' : 'on'} {...still} />)}
               <div class="lb-progress">{b.steps.map(() => <i></i>)}</div>
             </div>
           </div>
           <ol class="lb-steps">
             {b.steps.map((step, i) => (
               <li class:list={['lb-step', { on: i === 0 }]}>
-                <span class="lb-num">0{i + 1}</span><h3>{step.heading}</h3><p>{step.text}</p>
-                <img class="lb-step-img" src={step.image} alt="" loading="lazy" />
+                <h3>{step.heading}</h3><p>{step.text}</p>
+                <img class="lb-step-img" src={step.image} alt="" loading="lazy" {...still} />
               </li>
             ))}
           </ol>
@@ -82,15 +65,15 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
       </section>
     );
   }
-  if (block.discriminant === 'stories') {
+  if (block.discriminant === 'fan') {
     const b = block.value;
     if (!b.images.length) return null;
     return (
       <section class="lb-stories">
-        <h2 class="lb-h2 lb-pad-x">{b.title}</h2>
+        {b.title && <h2 class="lb-h2 lb-pad-x">{b.title}</h2>}
         <div class="lb-fan">
           {b.images.map((src, i) => (
-            <figure class="lb-story" style={`--i:${i};--n:${b.images.length}`}><img src={src} alt={`Story ${i + 1}`} loading="lazy" /></figure>
+            <figure class="lb-story" style={`--i:${i};--n:${b.images.length}`}><img src={src} alt="" loading="lazy" {...still} /></figure>
           ))}
         </div>
       </section>
@@ -101,8 +84,19 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
     if (!b.image) return null;
     return (
       <section class="lb-wide lb-pad">
-        <figure class="lb-wide-fig"><img src={b.image} alt={b.alt} loading="lazy" /></figure>
+        <figure class="lb-wide-fig"><img src={b.image} alt={b.alt} loading="lazy" {...still} /></figure>
         {b.caption && <figcaption class="lb-cap">{b.caption}</figcaption>}
+      </section>
+    );
+  }
+  if (block.discriminant === 'gallery') {
+    const b = block.value;
+    if (b.images.length < 1) return null;
+    return (
+      <section class="lb-gallery lb-pad">
+        <div class="lb-gallery-grid">
+          {b.images.map((item) => <figure><img src={item.image} alt={item.alt} loading="lazy" {...still} /></figure>)}
+        </div>
       </section>
     );
   }
