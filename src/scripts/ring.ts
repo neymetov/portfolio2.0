@@ -35,6 +35,7 @@ const UNIT = 3.0 / CARD_W; /* world units per css px */
 const PW = (CARD_W + PAD * 2) * UNIT, PH = (CARD_H + PAD * 2) * UNIT;
 const R = 9, N = 16, STEP = (Math.PI * 2) / N, TAU = Math.PI * 2;
 const PINK = '#ff62ed';
+const CARD_R = 0; /* corner radius of the story cards, in css px */
 const BG = 0xf9fafb;
 
 /* ---- easing (the same curves the CSS animations use) ---- */
@@ -109,13 +110,13 @@ const drawCard = (x: CanvasRenderingContext2D, A: Images, story: Story, t: numbe
   x.shadowBlur = 24 * k;
   x.shadowOffsetY = 8 * k;
   x.beginPath();
-  x.roundRect(0, 0, CARD_W, CARD_H, 24);
+  x.roundRect(0, 0, CARD_W, CARD_H, CARD_R);
   x.fillStyle = '#fff';
   x.fill();
   x.restore();
   x.save();
   x.beginPath();
-  x.roundRect(0, 0, CARD_W, CARD_H, 24);
+  x.roundRect(0, 0, CARD_W, CARD_H, CARD_R);
   x.clip();
   const T = t;
   if (type === 0) {

@@ -2,12 +2,15 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Services from '../components/Services.astro';
 import site from '../lib/site';
-import { featuredProjects } from '../lib/projects';
+import { featuredProjects, latestProjects } from '../lib/projects';
 import { yearsSince } from '../lib/years';
 
 export const prerender = true;
 
 const art = '/images/site';
+// The strip scrolls forever, so one pass must be wider than any screen: repeat the list until it holds at least 8 cards.
+const recent = latestProjects.slice(0, 10);
+const arrivals = recent.length ? Array.from({ length: Math.max(8, recent.length) }, (_, i) => recent[i % recent.length]) : [];
 const careerStart = site.careerStart || '2013-09-01';
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const stories = site.stories.map((story) => ({ title: story.title, text: story.text, art: story.art }));
@@ -65,7 +68,7 @@ const fan = [
 
     <section class="meetups" id="meetups">
       <div>
-        <h2 class="display split">meetups <em>&amp;</em><br /> workshops</h2>
+        <h2 class="display split"><span class="nowrap">meetups <em>&amp;</em></span><br /> workshops</h2>
         <p>{site.meetupText}</p>
       </div>
       <div class="collage" aria-label="Meetups and workshops photos">
@@ -94,16 +97,40 @@ const fan = [
       <a class="pill-btn" href="/works">see all projects</a>
     </section>
 
+    {arrivals.length > 0 && (
+      <section class="arrivals" aria-label="New arrivals">
+        <h2 class="display split">new <em>arrivals</em></h2>
+        <div class="marquee" style={`--n:${arrivals.length}`}>
+          <div class="marquee__track">
+            {[0, 1].map((copy) => (
+              <div class="marquee__group" aria-hidden={copy ? 'true' : undefined}>
+                {arrivals.map((project) => (
+                  <a class="arr-card" href={`/works/${project.slug}`} tabindex={copy ? -1 : undefined}>
+                    <div class="arr-media">
+                      {project.cover ? <img src={project.cover} alt="" loading="lazy" draggable="false" /> : project.coverVideo ? <video src={project.coverVideo} autoplay muted loop playsinline preload="metadata"></video> : null}
+                    </div>
+                    <h3>{project.title}</h3>
+                    <small>{project.category}</small>
+                  </a>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
     <Services />
 
-    <section class="cta" id="cta">
-      <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
-      <div>
-        <h2 class="split">{site.ctaTitle}</h2>
-        <p>{site.ctaText}</p>
-        <a class="btn" href="/contacts">Text me →</a>
-      </div>
-    </section>
+    {site.showCta && (
+      <section class="cta" id="cta">
+        <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+        <div>
+          <h2 class="split">{site.ctaTitle}</h2>
+          <a class="btn" href="/contacts">Text me →</a>
+        </div>
+      </section>
+    )}
   </main>
 
   <div class="story-sheet" id="storySheet" hidden role="dialog" aria-label="Story card">
