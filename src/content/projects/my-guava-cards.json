@@ -1,0 +1,36 @@
+{
+  "title": "MyGuava Cards",
+  "category": "Branding",
+  "order": 1,
+  "summary": "MyGuava Cards",
+  "description": "Cards for MyGuava users",
+  "featured": false,
+  "cover": "/images/projects/my-guava-cards/cover.png",
+  "coverVideo": "/images/projects/my-guava-cards/coverVideo.mp4",
+  "gallery": [],
+  "landing": {
+    "discriminant": true,
+    "value": {
+      "theme": {
+        "discriminant": "custom",
+        "value": {
+          "frame": "#8cf425",
+          "bg": "#ffffff",
+          "text": "#15114b",
+          "accent": "#8cf425"
+        }
+      },
+      "blocks": [
+        {
+          "discriminant": "hero",
+          "value": {
+            "poster": "/images/projects/my-guava-cards/landing/value/blocks/0/value/poster.png",
+            "title": "MyGuava",
+            "showSub": true,
+            "sub": "Cards for MyGuava"
+          }
+        }
+      ]
+    }
+  }
+}
