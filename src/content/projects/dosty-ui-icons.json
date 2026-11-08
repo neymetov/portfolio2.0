@@ -30,9 +30,19 @@
           }
         },
         {
-          "discriminant": "wide",
+          "discriminant": "intro",
           "value": {
-            "image": "/images/projects/dosty-ui-icons/landing/value/blocks/1/value/image.png"
+            "text": "Facts about the project",
+            "meta": [
+              {
+                "label": "Year",
+                "value": "2020"
+              },
+              {
+                "label": "Take",
+                "value": "Over"
+              }
+            ]
           }
         },
         {
@@ -54,9 +64,15 @@
           }
         },
         {
-          "discriminant": "zoom",
+          "discriminant": "wide",
           "value": {
             "image": "/images/projects/dosty-ui-icons/landing/value/blocks/5/value/image.png"
+          }
+        },
+        {
+          "discriminant": "zoom",
+          "value": {
+            "image": "/images/projects/dosty-ui-icons/landing/value/blocks/6/value/image.png"
           }
         },
         {
@@ -64,10 +80,10 @@
           "value": {
             "images": [
               {
-                "image": "/images/projects/dosty-ui-icons/landing/value/blocks/6/value/images/0/image.png"
+                "image": "/images/projects/dosty-ui-icons/landing/value/blocks/7/value/images/0/image.png"
               },
               {
-                "image": "/images/projects/dosty-ui-icons/landing/value/blocks/6/value/images/1/image.png"
+                "image": "/images/projects/dosty-ui-icons/landing/value/blocks/7/value/images/1/image.png"
               }
             ]
           }
@@ -75,13 +91,13 @@
         {
           "discriminant": "wide",
           "value": {
-            "image": "/images/projects/dosty-ui-icons/landing/value/blocks/7/value/image.png"
+            "image": "/images/projects/dosty-ui-icons/landing/value/blocks/8/value/image.png"
           }
         },
         {
           "discriminant": "wide",
           "value": {
-            "image": "/images/projects/dosty-ui-icons/landing/value/blocks/8/value/image.png"
+            "image": "/images/projects/dosty-ui-icons/landing/value/blocks/9/value/image.png"
           }
         }
       ]
