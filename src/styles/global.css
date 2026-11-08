@@ -67,10 +67,7 @@ h1 .pink{color:var(--pink)}
 .collage img{position:absolute;width:280px;height:280px;object-fit:cover;border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,.14);transform:rotate(var(--tilt)) translate(var(--dx,0),var(--dy,0));transition:transform .7s var(--spring),box-shadow .4s;will-change:transform;cursor:pointer}
 @media (hover:hover){.collage:hover img{transform:rotate(calc(var(--tilt) + var(--ft))) translate(var(--fx),var(--fy))}}
 .collage.fanned img{transform:rotate(calc(var(--tilt) + var(--ft))) translate(calc(var(--fx) * .42),calc(var(--fy) * .8))}
-.collage.fanned .swipe{opacity:0}
 .collage img:hover{z-index:9;box-shadow:0 30px 70px rgba(0,0,0,.22);transform:rotate(0deg) translate(var(--fx),calc(var(--fy) - 18px)) scale(1.08)!important}
-.collage .swipe{position:absolute;z-index:10;bottom:16px;left:50%;transform:translateX(-50%);height:44px;padding:0 18px;border-radius:999px;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);display:flex;align-items:center;gap:8px;font-size:15px;transition:opacity .3s}
-@media (hover:hover){.collage:hover .swipe{opacity:0}}
 
 /* featured projects */
 .featured{max-width:1240px;margin:0 auto;padding:80px 6vw 40px;text-align:center}
@@ -121,10 +118,8 @@ h1 .pink{color:var(--pink)}
 .cta .btn:hover{transform:translateY(-2px)}
 
 /* footer */
-footer{padding:80px 6vw 0;overflow:hidden;text-align:center}
+footer{padding:80px 6vw 130px;overflow:hidden;text-align:center}
 footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
-.wordmark{font-size:16.5vw;font-weight:700;letter-spacing:-.06em;line-height:.74;margin-top:48px;height:.62em;overflow:hidden;white-space:nowrap;display:flex;justify-content:center}
-.wordmark span{display:inline-block;will-change:transform}
 
 /* bottom tab bar */
 .pill{position:fixed;z-index:55;left:50%;bottom:calc(var(--frame) + 22px);transform:translateX(-50%);display:flex;padding:5px;border-radius:999px;background:rgba(255,255,255,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.08)}
@@ -145,8 +140,6 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
   .meetups{grid-template-columns:1fr;padding:80px 6vw}
   .featured .items{grid-template-columns:1fr}
 }
-.swipe b{font-weight:500}.swipe .tp{display:none}
-@media (hover:none){.swipe .hv{display:none}.swipe .tp{display:inline}}
 /* ===== phone ===== */
 @media (max-width:640px){
   body{padding-bottom:96px}
@@ -171,7 +164,7 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
   .f-info{margin-top:36px}
   .services{padding:48px 20px 0}.services a{padding:18px 2px}.services .nm{font-size:26px}.services .arr{width:40px;height:40px;border-radius:12px}
   .cta{margin:72px 14px 0;min-height:380px;border-radius:24px;padding:0 20px}.cta h2{font-size:40px}
-  footer{padding:56px 20px 0}
+  footer{padding:56px 20px 24px}
   .pill{bottom:calc(var(--frame) + 14px)}.pill a{padding:11px 22px;font-size:14px}
   .contacts-view{padding:88px 20px 24px}
   .c-head .display{font-size:40px}.c-head p{font-size:16px}
@@ -287,7 +280,7 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 .theme-dark .pill{background:rgba(20,30,60,.55);border-color:rgba(255,255,255,.12)}
 .theme-dark .pill a{color:rgba(243,237,230,.75)}.theme-dark .pill a.on{color:#0d1733}
 .theme-dark .pill .ind{background:var(--frame-ink,#fff)!important}
-.theme-dark footer{color:#f3ede6}.theme-dark footer small{color:rgba(243,237,230,.6)}.theme-dark .wordmark{color:#f3ede6}
+.theme-dark footer{color:#f3ede6}.theme-dark footer small{color:rgba(243,237,230,.6)}
 .theme-dark .cursor{background:#f3ede6}.theme-dark .cursor.big{background:#d1b29f;color:#0d1733}
 .lb-pad{max-width:1240px;margin-left:auto;margin-right:auto;padding-left:6vw;padding-right:6vw}
 .lb-pad-x{max-width:1240px;margin-left:auto;margin-right:auto;padding-left:6vw;padding-right:6vw}

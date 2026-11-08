@@ -105,7 +105,7 @@ export default config({
         contactAccent: fields.text({ label: 'Contacts headline accent (pink)' }),
         contactText: fields.text({ label: 'Contacts text', multiline: true }),
         contactEmail: fields.text({ label: 'Contact email' }),
-        whatsapp: fields.text({ label: 'WhatsApp number', description: 'Digits with country code, e.g. 994501234567' }),
+        whatsapp: fields.text({ label: 'WhatsApp link or number', description: 'A full link, e.g. https://wa.me/username, or digits with country code, e.g. 994501234567' }),
         telegram: fields.text({ label: 'Telegram username', description: 'Without @' }),
         whatsappChat: chat('WhatsApp chat preview'),
         telegramChat: chat('Telegram chat preview'),

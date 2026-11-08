@@ -31,7 +31,6 @@ const tabs = [
   { id: 'contacts', label: 'Contacts', href: '/contacts' },
 ] as const;
 const activeTab = page === 'case' ? 'works' : page;
-const wordmark = 'NEYMATOV'.split('');
 ---
 <!doctype html>
 <html lang="en" class:list={{ 'theme-dark': theme?.mode === 'dark' }} style={themeStyle}>
@@ -68,7 +67,6 @@ const wordmark = 'NEYMATOV'.split('');
 
     <footer>
       <strong>{site.name}</strong><small>All rights reserved © 2026</small>
-      <div class="wordmark" aria-hidden="true">{wordmark.map((letter) => <span>{letter}</span>)}</div>
     </footer>
 
     <nav class="pill" id="pill" aria-label="Site" transition:persist>

@@ -63,14 +63,13 @@ const fan = [
 
     <section class="meetups" id="meetups">
       <div>
-        <h2 class="display split">meetups <em>&amp;</em> workshops</h2>
+        <h2 class="display split">meetups <em>&amp;</em><br /> workshops</h2>
         <p>{site.meetupText}</p>
       </div>
       <div class="collage" aria-label="Meetups and workshops photos">
         {site.meetupPhotos.slice(0, 5).map((photo, index) => (
           <img src={photo} alt="" width="280" height="280" loading="lazy" style={`--tilt:${tiltOf[index]}deg;--ft:${fan[index].ft}deg;--fx:${fan[index].fx}px;--fy:${fan[index].fy}px`} />
         ))}
-        <span class="swipe"><b class="hv">Hover</b><b class="tp">Tap</b> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 17l5-5-5-5M6 17l5-5-5-5"/></svg></span>
       </div>
     </section>
 

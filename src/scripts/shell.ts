@@ -80,18 +80,6 @@ export const mountShell = () => {
       });
   }
 
-  /* footer wordmark: letters rise in on scroll */
-  const letters = document.querySelectorAll('.wordmark span');
-  if (letters.length && !reduce) {
-    gsap.from(letters, {
-      yPercent: 100,
-      duration: 1.2,
-      ease: 'expo.out',
-      stagger: 0.05,
-      scrollTrigger: { trigger: 'footer', start: 'top 80%' },
-    });
-  }
-
   /* rows with a hover preview that follows the cursor */
   const preview = document.querySelector<HTMLElement>('.preview');
   const previewImg = preview?.querySelector('img');

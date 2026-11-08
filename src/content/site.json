@@ -122,16 +122,18 @@
   },
   "socials": [
     {
-      "label": "LinkedIn"
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/neymetov/"
     },
     {
-      "label": "Facebook"
+      "label": "Instagram",
+      "url": "https://www.instagram.com/neymetov_/"
     },
     {
-      "label": "Instagram"
-    },
-    {
-      "label": "Behance"
+      "label": "Behance",
+      "url": "https://www.behance.net/neymetov"
     }
-  ]
+  ],
+  "telegram": "neymetov",
+  "whatsapp": "https://wa.me/neymetov?s=p"
 }
