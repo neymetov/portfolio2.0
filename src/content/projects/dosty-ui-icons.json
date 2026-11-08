@@ -48,7 +48,7 @@
           }
         },
         {
-          "discriminant": "wide",
+          "discriminant": "zoom",
           "value": {
             "image": "/images/projects/dosty-ui-icons/landing/value/blocks/4/value/image.png"
           }
