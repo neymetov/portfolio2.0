@@ -13,8 +13,8 @@
       "theme": {
         "discriminant": "custom",
         "value": {
-          "frame": "#e18400",
-          "bg": "#ffffff",
+          "frame": "#ffb06d",
+          "bg": "#b03a1b",
           "text": "#f3ede6",
           "accent": "#d1b29f"
         }
