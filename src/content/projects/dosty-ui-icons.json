@@ -77,12 +77,6 @@
           "value": {
             "image": "/images/projects/dosty-ui-icons/landing/value/blocks/7/value/image.png"
           }
-        },
-        {
-          "discriminant": "wide",
-          "value": {
-            "image": "/images/projects/dosty-ui-icons/landing/value/blocks/8/value/image.png"
-          }
         }
       ]
     }
