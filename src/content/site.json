@@ -87,19 +87,9 @@
       "image": "/images/site/services/1/image.webp"
     },
     {
-      "title": "User interface",
-      "category": "Branding",
-      "image": "/images/site/services/2/image.webp"
-    },
-    {
-      "title": "Iconography",
-      "category": "Illustration",
-      "image": "/images/site/services/3/image.webp"
-    },
-    {
       "title": "Illustrations",
       "category": "Illustration",
-      "image": "/images/site/services/4/image.webp"
+      "image": "/images/site/services/2/image.webp"
     }
   ],
   "ctaTitle": "Let's build it together.",
@@ -108,6 +98,8 @@
   "contactAccent": "your project",
   "contactText": "Tell me what you're building and where design hurts today. A few lines are enough to start.",
   "contactEmail": "hello@example.com",
+  "whatsapp": "https://wa.me/neymetov?s=p",
+  "telegram": "neymetov",
   "whatsappChat": {
     "outgoing": "Hi Elshan, we need a design system for our bank app",
     "outgoingTime": "10:24 ✓✓",
@@ -133,7 +125,5 @@
       "label": "Behance",
       "url": "https://www.behance.net/neymetov"
     }
-  ],
-  "telegram": "neymetov",
-  "whatsapp": "https://wa.me/neymetov?s=p"
+  ]
 }
