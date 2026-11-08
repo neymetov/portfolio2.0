@@ -88,8 +88,10 @@ const landing = (view: HTMLElement) => {
     /* zoom: an inset, rounded image opens to the full sheet while scrolling */
     const zoom = q('.lb-zoom-fig');
     if (zoom) {
-      gsap.fromTo(zoom, { clipPath: 'inset(8% 14% 8% 14% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: '.lb-zoom', start: 'top 85%', end: 'center 45%', scrub: true } });
-      gsap.fromTo(q('.lb-zoom-fig img'), { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.lb-zoom', start: 'top bottom', end: 'bottom top', scrub: true } });
+      /* on phones the picture keeps its own proportions and is never scaled up, so no edge is ever cut off */
+      const phone = innerWidth <= 640;
+      gsap.fromTo(zoom, { clipPath: phone ? 'inset(4% 6% 4% 6% round 20px)' : 'inset(8% 14% 8% 14% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: '.lb-zoom', start: 'top 85%', end: 'center 45%', scrub: true } });
+      if (!phone) gsap.fromTo(q('.lb-zoom-fig img'), { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.lb-zoom', start: 'top bottom', end: 'bottom top', scrub: true } });
     }
   }
 

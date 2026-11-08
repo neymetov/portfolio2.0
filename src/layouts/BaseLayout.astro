@@ -28,8 +28,9 @@ const themeStyle = theme
   : undefined;
 
 // Link previews need absolute addresses.
-const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), Astro.site).toString();
-const imageUrl = new URL(image, Astro.site).toString();
+const origin = Astro.site ?? Astro.url;
+const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), origin).toString();
+const imageUrl = new URL(image, origin).toString();
 
 const tabs = [
   { id: 'works', label: 'Works', href: '/works' },

@@ -345,7 +345,7 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
   .lb-pad,.lb-pad-x{padding-left:20px;padding-right:20px}.lb-cap{padding:0 20px}
   .lb-h2{font-size:34px;margin-bottom:28px}
   .lb-intro{grid-template-columns:1fr;gap:40px;padding-top:64px;padding-bottom:64px}.lb-statement{font-size:26px}
-  .lb-zoom-fig{height:70svh}
+  .lb-zoom-fig{height:auto;clip-path:inset(4% 6% 4% 6% round 20px)}.lb-zoom-fig img{height:auto;object-fit:contain}
   .lb-pinned{padding-top:80px}.lb-pin-grid{grid-template-columns:1fr}.lb-pin-col{display:none}
   .lb-steps{padding:0}.lb-step{min-height:0;opacity:1;padding:0 0 48px}
   .lb-step-img{display:block;width:100%;margin:20px 0 0;aspect-ratio:1/1;object-fit:cover;border-radius:24px}
