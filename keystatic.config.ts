@@ -81,7 +81,7 @@ export default config({
             year: fields.text({ label: 'Year' }),
             company: fields.text({ label: 'Company' }),
             role: fields.text({ label: 'Role' }),
-            text: fields.text({ label: 'Details (period, location)', multiline: true }),
+            text: fields.text({ label: 'Period', description: 'e.g. Jul 2020 – Nov 2023 · 3 yrs 5 mos', multiline: true }),
             photo: siteImage('Logo'),
             color: fields.text({ label: 'Brand color (hex)', description: 'Colour of the timeline while this job is active, e.g. #0704d7' }),
           }),
