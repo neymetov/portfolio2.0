@@ -185,8 +185,8 @@ export default config({
                     hero: {
                       label: 'Hero (video or image)',
                       schema: fields.object({
-                        video: video('Video (mp4)'),
-                        poster: image('Poster / image'),
+                        video: fields.file({ label: 'Video (mp4)', description: 'Best at 1920 × 1080. The hero always fits the width of the page and takes the proportions of this file.', directory: 'public/images/projects', publicPath: '/images/projects/' }),
+                        poster: fields.image({ label: 'Poster / image', description: 'Best at 1920 × 1080. Used as the hero when there is no video.', directory: 'public/images/projects', publicPath: '/images/projects/' }),
                         title: fields.text({ label: 'Title', ...required }),
                         showSub: fields.checkbox({ label: 'Show description', defaultValue: true }),
                         sub: fields.text({ label: 'Description' }),

@@ -10,7 +10,8 @@ export const init = () => {
 
   const known = buttons.map((button) => button.dataset.filter!);
   const fromUrl = new URLSearchParams(location.search).get('category');
-  let active = fromUrl && known.includes(fromUrl) ? fromUrl : known[0];
+  let active = fromUrl && known.includes(fromUrl) ? fromUrl : 'All';
+  const urlFor = (category: string) => (category === 'All' ? location.pathname : `?category=${encodeURIComponent(category)}`);
 
   const moveIndicator = () => {
     const button = buttons.find((item) => item.dataset.filter === active);
@@ -27,8 +28,9 @@ export const init = () => {
       button.setAttribute('aria-pressed', String(on));
     });
     moveIndicator();
-    const show = cards.filter((card) => card.dataset.category === category);
-    const hide = cards.filter((card) => card.dataset.category !== category);
+    const matches = (card: HTMLElement) => category === 'All' || card.dataset.category === category;
+    const show = cards.filter(matches);
+    const hide = cards.filter((card) => !matches(card));
     const apply = () => {
       hide.forEach((card) => (card.hidden = true));
       show.forEach((card) => (card.hidden = false));
@@ -60,14 +62,14 @@ export const init = () => {
   };
 
   setFilter(active, true);
-  history.replaceState(history.state, '', `?category=${encodeURIComponent(active)}`);
+  history.replaceState(history.state, '', urlFor(active));
   document.querySelectorAll('video').forEach((video) => void video.play().catch(() => {}));
 
   buttons.forEach((button) =>
     listen(button, 'click', () => {
       if (button.dataset.filter === active) return;
       setFilter(button.dataset.filter!);
-      history.replaceState(history.state, '', `?category=${encodeURIComponent(button.dataset.filter!)}`);
+      history.replaceState(history.state, '', urlFor(button.dataset.filter!));
     }),
   );
   listen(window, 'resize', moveIndicator);
@@ -79,7 +81,7 @@ export const init = () => {
       event.stopPropagation();
       const category = row.dataset.filter;
       if (category && known.includes(category) && category !== active) setFilter(category);
-      if (category) history.replaceState(history.state, '', `?category=${encodeURIComponent(category)}`);
+      if (category) history.replaceState(history.state, '', urlFor(active));
       scrollToY(0);
     }, true),
   );

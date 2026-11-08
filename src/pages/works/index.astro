@@ -4,6 +4,8 @@ import Services from '../../components/Services.astro';
 import { categories, projects } from '../../lib/projects';
 
 export const prerender = true;
+
+const tabs = ['All', ...categories];
 ---
 <BaseLayout title="Works — Elshan Neymatov" heading="Works" page="works">
   <main id="view-works" class="view works-view">
@@ -11,14 +13,14 @@ export const prerender = true;
     <div class="w-filter-wrap">
       <div class="w-filter" role="group" aria-label="Project category">
         <span class="w-ind"></span>
-        {categories.map((category, index) => (
+        {tabs.map((category, index) => (
           <button type="button" class:list={{ on: index === 0 }} data-filter={category} aria-pressed={index === 0 ? 'true' : 'false'}>{category}</button>
         ))}
       </div>
     </div>
     <section class="w-list" aria-live="polite">
-      {projects.map((project, index) => (
-        <a class="w-card" href={`/works/${project.slug}`} data-category={project.category} hidden={index > 0 && project.category !== categories[0]}>
+      {projects.map((project) => (
+        <a class="w-card" href={`/works/${project.slug}`} data-category={project.category}>
           <div class="w-img">
             {project.coverVideo ? (
               <video src={project.coverVideo} poster={project.cover || undefined} autoplay muted loop playsinline preload="metadata"></video>

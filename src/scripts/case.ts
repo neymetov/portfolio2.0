@@ -48,14 +48,31 @@ const landing = (view: HTMLElement) => {
   const q = <T extends Element>(selector: string) => view.querySelector<T>(selector);
   const all = <T extends Element>(selector: string) => [...view.querySelectorAll<T>(selector)];
 
+  /* the hero takes the proportions of the uploaded image or video, so it always fits the page width */
+  const heroMedia = q<HTMLElement>('.lb-hero-media');
+  const heroEl = heroMedia?.querySelector<HTMLVideoElement | HTMLImageElement>('video, img');
+  if (heroMedia && heroEl) {
+    const fit = () => {
+      const w = heroEl instanceof HTMLVideoElement ? heroEl.videoWidth : heroEl.naturalWidth;
+      const h = heroEl instanceof HTMLVideoElement ? heroEl.videoHeight : heroEl.naturalHeight;
+      if (w && h) {
+        heroMedia.style.aspectRatio = `${w} / ${h}`;
+        refresh();
+      }
+    };
+    if (heroEl instanceof HTMLVideoElement) {
+      if (heroEl.readyState >= 1) fit();
+      else listen(heroEl, 'loadedmetadata', fit);
+    } else if (heroEl.complete) fit();
+    else listen(heroEl, 'load', fit);
+  }
+
   if (!reduce) {
     const hero = q('.lb-hero');
     if (hero) {
       gsap.fromTo(q('.lb-hero-media'), { scale: 1.12 }, { scale: 1, duration: 1.6, ease: 'expo.out' });
       const scrub = { trigger: '.lb-hero', start: 'top top', end: 'bottom top', scrub: true };
       gsap.fromTo(q('.lb-hero-text'), { yPercent: 0 }, { yPercent: -40, opacity: 0, ease: 'none', scrollTrigger: scrub });
-      const heroVideo = q('.lb-hero-media video, .lb-hero-media img');
-      if (heroVideo) gsap.fromTo(heroVideo, { yPercent: 0 }, { yPercent: 12, ease: 'none', scrollTrigger: scrub });
     }
     const reveal = (selector: string, from: gsap.TweenVars, trigger: string, start = 'top 85%', extra: gsap.TweenVars = {}) => {
       const els = all(selector);
