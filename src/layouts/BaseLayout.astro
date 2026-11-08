@@ -104,9 +104,9 @@ const activeTab = page === 'case' ? 'works' : page;
       const syncThemeColor = () => {
         const colour = getComputedStyle(document.documentElement).getPropertyValue('--frame-c').trim() || '#ff62ed';
         const tags = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
-        const tag = tags[0] ?? document.head.appendChild(Object.assign(document.createElement('meta'), { name: 'theme-color' }));
-        tags.forEach((extra, i) => i && extra.remove());
-        tag.setAttribute('content', colour);
+        const fresh = Object.assign(document.createElement('meta'), { name: 'theme-color', content: colour });
+        document.head.appendChild(fresh);
+        tags.forEach((old) => old.remove());
       };
       document.addEventListener('astro:after-swap', syncThemeColor);
       syncThemeColor();
@@ -120,6 +120,17 @@ const activeTab = page === 'case' ? 'works' : page;
             await gsap.to(main, { opacity: 0, y: -12, filter: 'blur(12px)', duration: 0.34, ease: 'power2.in' });
           }
           await load();
+
+          /* WebKit (Safari and every browser on iOS) keeps tinting its bars with the colour of the first page it loaded.
+             When the next page has a different colour, load it with a normal navigation, which always updates the bars. */
+          const ua = navigator.userAgent;
+          const webkit = /iP(hone|ad|od)/.test(ua) || (/Safari/.test(ua) && !/Chrome|Chromium|Android/.test(ua));
+          const next = event.newDocument?.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.content;
+          const current = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.content;
+          if (webkit && next && current && next.toLowerCase() !== current.toLowerCase()) {
+            location.assign(event.to.href);
+            await new Promise(() => {}); // the browser is leaving this page: never continue with the swap
+          }
         };
       });
 
