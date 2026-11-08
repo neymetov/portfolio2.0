@@ -1,0 +1,165 @@
+{
+  "title": "Avenue 8 Identity",
+  "category": "Branding",
+  "order": 1,
+  "summary": "Short description",
+  "description": "Short description",
+  "featured": true,
+  "cover": "/images/projects/avenue-8-identity/cover.webp",
+  "coverVideo": "/images/projects/avenue-8-identity/coverVideo.mp4",
+  "gallery": [
+    {
+      "image": "/images/projects/avenue-8-identity/gallery/0/image.jpg",
+      "video": "/images/projects/avenue-8-identity/gallery/0/video.mp4",
+      "alt": "Avenue 8 wayfinding signs",
+      "wide": false
+    },
+    {
+      "image": "/images/projects/avenue-8-identity/gallery/1/image.webp",
+      "alt": "Avenue 8 towers",
+      "wide": false
+    },
+    {
+      "image": "/images/projects/avenue-8-identity/gallery/2/image.webp",
+      "alt": "Avenue 8 identity layouts",
+      "wide": true
+    }
+  ],
+  "landing": {
+    "discriminant": true,
+    "value": {
+      "theme": {
+        "frame": "#20346d",
+        "frameInk": "#f3ede6",
+        "bg": "#0d1733",
+        "surface": "#16264f",
+        "text": "#f3ede6",
+        "muted": "rgba(243,237,230,.62)",
+        "accent": "#d1b29f",
+        "mode": "dark"
+      },
+      "blocks": [
+        {
+          "discriminant": "hero",
+          "value": {
+            "video": "/images/projects/avenue-8-identity/landing/value/blocks/0/value/video.mp4",
+            "poster": "/images/projects/avenue-8-identity/landing/value/blocks/0/value/poster.jpg",
+            "kicker": "Branding · Wayfinding · Social",
+            "title": "Avenue 8",
+            "sub": "Identity for a residential address on the Caspian coast"
+          }
+        },
+        {
+          "discriminant": "intro",
+          "value": {
+            "text": "Calm navy of the night sea, warm sand of the shore and a handwritten line for the feeling of living by the water.",
+            "meta": [
+              {
+                "label": "Client",
+                "value": "Avenue 8"
+              },
+              {
+                "label": "Scope",
+                "value": "Identity, wayfinding, social"
+              },
+              {
+                "label": "Role",
+                "value": "Brand designer"
+              },
+              {
+                "label": "Year",
+                "value": "—"
+              }
+            ]
+          }
+        },
+        {
+          "discriminant": "zoom",
+          "value": {
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/2/value/image.webp",
+            "alt": "Avenue 8 towers",
+            "caption": "Architecture sets the tone"
+          }
+        },
+        {
+          "discriminant": "palette",
+          "value": {
+            "title": "Colour and type",
+            "colors": [
+              {
+                "name": "Caspian navy",
+                "hex": "#20346d"
+              },
+              {
+                "name": "Shore sand",
+                "hex": "#d1b29f"
+              },
+              {
+                "name": "Sea glass",
+                "hex": "#639fa0"
+              },
+              {
+                "name": "Ivory",
+                "hex": "#f3ede6"
+              }
+            ],
+            "specimen": [
+              "WHERE",
+              "THE CASPIAN",
+              "whispers",
+              "LUXURY"
+            ]
+          }
+        },
+        {
+          "discriminant": "pinned",
+          "value": {
+            "title": "One voice across social",
+            "steps": [
+              {
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/4/value/steps/0/image.webp",
+                "heading": "Architecture first",
+                "text": "The towers lead every sequence, framed by greenery and open sky."
+              },
+              {
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/4/value/steps/1/image.webp",
+                "heading": "Navy as the night sea",
+                "text": "Wide-spaced capitals with a script word carry the message on the brand navy."
+              },
+              {
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/4/value/steps/2/image.webp",
+                "heading": "Life on the water",
+                "text": "Lifestyle shots show what the address promises beyond the walls."
+              },
+              {
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/4/value/steps/3/image.webp",
+                "heading": "Sand and script",
+                "text": "The warm sand colour closes the story with the same typographic rhythm."
+              }
+            ]
+          }
+        },
+        {
+          "discriminant": "stories",
+          "value": {
+            "title": "Story templates",
+            "images": [
+              "/images/projects/avenue-8-identity/landing/value/blocks/5/value/images/0.webp",
+              "/images/projects/avenue-8-identity/landing/value/blocks/5/value/images/1.webp",
+              "/images/projects/avenue-8-identity/landing/value/blocks/5/value/images/2.webp",
+              "/images/projects/avenue-8-identity/landing/value/blocks/5/value/images/3.webp"
+            ]
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/image.webp",
+            "alt": "Avenue 8 social layouts",
+            "caption": "The full set of Instagram stories"
+          }
+        }
+      ]
+    }
+  }
+}

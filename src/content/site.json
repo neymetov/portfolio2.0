@@ -1,31 +1,27 @@
 {
   "name": "Elshan Neymatov",
-  "heroLead": "Design works when one person owns it — from brand to product.",
-  "heroAccent": "I am that role.",
+  "heroLead": "Brand designer and Chapter Lead. Design systems, teams and processes for",
+  "heroAccent": "banks and fintechs.",
   "years": 16,
   "stories": [
     {
       "title": "Leading a design team",
       "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
-      "image": "",
       "art": "knight"
     },
     {
       "title": "Leading a design team",
       "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
-      "image": "",
       "art": "bridge"
     },
     {
       "title": "Leading a design team",
       "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
-      "image": "",
       "art": "folder"
     },
     {
       "title": "Leading a design team",
       "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
-      "image": "",
       "art": "compass"
     }
   ],
@@ -35,7 +31,7 @@
       "company": "Creative SHAMANS Bureau",
       "role": "Senior Graphic Web Designer",
       "text": "Apr 2017 – Jul 2017 · 4 mos · Azerbaijan",
-      "photo": "/images/figma/emblem-shamans.png",
+      "photo": "/images/site/experience/0/photo.webp",
       "color": "#a32a5c"
     },
     {
@@ -43,7 +39,7 @@
       "company": "Paradox Branding Studio",
       "role": "Graphic Designer",
       "text": "Jun 2017 – Jul 2020 · 3 yrs 2 mos · Azerbaijan",
-      "photo": "/images/figma/emblem-paradox.png",
+      "photo": "/images/site/experience/1/photo.webp",
       "color": "#0704d7"
     },
     {
@@ -51,7 +47,7 @@
       "company": "PASHA Bank",
       "role": "Senior Graphic Specialist",
       "text": "Jul 2020 – Nov 2023 · 3 yrs 5 mos · Baku",
-      "photo": "/images/figma/emblem-star.png",
+      "photo": "/images/site/experience/2/photo.webp",
       "color": "#d9001b"
     },
     {
@@ -59,42 +55,83 @@
       "company": "Guavapay",
       "role": "Design Team Lead",
       "text": "Dec 2023 – Nov 2025 · 2 yrs · Baku · Hybrid",
-      "photo": "/images/figma/emblem-g.png",
+      "photo": "/images/site/experience/3/photo.webp",
       "color": "#2f8f6c"
     },
     {
       "year": "2025",
       "company": "Bir ecosystem",
       "role": "Graphic Design Chapter Lead",
-      "text": "Dec 2025 – Present · Baku Ekonomic Zone · On-site",
-      "photo": "/images/figma/emblem-bir.png",
+      "text": "Dec 2025 – Present · Baku Economic Zone · On-site",
+      "photo": "/images/site/experience/4/photo.webp",
       "color": "#111111"
     }
   ],
   "meetupText": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
+  "meetupPhotos": [
+    "/images/site/meetupPhotos/0.webp",
+    "/images/site/meetupPhotos/1.webp",
+    "/images/site/meetupPhotos/2.webp",
+    "/images/site/meetupPhotos/3.webp",
+    "/images/site/meetupPhotos/4.webp"
+  ],
   "services": [
     {
       "title": "Branding",
-      "category": "Branding"
+      "category": "Branding",
+      "image": "/images/site/services/0/image.webp"
     },
     {
       "title": "Logo",
-      "category": "Branding"
+      "category": "Branding",
+      "image": "/images/site/services/1/image.webp"
     },
     {
       "title": "User interface",
-      "category": "all"
+      "category": "Branding",
+      "image": "/images/site/services/2/image.webp"
     },
     {
       "title": "Iconography",
-      "category": "Illustration"
+      "category": "Illustration",
+      "image": "/images/site/services/3/image.webp"
     },
     {
       "title": "Illustrations",
-      "category": "Illustration"
+      "category": "Illustration",
+      "image": "/images/site/services/4/image.webp"
     }
   ],
-  "contactTitle": "Text to me",
-  "contactPrompt": "you can text to me right now",
-  "contactEmail": "hello@example.com"
+  "ctaTitle": "Let's build it together.",
+  "ctaText": "Design systems, teams and brands for banks and fintechs.",
+  "contactTitle": "Always happy to talk about",
+  "contactAccent": "your project",
+  "contactText": "Tell me what you're building and where design hurts today. A few lines are enough to start.",
+  "contactEmail": "hello@example.com",
+  "whatsappChat": {
+    "outgoing": "Hi Elshan, we need a design system for our bank app",
+    "outgoingTime": "10:24 ✓✓",
+    "incoming": "Hi! Happy to help. Tell me a bit more about the product",
+    "incomingTime": "10:26"
+  },
+  "telegramChat": {
+    "outgoing": "Hello! Could you look at our fintech brand refresh?",
+    "outgoingTime": "18:02 ✓✓",
+    "incoming": "Sure, send the brief and we'll set a call",
+    "incomingTime": "18:05"
+  },
+  "socials": [
+    {
+      "label": "LinkedIn"
+    },
+    {
+      "label": "Facebook"
+    },
+    {
+      "label": "Instagram"
+    },
+    {
+      "label": "Behance"
+    }
+  ]
 }

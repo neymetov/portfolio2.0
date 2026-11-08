@@ -1,21 +1,45 @@
 export const categories = ['Branding', 'Packaging', 'Illustration'] as const;
 export type Category = (typeof categories)[number];
 
-export const placeholderImage = '/images/figma/work-image.png';
+export interface GalleryItem {
+  image: string;
+  video: string;
+  alt: string;
+  wide: boolean;
+}
+
+export interface Theme {
+  frame: string;
+  frameInk: string;
+  bg: string;
+  surface: string;
+  text: string;
+  muted: string;
+  accent: string;
+  mode: 'dark' | 'light';
+}
+
+export type Block =
+  | { discriminant: 'hero'; value: { video: string; poster: string; kicker: string; title: string; sub: string } }
+  | { discriminant: 'intro'; value: { text: string; meta: { label: string; value: string }[] } }
+  | { discriminant: 'zoom'; value: { image: string; alt: string; caption: string } }
+  | { discriminant: 'palette'; value: { title: string; colors: { name: string; hex: string }[]; specimen: string[] } }
+  | { discriminant: 'pinned'; value: { title: string; steps: { image: string; heading: string; text: string }[] } }
+  | { discriminant: 'stories'; value: { title: string; images: string[] } }
+  | { discriminant: 'wide'; value: { image: string; alt: string; caption: string } };
 
 export interface Project {
   slug: string;
   title: string;
-  subtitle: string;
   category: Category;
   order: number;
   summary: string;
   description: string;
   featured: boolean;
-  emblem: string;
   cover: string;
-  gallery: string[];
-  galleryNote: string;
+  coverVideo: string;
+  gallery: GalleryItem[];
+  landing: { discriminant: boolean; value: { theme: Theme; blocks: Block[] } | null };
 }
 
 const modules = import.meta.glob<Partial<Omit<Project, 'slug'>>>('../content/projects/*.json', {
@@ -27,18 +51,22 @@ export const projects: Project[] = Object.entries(modules)
   .map(([path, data]) => ({
     slug: path.split('/').pop()!.replace('.json', ''),
     title: '',
-    subtitle: '',
     category: 'Branding' as Category,
     order: 0,
     summary: '',
     description: '',
     featured: false,
-    emblem: '',
     cover: '',
+    coverVideo: '',
     gallery: [],
-    galleryNote: '',
+    landing: { discriminant: false, value: null },
     ...data,
   }))
   .sort((a, b) => Number(a.order) - Number(b.order));
 
-export const featuredProjects = projects.filter((project) => project.featured);
+export const featuredProjects = projects.filter((project) => project.featured).slice(0, 2);
+
+export const nextProject = (slug: string) => {
+  const index = projects.findIndex((project) => project.slug === slug);
+  return projects[(index + 1) % projects.length];
+};

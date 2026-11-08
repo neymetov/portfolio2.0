@@ -1,13 +1,15 @@
 {
   "title": "PASHA Private Banking",
-  "subtitle": "Leading a design team",
   "category": "Branding",
-  "order": 1,
-  "summary": "When a company doesn't have design yet, it hires one person — and everything depends",
+  "order": 4,
+  "summary": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
   "description": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
-  "featured": true,
-  "emblem": "/images/figma/emblem-star.png",
+  "featured": false,
   "cover": "",
+  "coverVideo": "",
   "gallery": [],
-  "galleryNote": "When a company doesn't have design yet, it hires one person — and everything depends"
+  "landing": {
+    "discriminant": false,
+    "value": null
+  }
 }

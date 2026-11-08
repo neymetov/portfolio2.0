@@ -1,13 +1,14 @@
 ---
-import site from '../content/site.json';
+import site from '../lib/site';
 
-const href = (category: string) => (category === 'all' ? '/works' : `/works?category=${encodeURIComponent(category)}`);
+interface Props { class?: string }
+const { class: className } = Astro.props;
 ---
-<nav class="services" aria-label="Services">
+<nav class:list={['services', className]} aria-label="Services">
   {site.services.map((service) => (
-    <a href={href(service.category)}>
-      <span>{service.title}</span>
-      <span class="service-arrow" aria-hidden="true"><img src="/images/figma/icon-arrow-right-24.svg" alt="" width="24" height="24" /></span>
+    <a href={`/works?category=${encodeURIComponent(service.category)}`} data-filter={service.category} data-img={service.image || undefined}>
+      <span class="nm">{service.title}</span>
+      <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
   ))}
 </nav>

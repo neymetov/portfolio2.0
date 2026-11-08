@@ -1,34 +1,56 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
-import site from '../content/site.json';
+import site, { telegramUrl, whatsappUrl } from '../lib/site';
 
 export const prerender = true;
----
-<BaseLayout title="Contacts — Elshan Neymatov" active="contacts" footer={false} dark>
-  <PageHeader title="Contacts" />
-  <section class="sheet sheet--dark contact-panel">
-    <h1>{site.contactTitle}</h1>
-    <form id="contact-form" data-email={site.contactEmail}>
-      <label class="sr-only" for="message">Your message</label>
-      <textarea id="message" name="message" placeholder={site.contactPrompt} required></textarea>
-      <button type="submit" class="pill pill--pink">Send</button>
-    </form>
-    <strong class="contact-or">or</strong>
-    <a class="contact-email" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
-  </section>
-</BaseLayout>
 
-<script>
-  // Runs on first load and after every client-side navigation.
-  const init = () => {
-    const form = document.querySelector<HTMLFormElement>('#contact-form');
-    form?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const message = String(new FormData(form).get('message') ?? '').trim();
-      if (!message) return;
-      window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Message from the portfolio')}&body=${encodeURIComponent(message)}`;
-    });
-  };
-  document.addEventListener('astro:page-load', init);
-</script>
+const wa = whatsappUrl(site.whatsapp);
+const tg = telegramUrl(site.telegram);
+const chats = [
+  { id: 'wa', name: 'WhatsApp', url: wa, todo: 'WhatsApp number', chat: site.whatsappChat },
+  { id: 'tg', name: 'Telegram', url: tg, todo: 'Telegram username', chat: site.telegramChat },
+];
+---
+<BaseLayout title="Contacts — Elshan Neymatov" heading="Contacts" page="contacts">
+  <main id="view-contacts" class="view contacts-view">
+    <section class="c-head">
+      <h1 class="display">{site.contactTitle} <em>{site.contactAccent}</em></h1>
+      <p>{site.contactText}</p>
+    </section>
+
+    <section class="c-cards">
+      {chats.map(({ id, name, url, todo, chat }) => (
+        <a class={`c-card ${id}`} href={url || undefined} data-todo={url ? undefined : todo} target={url ? '_blank' : undefined} rel={url ? 'noopener' : undefined} aria-label={`Write on ${name}`}>
+          <div class="c-face">
+            <div class="c-ui">
+              <div class="c-chat-head"><img src="/images/site/avatar.webp" alt="" width="32" height="32" /><div><b>{site.name}</b><small>Brand designer</small></div></div>
+              <div class="c-bubble out">{chat.outgoing}<span>{chat.outgoingTime}</span></div>
+              <div class="c-bubble in">{chat.incoming}<span>{chat.incomingTime}</span></div>
+              <div class="c-compose">
+                <span>Message</span>
+                <i>
+                  {id === 'wa' ? (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M3 11.5l17-7.5-3 16-5.5-4.5-3 3v-4.5l8-7.5-10 6z"/></svg>
+                  )}
+                </i>
+              </div>
+            </div>
+            <span class="c-btn">Open {name}</span>
+            <div class="glare"></div>
+          </div>
+        </a>
+      ))}
+    </section>
+
+    <nav class="c-social" aria-label="Social networks">
+      {site.socials.map((social) => (
+        <a href={social.url || undefined} data-todo={social.url ? undefined : `${social.label} URL`} target={social.url ? '_blank' : undefined} rel={social.url ? 'noopener' : undefined}>
+          <span class="nm">{social.label}</span>
+          <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
+        </a>
+      ))}
+    </nav>
+  </main>
+</BaseLayout>

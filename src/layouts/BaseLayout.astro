@@ -1,27 +1,40 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
-import BottomNav from '../components/BottomNav.astro';
-import Footer from '../components/Footer.astro';
+import site from '../lib/site';
+import type { Theme } from '../lib/projects';
 
 interface Props {
   title: string;
+  heading: string;
+  page: 'about' | 'works' | 'case' | 'contacts';
   description?: string;
-  active?: 'works' | 'about' | 'contacts';
-  footer?: boolean;
-  dark?: boolean;
+  theme?: Theme | null;
 }
 
 const {
   title,
-  description = 'Portfolio of multidisciplinary designer Elshan Neymatov',
-  active = 'about',
-  footer = true,
-  dark = false,
+  heading,
+  page,
+  description = 'Portfolio of brand designer and Chapter Lead Elshan Neymatov',
+  theme = null,
 } = Astro.props;
+
+// A case landing replaces the pink frame and page colours; the values live on <html> so they can cross-fade.
+const themeStyle = theme
+  ? `--frame-c:${theme.frame};--frame-ink:${theme.frameInk};--page-bg:${theme.bg}`
+  : undefined;
+
+const tabs = [
+  { id: 'works', label: 'Works', href: '/works' },
+  { id: 'about', label: 'About', href: '/' },
+  { id: 'contacts', label: 'Contacts', href: '/contacts' },
+] as const;
+const activeTab = page === 'case' ? 'works' : page;
+const wordmark = 'NEYMATOV'.split('');
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" class:list={{ 'theme-dark': theme?.mode === 'dark' }} style={themeStyle}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -36,9 +49,86 @@ const {
     <title>{title}</title>
     <ClientRouter />
   </head>
-  <body class:list={{ dark }}>
-    <main><slot /></main>
-    {footer && <Footer />}
-    <BottomNav active={active} />
+  <body data-page={page} data-heading={heading}>
+    <div class="frame"></div>
+    <div class="topbar" transition:persist><a href="/" id="topTitle">{heading}</a></div>
+    <div class="cursor" transition:persist aria-hidden="true"><span>drag</span></div>
+    <div class="preview" transition:persist aria-hidden="true"><img alt="" /></div>
+
+    <slot />
+
+    <div class="todo-tip" id="todoTip" role="status"></div>
+    <div class="lb" id="lb" hidden role="dialog" aria-label="Image viewer">
+      <div class="lb-stage"></div>
+      <button class="lb-btn lb-prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button class="lb-btn lb-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button class="lb-btn lb-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <span class="lb-count"></span>
+    </div>
+
+    <footer>
+      <strong>{site.name}</strong><small>All rights reserved © 2026</small>
+      <div class="wordmark" aria-hidden="true">{wordmark.map((letter) => <span>{letter}</span>)}</div>
+    </footer>
+
+    <nav class="pill" id="pill" aria-label="Site" transition:persist>
+      <span class="ind"></span>
+      {tabs.map((tab) => (
+        <a href={tab.href} data-s={tab.id} data-astro-prefetch="viewport" class:list={{ on: tab.id === activeTab }} aria-current={tab.id === activeTab ? 'page' : undefined}>{tab.label}</a>
+      ))}
+    </nav>
+
+    <script>
+      import { gsap, reduce, runCleanups, lenis, ScrollTrigger } from '../scripts/core';
+      import { mountShell, setupShell } from '../scripts/shell';
+
+      const body = () => document.body.dataset.page;
+      let shellReady = false;
+
+      /* the outgoing page blurs away first, then the new one is fetched and swapped in */
+      document.addEventListener('astro:before-preparation', (event) => {
+        const load = event.loader;
+        event.loader = async () => {
+          const main = document.querySelector('main');
+          if (main && !reduce) {
+            await gsap.to(main, { opacity: 0, y: -12, filter: 'blur(12px)', duration: 0.34, ease: 'power2.in' });
+          }
+          await load();
+        };
+      });
+
+      document.addEventListener('astro:before-swap', () => {
+        runCleanups();
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        lenis?.start();
+      });
+
+      /* keep the new page invisible until its entrance animation has set its start state */
+      document.addEventListener('astro:after-swap', () => {
+        const main = document.querySelector<HTMLElement>('main');
+        if (main && !reduce) main.style.visibility = 'hidden';
+        if (lenis) lenis.scrollTo(0, { immediate: true });
+        else scrollTo(0, 0);
+      });
+
+      document.addEventListener('astro:page-load', async () => {
+        if (!shellReady) {
+          setupShell();
+          shellReady = true;
+        }
+        const main = document.querySelector<HTMLElement>('main');
+        try {
+          mountShell();
+          const page = body();
+          if (page === 'about') (await import('../scripts/about')).init();
+          else if (page === 'works') (await import('../scripts/works')).init();
+          else if (page === 'case') (await import('../scripts/case')).init();
+          else if (page === 'contacts') (await import('../scripts/contacts')).init();
+        } finally {
+          if (main) main.style.visibility = '';
+          ScrollTrigger.refresh();
+        }
+      });
+    </script>
   </body>
 </html>
