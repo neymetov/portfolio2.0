@@ -61,8 +61,21 @@ export const setPill = (name: string) => {
 
 /* ——— things that belong to the swapped page: set up on every page load ——— */
 
+/* the built page may be days or months old: numbers that depend on today's date are recalculated in the browser */
+const refreshDates = () => {
+  const now = new Date();
+  document.querySelectorAll<HTMLElement>('[data-year]').forEach((el) => (el.textContent = String(now.getFullYear())));
+  document.querySelectorAll<HTMLElement>('[data-career-start]').forEach((el) => {
+    const [year, month = 1, day = 1] = el.dataset.careerStart!.split('-').map(Number);
+    let years = now.getFullYear() - year;
+    if (now.getMonth() + 1 < month || (now.getMonth() + 1 === month && now.getDate() < day)) years -= 1;
+    el.textContent = String(Math.max(0, years));
+  });
+};
+
 export const mountShell = () => {
   setPill(currentTab());
+  refreshDates();
 
   const title = document.querySelector<HTMLElement>('#topTitle');
   const heading = document.body.dataset.heading ?? '';

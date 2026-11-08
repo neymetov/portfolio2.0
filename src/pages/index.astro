@@ -3,10 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Services from '../components/Services.astro';
 import site from '../lib/site';
 import { featuredProjects } from '../lib/projects';
+import { yearsSince } from '../lib/years';
 
 export const prerender = true;
 
 const art = '/images/site';
+const careerStart = site.careerStart || '2013-09-01';
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const stories = site.stories.map((story) => ({ title: story.title, text: story.text, art: story.art }));
 const tiltOf = [0, 0, 10, 0, -10];
@@ -33,7 +35,7 @@ const fan = [
       </div>
       <div class="hero-text">
         <img class="avatar" src={`${art}/avatar.webp`} alt={site.name} width="80" height="80" />
-        <div class="badge"><b>{site.years}</b>years of experience</div>
+        <div class="badge"><b data-career-start={careerStart}>{yearsSince(careerStart)}</b>years of experience</div>
         <h1 class="split">{site.heroLead} <span class="pink">{site.heroAccent}</span></h1>
         <a class="cv-btn" id="cvBtn" href={site.cv || '#cv'} data-file={site.cv} {...(site.cv ? { target: '_blank', rel: 'noopener' } : {})}>
           Download CV

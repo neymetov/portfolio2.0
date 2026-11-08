@@ -47,7 +47,12 @@ export default config({
         name: fields.text({ label: 'Name' }),
         heroLead: fields.text({ label: 'Hero statement', multiline: true }),
         heroAccent: fields.text({ label: 'Hero accent (pink)' }),
-        years: fields.integer({ label: 'Years of experience' }),
+        careerStart: fields.date({
+          label: 'Career start',
+          description: 'The "years of experience" number is counted from this date and grows by itself every year.',
+          defaultValue: '2013-09-01',
+          validation: { isRequired: true },
+        }),
         cv: fields.file({
           label: 'CV file (PDF)',
           description: 'The "Download CV" button stays a "coming soon" hint until a file is uploaded.',

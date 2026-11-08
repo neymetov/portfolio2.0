@@ -66,7 +66,7 @@ const activeTab = page === 'case' ? 'works' : page;
     </div>
 
     <footer>
-      <strong>{site.name}</strong><small>All rights reserved © 2026</small>
+      <strong>{site.name}</strong><small>All rights reserved © <span data-year>{new Date().getFullYear()}</span></small>
     </footer>
 
     <nav class="pill" id="pill" aria-label="Site" transition:persist>
