@@ -30,13 +30,13 @@
           }
         },
         {
-          "discriminant": "zoom",
+          "discriminant": "wide",
           "value": {
             "image": "/images/projects/dosty-ui-icons/landing/value/blocks/1/value/image.png"
           }
         },
         {
-          "discriminant": "wide",
+          "discriminant": "zoom",
           "value": {
             "image": "/images/projects/dosty-ui-icons/landing/value/blocks/2/value/image.png"
           }
