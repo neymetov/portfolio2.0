@@ -45,7 +45,7 @@ const activeTab = page === 'case' ? 'works' : page;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#ff62ed" />
+    <meta name="theme-color" content={theme?.frame ?? '#ff62ed'} />
     <link rel="canonical" href={canonical} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:type" content="website" />
@@ -98,6 +98,18 @@ const activeTab = page === 'case' ? 'works' : page;
 
       const body = () => document.body.dataset.page;
       let shellReady = false;
+
+      /* Safari tints its bars from this tag. After a client-side navigation it must be updated by hand,
+         otherwise the bars keep the previous page's colour (pink around an orange case page). */
+      const syncThemeColor = () => {
+        const colour = getComputedStyle(document.documentElement).getPropertyValue('--frame-c').trim() || '#ff62ed';
+        const tags = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
+        const tag = tags[0] ?? document.head.appendChild(Object.assign(document.createElement('meta'), { name: 'theme-color' }));
+        tags.forEach((extra, i) => i && extra.remove());
+        tag.setAttribute('content', colour);
+      };
+      document.addEventListener('astro:after-swap', syncThemeColor);
+      syncThemeColor();
 
       /* the outgoing page blurs away first, then the new one is fetched and swapped in */
       document.addEventListener('astro:before-preparation', (event) => {
