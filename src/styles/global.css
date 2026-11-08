@@ -179,7 +179,7 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 /* ===== Works view ===== */
 .works-view{padding:clamp(112px,14vh,160px) 6vw 40px;max-width:1240px;margin:0 auto}
 .w-title{text-align:center}
-.w-filter-wrap{position:sticky;top:76px;z-index:20;display:flex;justify-content:center;margin:40px 0 48px}
+.w-filter-wrap{position:sticky;top:76px;z-index:20;display:flex;justify-content:center;margin:0 0 48px}
 .w-filter{position:relative;display:flex;padding:4px;border-radius:999px;background:rgba(255,255,255,.3);backdrop-filter:blur(22px) saturate(1.8);-webkit-backdrop-filter:blur(22px) saturate(1.8);border:1px solid rgba(255,255,255,.6);box-shadow:0 10px 30px rgba(0,0,0,.06)}
 .w-filter button{position:relative;z-index:1;height:44px;padding:0 22px;border-radius:999px;font-size:15px;color:#45454c;transition:color .3s}
 .w-filter button.on{color:#fff}
@@ -201,7 +201,7 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 .w-services{margin-top:96px;padding-left:0;padding-right:0}
 @media (max-width:640px){
   .works-view{padding:88px 20px 24px}
-  .w-filter-wrap{top:64px;margin:24px 0 28px}
+  .w-filter-wrap{top:64px;margin:0 0 28px}
   .w-filter button{height:40px;padding:0 16px;font-size:14px}
   .w-list{grid-template-columns:1fr;gap:32px}
   .w-body h2{font-size:20px}.w-body p{font-size:14px}
