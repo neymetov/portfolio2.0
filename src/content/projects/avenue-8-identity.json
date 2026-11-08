@@ -29,14 +29,13 @@
     "discriminant": true,
     "value": {
       "theme": {
-        "frame": "#20346d",
-        "frameInk": "#f3ede6",
-        "bg": "#0d1733",
-        "surface": "#16264f",
-        "text": "#f3ede6",
-        "muted": "rgba(243,237,230,.62)",
-        "accent": "#d1b29f",
-        "mode": "dark"
+        "discriminant": "custom",
+        "value": {
+          "frame": "#20346d",
+          "bg": "#0d1733",
+          "text": "#f3ede6",
+          "accent": "#d1b29f"
+        }
       },
       "blocks": [
         {

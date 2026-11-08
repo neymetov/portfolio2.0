@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Blocks from '../../components/Blocks.astro';
 import { nextProject, projects } from '../../lib/projects';
+import { resolveTheme } from '../../lib/theme';
 
 export const prerender = true;
 
@@ -12,7 +13,7 @@ export function getStaticPaths() {
 const { project } = Astro.props;
 const next = nextProject(project.slug);
 const landing = project.landing.discriminant ? project.landing.value : null;
-const theme = landing?.theme ?? null;
+const theme = landing ? resolveTheme(landing.theme) : null;
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>';
 const style = theme ? `--t-bg:${theme.bg};--t-surface:${theme.surface};--t-text:${theme.text};--t-muted:${theme.muted};--t-accent:${theme.accent}` : undefined;

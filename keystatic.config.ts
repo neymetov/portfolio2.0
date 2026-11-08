@@ -1,4 +1,5 @@
 import { collection, config, fields, singleton } from '@keystatic/core';
+import { colour } from './src/keystatic/colour';
 
 const cloudProject = import.meta.env.PUBLIC_KEYSTATIC_CLOUD_PROJECT;
 
@@ -26,7 +27,7 @@ const chat = (label: string) =>
     { label },
   );
 
-const colour = (label: string, description?: string) => fields.text({ label, description });
+const required = { validation: { isRequired: true } } as const;
 
 export default config({
   storage: cloudProject ? { kind: 'cloud' } : { kind: 'local' },
@@ -149,25 +150,30 @@ export default config({
             false: fields.empty(),
             true: fields.object(
               {
-                theme: fields.object(
+                theme: fields.conditional(
+                  fields.select({
+                    label: 'Page colours',
+                    description: 'Pick a ready-made look or choose four colours by hand. Everything else is derived from them.',
+                    defaultValue: 'dark',
+                    options: [
+                      { label: 'Light', value: 'light' },
+                      { label: 'Dark', value: 'dark' },
+                      { label: 'Custom colours', value: 'custom' },
+                    ],
+                  }),
                   {
-                    frame: colour('Frame colour', 'Colour of the frame and top bar, e.g. #20346d'),
-                    frameInk: colour('Frame text colour'),
-                    bg: colour('Page background'),
-                    surface: colour('Card / tile background'),
-                    text: colour('Text colour'),
-                    muted: colour('Muted text colour'),
-                    accent: colour('Accent colour'),
-                    mode: fields.select({
-                      label: 'Mode',
-                      defaultValue: 'dark',
-                      options: [
-                        { label: 'Dark', value: 'dark' },
-                        { label: 'Light', value: 'light' },
-                      ],
-                    }),
+                    light: fields.empty(),
+                    dark: fields.empty(),
+                    custom: fields.object(
+                      {
+                        frame: colour({ label: 'Frame and top bar', defaultValue: '#20346d', description: 'The border around the page and the title bar.' }),
+                        bg: colour({ label: 'Page background', defaultValue: '#0d1733' }),
+                        text: colour({ label: 'Text', defaultValue: '#f3ede6' }),
+                        accent: colour({ label: 'Accent', defaultValue: '#d1b29f', description: 'Links, numbers and the next-project arrow.' }),
+                      },
+                      { label: 'Custom colours' },
+                    ),
                   },
-                  { label: 'Theme' },
                 ),
                 blocks: fields.blocks(
                   {
@@ -176,25 +182,25 @@ export default config({
                       schema: fields.object({
                         video: video('Video (mp4)'),
                         poster: image('Poster / image'),
-                        kicker: fields.text({ label: 'Kicker' }),
-                        title: fields.text({ label: 'Title' }),
+                        kicker: fields.text({ label: 'Kicker', description: 'Small line above the title, e.g. Branding · Social' }),
+                        title: fields.text({ label: 'Title', ...required }),
                         sub: fields.text({ label: 'Subtitle' }),
                       }),
                     },
                     intro: {
                       label: 'Intro (statement + facts)',
                       schema: fields.object({
-                        text: fields.text({ label: 'Statement', multiline: true }),
+                        text: fields.text({ label: 'Statement', multiline: true, ...required }),
                         meta: fields.array(
                           fields.object({ label: fields.text({ label: 'Label' }), value: fields.text({ label: 'Value' }) }),
-                          { label: 'Facts', itemLabel: (props) => props.fields.label.value || 'Fact' },
+                          { label: 'Facts', itemLabel: (props) => props.fields.label.value || 'Fact', validation: { length: { max: 4 } }, description: 'Up to four: client, scope, role, year.' },
                         ),
                       }),
                     },
                     zoom: {
                       label: 'Zoom image',
                       schema: fields.object({
-                        image: image('Image'),
+                        image: fields.image({ label: 'Image', directory: 'public/images/projects', publicPath: '/images/projects/', validation: { isRequired: true } }),
                         alt: fields.text({ label: 'Alt text' }),
                         caption: fields.text({ label: 'Caption' }),
                       }),
@@ -204,8 +210,8 @@ export default config({
                       schema: fields.object({
                         title: fields.text({ label: 'Title' }),
                         colors: fields.array(
-                          fields.object({ name: fields.text({ label: 'Name' }), hex: fields.text({ label: 'Hex' }) }),
-                          { label: 'Colours', itemLabel: (props) => props.fields.name.value || 'Colour' },
+                          fields.object({ name: fields.text({ label: 'Name', ...required }), hex: colour({ label: 'Colour', defaultValue: '#20346d' }) }),
+                          { label: 'Colours', itemLabel: (props) => props.fields.name.value || 'Colour', validation: { length: { min: 1, max: 8 } } },
                         ),
                         specimen: fields.array(fields.text({ label: 'Line' }), {
                           label: 'Type specimen (4 lines: caps, caps, script word, caps)',
@@ -220,10 +226,10 @@ export default config({
                         steps: fields.array(
                           fields.object({
                             image: image('Screen'),
-                            heading: fields.text({ label: 'Heading' }),
+                            heading: fields.text({ label: 'Heading', ...required }),
                             text: fields.text({ label: 'Text', multiline: true }),
                           }),
-                          { label: 'Steps', itemLabel: (props) => props.fields.heading.value || 'Step' },
+                          { label: 'Steps', itemLabel: (props) => props.fields.heading.value || 'Step', validation: { length: { min: 1 } } },
                         ),
                       }),
                     },
@@ -231,13 +237,13 @@ export default config({
                       label: 'Story fan',
                       schema: fields.object({
                         title: fields.text({ label: 'Title' }),
-                        images: fields.array(image('Story'), { label: 'Stories (9:16)', itemLabel: () => 'Story' }),
+                        images: fields.array(image('Story'), { label: 'Stories (9:16)', itemLabel: () => 'Story', validation: { length: { min: 1 } } }),
                       }),
                     },
                     wide: {
                       label: 'Wide image',
                       schema: fields.object({
-                        image: image('Image'),
+                        image: fields.image({ label: 'Image', directory: 'public/images/projects', publicPath: '/images/projects/', validation: { isRequired: true } }),
                         alt: fields.text({ label: 'Alt text' }),
                         caption: fields.text({ label: 'Caption' }),
                       }),

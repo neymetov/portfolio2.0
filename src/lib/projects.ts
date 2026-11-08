@@ -1,3 +1,5 @@
+import type { ThemeInput } from './theme';
+
 export const categories = ['Branding', 'Packaging', 'Illustration'] as const;
 export type Category = (typeof categories)[number];
 
@@ -6,17 +8,6 @@ export interface GalleryItem {
   video: string;
   alt: string;
   wide: boolean;
-}
-
-export interface Theme {
-  frame: string;
-  frameInk: string;
-  bg: string;
-  surface: string;
-  text: string;
-  muted: string;
-  accent: string;
-  mode: 'dark' | 'light';
 }
 
 export type Block =
@@ -39,7 +30,7 @@ export interface Project {
   cover: string;
   coverVideo: string;
   gallery: GalleryItem[];
-  landing: { discriminant: boolean; value: { theme: Theme; blocks: Block[] } | null };
+  landing: { discriminant: boolean; value: { theme: ThemeInput; blocks: Block[] } | null };
 }
 
 const modules = import.meta.glob<Partial<Omit<Project, 'slug'>>>('../content/projects/*.json', {

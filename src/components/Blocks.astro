@@ -8,6 +8,7 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 {blocks.map((block) => {
   if (block.discriminant === 'hero') {
     const b = block.value;
+    if (!b.title) return null;
     return (
       <section class="lb-hero">
         <div class="lb-hero-media">
@@ -20,6 +21,7 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
   }
   if (block.discriminant === 'intro') {
     const b = block.value;
+    if (!b.text) return null;
     return (
       <section class="lb-intro lb-pad">
         <p class="lb-statement">{b.text}</p>
@@ -29,6 +31,7 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
   }
   if (block.discriminant === 'zoom') {
     const b = block.value;
+    if (!b.image) return null;
     return (
       <section class="lb-zoom">
         <figure class="lb-zoom-fig"><img src={b.image} alt={b.alt} /></figure>
@@ -38,6 +41,7 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
   }
   if (block.discriminant === 'palette') {
     const b = block.value;
+    if (!b.colors.length) return null;
     const [caps1 = '', caps2 = '', script = '', caps3 = ''] = b.specimen;
     return (
       <section class="lb-palette lb-pad">
@@ -55,6 +59,7 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
   }
   if (block.discriminant === 'pinned') {
     const b = block.value;
+    if (!b.steps.length) return null;
     return (
       <section class="lb-pinned lb-pad">
         <h2 class="lb-h2">{b.title}</h2>
@@ -79,6 +84,7 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
   }
   if (block.discriminant === 'stories') {
     const b = block.value;
+    if (!b.images.length) return null;
     return (
       <section class="lb-stories">
         <h2 class="lb-h2 lb-pad-x">{b.title}</h2>
@@ -92,6 +98,7 @@ const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
   }
   if (block.discriminant === 'wide') {
     const b = block.value;
+    if (!b.image) return null;
     return (
       <section class="lb-wide lb-pad">
         <figure class="lb-wide-fig"><img src={b.image} alt={b.alt} loading="lazy" /></figure>
