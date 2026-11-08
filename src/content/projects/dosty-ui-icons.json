@@ -14,8 +14,8 @@
         "discriminant": "custom",
         "value": {
           "frame": "#ffb06d",
-          "bg": "#661805",
-          "text": "#f3ede6",
+          "bg": "#ffffff",
+          "text": "#661805",
           "accent": "#ffb06d"
         }
       },
