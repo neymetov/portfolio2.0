@@ -14,7 +14,6 @@ export const init = () => {
   experience();
   stacks();
   collage();
-  closing();
   ring();
 };
 
@@ -195,18 +194,6 @@ const stacks = () => {
 const collage = () => {
   const el = document.querySelector<HTMLElement>('.collage');
   if (el && !fine) listen(el, 'click', () => el.classList.toggle('fanned'));
-};
-
-/* ——— closing panel: slow drifting blobs ——— */
-const closing = () => {
-  if (reduce) return;
-  const tweens = [
-    gsap.to('.b1', { xPercent: 30, yPercent: 20, duration: 7, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
-    gsap.to('.b2', { xPercent: -25, yPercent: -15, duration: 9, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
-    gsap.to('.b3', { xPercent: 20, yPercent: -30, duration: 8, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
-  ];
-  onCleanup(() => tweens.forEach((tween) => tween.kill()));
-
 };
 
 /* ——— story ring: three.js is only loaded once the hero is visible ——— */
