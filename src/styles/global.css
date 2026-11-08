@@ -447,3 +447,7 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 @keyframes drift-1 { from { transform: translate(0, 0) scale(1); } 50% { transform: translate(24%, 10%) scale(1.12); } to { transform: translate(10%, 26%) scale(.96); } }
 @keyframes drift-2 { from { transform: translate(0, 0) scale(1); } 50% { transform: translate(-22%, -12%) scale(.94); } to { transform: translate(-8%, 14%) scale(1.1); } }
 @keyframes drift-3 { from { transform: translate(0, 0) scale(1); } 50% { transform: translate(18%, -24%) scale(1.1); } to { transform: translate(-16%, -8%) scale(.92); } }
+
+/* the media rounds its own corners, so a video or image is never left square when the browser skips the parent's clipping */
+.w-img video, .w-img img, .face img, .cs-media img, .cs-media video { border-radius: inherit; }
+.w-img, .face, .cs-media { isolation: isolate; }
