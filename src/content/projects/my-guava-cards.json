@@ -13,10 +13,10 @@
       "theme": {
         "discriminant": "custom",
         "value": {
-          "frame": "#8cf425",
+          "frame": "#9cf300",
           "bg": "#ffffff",
-          "text": "#15114b",
-          "accent": "#8cf425"
+          "text": "#141414",
+          "accent": "#9cf300"
         }
       },
       "blocks": [
@@ -27,6 +27,43 @@
             "title": "MyGuava",
             "showSub": true,
             "sub": "Cards for MyGuava"
+          }
+        },
+        {
+          "discriminant": "intro",
+          "value": {
+            "text": "MyGuava is the app",
+            "meta": [
+              {
+                "label": "Auditory",
+                "value": "Retail and Business"
+              }
+            ]
+          }
+        },
+        {
+          "discriminant": "zoom",
+          "value": {
+            "image": "/images/projects/my-guava-cards/landing/value/blocks/2/value/image.png"
+          }
+        },
+        {
+          "discriminant": "gallery",
+          "value": {
+            "images": [
+              {
+                "image": "/images/projects/my-guava-cards/landing/value/blocks/3/value/images/0/image.png"
+              },
+              {
+                "image": "/images/projects/my-guava-cards/landing/value/blocks/3/value/images/1/image.png"
+              }
+            ]
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/my-guava-cards/landing/value/blocks/4/value/image.png"
           }
         }
       ]
