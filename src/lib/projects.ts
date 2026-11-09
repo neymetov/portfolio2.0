@@ -17,6 +17,7 @@ export type Block =
   | { discriminant: 'pinned'; value: { title: string; steps: { image: string; heading: string; text: string }[] } }
   | { discriminant: 'fan'; value: { title: string; images: string[] } }
   | { discriminant: 'wide'; value: { image: string; alt: string; caption: string } }
+  | { discriminant: 'reels'; value: { title: string; videos: { video: string; poster: string }[] } }
   | { discriminant: 'gallery'; value: { images: { image: string; alt: string }[] } };
 
 export interface Project {

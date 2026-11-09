@@ -89,6 +89,21 @@ const still = { draggable: 'false' } as const;
       </section>
     );
   }
+  if (block.discriminant === 'reels') {
+    const b = block.value;
+    const videos = b.videos.filter((item) => item.video);
+    if (!videos.length) return null;
+    return (
+      <section class="lb-reels lb-pad">
+        {b.title && <h2 class="lb-h2">{b.title}</h2>}
+        <div class="lb-reels-row" style={`--n:${videos.length}`}>
+          {videos.map((item) => (
+            <figure class="lb-reel"><video src={item.video} poster={item.poster || undefined} autoplay muted loop playsinline preload="metadata" disablepictureinpicture controlslist="nodownload noremoteplayback"></video></figure>
+          ))}
+        </div>
+      </section>
+    );
+  }
   if (block.discriminant === 'gallery') {
     const b = block.value;
     if (b.images.length < 1) return null;

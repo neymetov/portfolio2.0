@@ -242,6 +242,19 @@ export default config({
                         caption: fields.text({ label: 'Caption' }),
                       }),
                     },
+                    reels: {
+                      label: 'Reels video (1080 × 1920)',
+                      schema: fields.object({
+                        title: fields.text({ label: 'Title (optional)' }),
+                        videos: fields.array(
+                          fields.object({
+                            video: fields.file({ label: 'Video (mp4)', description: 'Vertical, 1080 × 1920 (9:16). Plays silently on a loop.', directory: 'public/images/projects', publicPath: '/images/projects/', validation: { isRequired: true } }),
+                            poster: fields.image({ label: 'Poster (optional)', description: 'Shown until the video loads.', directory: 'public/images/projects', publicPath: '/images/projects/' }),
+                          }),
+                          { label: 'Videos (1 to 3)', itemLabel: () => 'Reel', validation: { length: { min: 1, max: 3 } } },
+                        ),
+                      }),
+                    },
                     gallery: {
                       label: 'Image gallery',
                       schema: fields.object({

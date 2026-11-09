@@ -101,6 +101,7 @@ const landing = (view: HTMLElement) => {
     reveal('.lb-statement', { y: 40, opacity: 0 }, null, 'top 80%', { duration: 1.2 });
     reveal('.lb-meta > div', { y: 24, opacity: 0 }, '.lb-meta', 'top 85%', { duration: 1, stagger: 0.08 });
     reveal('.lb-story', { y: 120, rotate: 0, opacity: 0 }, '.lb-fan', 'top 85%', { duration: 1.2, stagger: 0.08, clearProps: 'transform,opacity' });
+    reveal('.lb-reel', { y: 60, opacity: 0 }, '.lb-reels-row', 'top 88%', { duration: 1.2, stagger: 0.12 });
     reveal('.lb-wide-fig', { y: 60, opacity: 0 }, null, 'top 90%', { duration: 1.2 });
     reveal('figure', { y: 60, opacity: 0 }, '.lb-gallery-grid', 'top 85%', { duration: 1.2, stagger: 0.1 });
 
@@ -115,6 +116,17 @@ const landing = (view: HTMLElement) => {
   }
 
   /* pinned: the phone stays, the active step swaps its screen and fills the progress bar */
+  /* reels only play while they are on screen */
+  const reels = all<HTMLVideoElement>('.lb-reel video');
+  if (reels.length && 'IntersectionObserver' in window) {
+    const watch = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target instanceof HTMLVideoElement && entry.target.play().catch(() => {});
+      else (entry.target as HTMLVideoElement).pause();
+    }), { threshold: 0.25 });
+    reels.forEach((video) => watch.observe(video));
+    onCleanup(() => watch.disconnect());
+  }
+
   const steps = all('.lb-step');
   const shots = all('.lb-pin-img > img');
   const bars = all('.lb-progress i');
