@@ -35,7 +35,7 @@ const UNIT = 3.0 / CARD_W; /* world units per css px */
 const PW = (CARD_W + PAD * 2) * UNIT, PH = (CARD_H + PAD * 2) * UNIT;
 const R = 9, N = 16, STEP = (Math.PI * 2) / N, TAU = Math.PI * 2;
 const PINK = '#ff62ed';
-const CARD_R = 0; /* corner radius of the story cards, in css px */
+const CARD_R = 24; /* corner radius of the story cards, in css px */
 const BG = 0xf9fafb;
 
 /* ---- easing (the same curves the CSS animations use) ---- */
@@ -97,10 +97,13 @@ const wrap = (x: CanvasRenderingContext2D, text: string, maxW: number) => {
   return lines;
 };
 
+/* phones show a 3-line teaser on the ring; the full text opens in the reading sheet */
+const previewLines = () => (innerWidth <= 640 ? 3 : Infinity);
+
 type Images = Record<string, HTMLImageElement | null>;
 
 /* one card frame; t = seconds since the card became active (Infinity = settled) */
-const drawCard = (x: CanvasRenderingContext2D, A: Images, story: Story, t: number, k = K) => {
+const drawCard = (x: CanvasRenderingContext2D, A: Images, story: Story, t: number, k = K, maxLines = Infinity) => {
   const type = Math.max(0, ARTS.indexOf(story.art));
   x.setTransform(1, 0, 0, 1, 0, 0);
   x.clearRect(0, 0, x.canvas.width, x.canvas.height);
@@ -262,6 +265,13 @@ const drawCard = (x: CanvasRenderingContext2D, A: Images, story: Story, t: numbe
   x.textBaseline = 'alphabetic';
   x.font = '400 14px Satoshi, "Helvetica Neue", Arial, sans-serif';
   const body = wrap(x, story.text, CARD_W - 64);
+  if (body.length > maxLines) {
+    /* placeholder preview: keep the first lines and end the last one with an ellipsis */
+    body.length = maxLines;
+    let last = body[maxLines - 1];
+    while (last && x.measureText(`${last}…`).width > CARD_W - 64) last = last.slice(0, -1).trimEnd();
+    body[maxLines - 1] = `${last}…`;
+  }
   const y = CARD_H - 24 - (body.length - 1) * 20 - 5;
   body.forEach((line, i) => x.fillText(line, 32, y + i * 20));
   x.font = '700 18px Satoshi, "Helvetica Neue", Arial, sans-serif';
@@ -320,7 +330,7 @@ export const mountRing = (canvas: HTMLCanvasElement): (() => void) | null => {
   const resize = () => {
     /* phones: the ring sits right under the text, sized from the width */
     if (innerWidth <= 640) {
-      const cw = innerWidth * 0.5, ch = (cw * PH) / PW;
+      const cw = innerWidth * 0.72, ch = (cw * PH) / PW;
       canvas.style.setProperty('--ringH', `${Math.round(ch / 0.92)}px`);
     }
     const w = canvas.clientWidth, h = canvas.clientHeight;
@@ -335,7 +345,7 @@ export const mountRing = (canvas: HTMLCanvasElement): (() => void) | null => {
     if (innerWidth <= 640) {
       /* front card is about 54% of the width, never taller than 88% of the strip */
       const tv = Math.tan((camera.fov * Math.PI) / 360), asp = w / h;
-      const D = Math.max(PW / (1.0 * tv * asp), PH / (1.72 * tv));
+      const D = Math.max(PW / (1.45 * tv * asp), PH / (1.72 * tv));
       camera.position.z = Math.min(R * 0.8, D - R);
     }
     postMat.uniforms.uEdge.value = narrow ? 0.36 : 0.1;
@@ -520,7 +530,7 @@ export const mountRing = (canvas: HTMLCanvasElement): (() => void) | null => {
     cards.forEach((card) => {
       if (card.start !== null) {
         const t = now - card.start;
-        drawCard(card.ctx, A, stories[card.s], t);
+        drawCard(card.ctx, A, stories[card.s], t, K, previewLines());
         card.tex.needsUpdate = true;
         if (t > 1.8) card.start = null;
       }
@@ -579,7 +589,7 @@ export const mountRing = (canvas: HTMLCanvasElement): (() => void) | null => {
       cv.height = TH;
       const ctx = cv.getContext('2d')!;
       const s = i % stories.length;
-      drawCard(ctx, A, stories[s], Infinity);
+      drawCard(ctx, A, stories[s], Infinity, K, previewLines());
       const tex = new CanvasTexture(cv);
       tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
       tex.premultiplyAlpha = false;

@@ -10,7 +10,6 @@ interface Job {
 }
 
 export const init = () => {
-  document.querySelectorAll('.arr-card').forEach((card) => hoverCursor(card, 'open'));
   hero();
   experience();
   stacks();

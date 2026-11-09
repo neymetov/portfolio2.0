@@ -33,7 +33,6 @@ npm run deploy   # build + wrangler pages deploy dist
 
 ## Notes
 
-- Replace the placeholder `contactEmail` in `src/content/site.json` before publishing.
 - Images edited in Keystatic are stored by field path: `public/images/site/` for Site content and `public/images/projects/<slug>/` for each project. Keystatic renames files on the first save; that is expected.
 - The About hero shows the story cards on a WebGL ring (three.js, loaded lazily); without WebGL they fall back to a horizontal scroll-snap row.
 - `updated-design/` (not committed) holds the approved prototype and handoff the site was rebuilt from.

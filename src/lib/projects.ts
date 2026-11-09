@@ -24,7 +24,6 @@ export interface Project {
   title: string;
   category: Category;
   order: number;
-  published?: string;
   summary: string;
   description: string;
   featured: boolean;
@@ -58,7 +57,6 @@ export const projects: Project[] = Object.entries(modules)
   .sort((a, b) => Number(a.order) - Number(b.order));
 
 /** Newest first; projects without a date count as the oldest. */
-export const latestProjects = [...projects].sort((a, b) => (b.published ?? '').localeCompare(a.published ?? '') || Number(a.order) - Number(b.order));
 
 export const featuredProjects = projects.filter((project) => project.featured).slice(0, 2);
 
