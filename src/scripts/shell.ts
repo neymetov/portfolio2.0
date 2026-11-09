@@ -93,6 +93,30 @@ export const mountShell = () => {
       });
   }
 
+  /* looping covers sometimes stall (slow network, many videos at once, a swapped page): nudge any
+     video that has not got data yet, and keep the ones on screen playing */
+  const videos = [...document.querySelectorAll<HTMLVideoElement>('video[autoplay]')];
+  if (videos.length) {
+    const kick = (video: HTMLVideoElement) => {
+      if (video.readyState < 2 && video.networkState !== HTMLMediaElement.NETWORK_LOADING) video.load();
+      video.play().catch(() => {});
+    };
+    videos.forEach((video) => {
+      video.preload = 'auto';
+      listen(video, 'error', () => setTimeout(() => kick(video), 800));
+      listen(video, 'stalled', () => kick(video));
+    });
+    const watch = 'IntersectionObserver' in window
+      ? new IntersectionObserver((entries) => entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) kick(video);
+        }), { rootMargin: '200px' })
+      : null;
+    videos.forEach((video) => watch?.observe(video));
+    const retry = setInterval(() => videos.forEach((video) => { if (video.readyState < 2) kick(video); }), 2500);
+    onCleanup(() => { watch?.disconnect(); clearInterval(retry); });
+  }
+
   /* rows with a hover preview that follows the cursor */
   const preview = document.querySelector<HTMLElement>('.preview');
   const previewImg = preview?.querySelector('img');
