@@ -1,0 +1,59 @@
+{
+  "title": "Japanese Film Directors Festival`19",
+  "category": "Branding",
+  "order": 2,
+  "summary": "Japanese Film Directors Fest.",
+  "description": "Japanese Film Directors Fest.",
+  "featured": true,
+  "cover": "/images/projects/japanese-film-directors-festival-19/cover.webp",
+  "gallery": [],
+  "landing": {
+    "discriminant": true,
+    "value": {
+      "theme": {
+        "discriminant": "custom",
+        "value": {
+          "frame": "#ff0000",
+          "bg": "#ffffff",
+          "text": "#000000",
+          "accent": "#ff0000"
+        }
+      },
+      "blocks": [
+        {
+          "discriminant": "hero",
+          "value": {
+            "poster": "/images/projects/japanese-film-directors-festival-19/landing/value/blocks/0/value/poster.webp",
+            "title": "Japanese Film Directors Festival",
+            "showSub": true,
+            "sub": "I designed a visual identity for the Japanese Film Directors Festival as my 2019 graduation project at the British Higher School of Art and Design in Moscow. The festival mark turns the silhouette of a director’s chair into a symbol inspired by kanji."
+          }
+        },
+        {
+          "discriminant": "intro",
+          "value": {
+            "text": "I designed a visual identity for the Japanese Film Directors Festival as my 2019 graduation project at the British Higher School of Art and Design in Moscow. The festival mark turns the silhouette of a director’s chair into a symbol inspired by kanji.",
+            "meta": [
+              {
+                "label": "Year",
+                "value": "2019"
+              },
+              {
+                "label": "School",
+                "value": "British Higher School of Art and Design"
+              },
+              {
+                "label": "Tutor",
+                "value": "Leonid Slavin"
+              },
+              {
+                "label": "Location",
+                "value": "Moscow, Russia"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
