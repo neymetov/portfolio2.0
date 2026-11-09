@@ -5,7 +5,7 @@ const cloudProject = import.meta.env.PUBLIC_KEYSTATIC_CLOUD_PROJECT;
 
 const categories = [
   { label: 'Branding', value: 'Branding' },
-  { label: 'Packaging', value: 'Packaging' },
+  { label: 'Print', value: 'Print' },
   { label: 'Illustration', value: 'Illustration' },
 ] as const;
 

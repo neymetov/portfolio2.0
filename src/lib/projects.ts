@@ -1,6 +1,6 @@
 import type { ThemeInput } from './theme';
 
-export const categories = ['Branding', 'Packaging', 'Illustration'] as const;
+export const categories = ['Branding', 'Print', 'Illustration'] as const;
 export type Category = (typeof categories)[number];
 
 export interface GalleryItem {
