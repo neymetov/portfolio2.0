@@ -100,7 +100,6 @@ export default config({
               defaultValue: 'Branding',
               options: [...categories],
             }),
-            image: siteImage('Hover preview'),
           }),
           { label: 'Services', itemLabel: (props) => props.fields.title.value || 'Service' },
         ),

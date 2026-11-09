@@ -1,12 +1,22 @@
 ---
 import site from '../lib/site';
+import { projects } from '../lib/projects';
 
 interface Props { class?: string }
 const { class: className } = Astro.props;
+
+/* the hover picture is the cover of a project in the same category; services that share a
+   category take turns through its projects (projects are already sorted by order) */
+const used: Record<string, number> = {};
+const rows = site.services.map((service) => {
+  const covers = projects.filter((project) => project.category === service.category && project.cover);
+  const image = covers.length ? covers[(used[service.category] = (used[service.category] ?? -1) + 1) % covers.length].cover : undefined;
+  return { ...service, image };
+});
 ---
 <nav class:list={['services', className]} aria-label="Services">
-  {site.services.map((service) => (
-    <a href={`/works?category=${encodeURIComponent(service.category)}`} data-filter={service.category} data-img={service.image || undefined}>
+  {rows.map((service) => (
+    <a href={`/works?category=${encodeURIComponent(service.category)}`} data-filter={service.category} data-img={service.image}>
       <span class="nm">{service.title}</span>
       <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>

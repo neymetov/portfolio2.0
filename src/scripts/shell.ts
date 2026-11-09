@@ -99,7 +99,8 @@ export const mountShell = () => {
   if (preview && previewImg && fine) {
     document.querySelectorAll<HTMLElement>('.services a').forEach((row) => {
       listen(row, 'mouseenter', () => {
-        if (row.dataset.img) previewImg.src = row.dataset.img;
+        if (!row.dataset.img) return;
+        previewImg.src = row.dataset.img;
         previewOn = true;
       });
       listen(row, 'mouseleave', () => {

@@ -78,18 +78,15 @@
   "services": [
     {
       "title": "Branding",
-      "category": "Branding",
-      "image": "/images/site/services/0/image.webp"
+      "category": "Branding"
     },
     {
       "title": "Logo",
-      "category": "Branding",
-      "image": "/images/site/services/1/image.webp"
+      "category": "Branding"
     },
     {
       "title": "Illustrations",
-      "category": "Illustration",
-      "image": "/images/site/services/2/image.webp"
+      "category": "Illustration"
     }
   ],
   "showCta": false,
