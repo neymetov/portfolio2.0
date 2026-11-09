@@ -1,18 +1,16 @@
 ---
-import site from '../lib/site';
-import { projects } from '../lib/projects';
+import { categories, projects } from '../lib/projects';
 
 interface Props { class?: string }
 const { class: className } = Astro.props;
 
-/* the hover picture is the cover of a project in the same category; services that share a
-   category take turns through its projects (projects are already sorted by order) */
-const used: Record<string, number> = {};
-const rows = site.services.map((service) => {
-  const covers = projects.filter((project) => project.category === service.category && project.cover);
-  const image = covers.length ? covers[(used[service.category] = (used[service.category] ?? -1) + 1) % covers.length].cover : undefined;
-  return { ...service, image };
-});
+/* The rows are the works categories themselves, so they always match the filter on /works.
+   The hover picture is the cover of the first project in that category. */
+const rows = categories.map((category) => ({
+  title: category,
+  category,
+  image: projects.find((project) => project.category === category && project.cover)?.cover,
+}));
 ---
 <nav class:list={['services', className]} aria-label="Services">
   {rows.map((service) => (

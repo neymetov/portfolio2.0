@@ -92,17 +92,6 @@ export default config({
           label: 'Meetups photos (5 work best)',
           itemLabel: () => 'Photo',
         }),
-        services: fields.array(
-          fields.object({
-            title: fields.text({ label: 'Title' }),
-            category: fields.select({
-              label: 'Opens works filter',
-              defaultValue: 'Branding',
-              options: [...categories],
-            }),
-          }),
-          { label: 'Services', itemLabel: (props) => props.fields.title.value || 'Service' },
-        ),
         showCta: fields.checkbox({ label: 'Show the closing block ("Let\'s build it together")', description: 'The coloured panel with a button to Contacts, above the footer on the About page. Off by default.', defaultValue: false }),
         ctaTitle: fields.text({ label: 'Closing block title' }),
         contactTitle: fields.text({ label: 'Contacts headline' }),

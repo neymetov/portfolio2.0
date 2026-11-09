@@ -76,20 +76,6 @@
     "/images/site/meetupPhotos/3.webp",
     "/images/site/meetupPhotos/4.webp"
   ],
-  "services": [
-    {
-      "title": "Branding",
-      "category": "Branding"
-    },
-    {
-      "title": "Logo",
-      "category": "Branding"
-    },
-    {
-      "title": "Illustrations",
-      "category": "Illustration"
-    }
-  ],
   "showCta": false,
   "ctaTitle": "Let's build it together.",
   "contactTitle": "Always happy to talk about",

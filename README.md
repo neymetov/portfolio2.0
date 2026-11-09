@@ -15,7 +15,7 @@ The admin lives at `/keystatic`. Without a cloud project it runs in local mode a
 
 ## Content
 
-- `src/content/site.json` — texts, story cards, experience, services, contacts (edit via Keystatic → Site content).
+- `src/content/site.json` — texts, story cards, experience, contacts (edit via Keystatic → Site content).
 - `src/content/projects/*.json` — case studies (Keystatic → Projects).
 - Schema: `keystatic.config.ts`.
 
