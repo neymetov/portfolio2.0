@@ -1,0 +1,28 @@
+{
+  "title": "Startup Fest",
+  "category": "Branding",
+  "order": 1,
+  "summary": "Startup Fest",
+  "description": "Startup Fest",
+  "featured": false,
+  "cover": "/images/projects/startup-fest/cover.webp",
+  "gallery": [],
+  "landing": {
+    "discriminant": true,
+    "value": {
+      "theme": {
+        "discriminant": "dark"
+      },
+      "blocks": [
+        {
+          "discriminant": "hero",
+          "value": {
+            "poster": "/images/projects/startup-fest/landing/value/blocks/0/value/poster.webp",
+            "title": " ",
+            "showSub": true
+          }
+        }
+      ]
+    }
+  }
+}
