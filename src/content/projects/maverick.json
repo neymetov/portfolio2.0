@@ -1,0 +1,28 @@
+{
+  "title": "Maverick",
+  "category": "Branding",
+  "order": 1,
+  "summary": "Maverick Creative Agency",
+  "description": "Maverick Creative Agency",
+  "featured": false,
+  "coverVideo": "/images/projects/maverick/coverVideo.mp4",
+  "gallery": [],
+  "landing": {
+    "discriminant": true,
+    "value": {
+      "theme": {
+        "discriminant": "dark"
+      },
+      "blocks": [
+        {
+          "discriminant": "hero",
+          "value": {
+            "video": "/images/projects/maverick/landing/value/blocks/0/value/video.mp4",
+            "title": "Maverick Creative Agency",
+            "showSub": true
+          }
+        }
+      ]
+    }
+  }
+}
