@@ -51,6 +51,37 @@
               }
             ]
           }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/japanese-film-directors-festival-19/landing/value/blocks/2/value/image.webp",
+            "alt": "laptop"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/japanese-film-directors-festival-19/landing/value/blocks/3/value/image.jpg"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/japanese-film-directors-festival-19/landing/value/blocks/4/value/image.webp"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/japanese-film-directors-festival-19/landing/value/blocks/5/value/image.webp"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/japanese-film-directors-festival-19/landing/value/blocks/6/value/image.webp"
+          }
         }
       ]
     }
