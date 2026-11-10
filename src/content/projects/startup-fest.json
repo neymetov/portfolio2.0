@@ -21,6 +21,30 @@
             "title": " ",
             "showSub": true
           }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/startup-fest/landing/value/blocks/1/value/image.webp"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/startup-fest/landing/value/blocks/2/value/image.webp"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/startup-fest/landing/value/blocks/3/value/image.webp"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/startup-fest/landing/value/blocks/4/value/image.webp"
+          }
         }
       ]
     }
