@@ -14,7 +14,7 @@ export type Block =
   | { discriminant: 'hero'; value: { video: string; poster: string; title: string; showSub?: boolean; sub: string } }
   | { discriminant: 'intro'; value: { text: string; meta: { label: string; value: string }[] } }
   | { discriminant: 'zoom'; value: { image: string; alt: string } }
-  | { discriminant: 'pinned'; value: { title: string; steps: { image: string; heading: string; text: string }[] } }
+  | { discriminant: 'pinned'; value: { title: string; video?: string; poster?: string; steps: { image?: string; heading: string; text: string }[] } }
   | { discriminant: 'fan'; value: { title: string; images: string[] } }
   | { discriminant: 'wide'; value: { image?: string; video?: string; alt: string; caption: string } }
   | { discriminant: 'text'; value: { text: string } }

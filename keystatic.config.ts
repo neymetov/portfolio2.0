@@ -214,9 +214,11 @@ export default config({
                       label: 'Pinned image with steps',
                       schema: fields.object({
                         title: fields.text({ label: 'Title' }),
+                        video: fields.file({ label: 'Reel video (mp4, optional)', description: 'Vertical 1080 × 1920. When set, it plays on the left while the steps scroll on the right, and the step images are not used.', directory: 'public/images/projects', publicPath: '/images/projects/' }),
+                        poster: fields.image({ label: 'Reel poster (optional)', description: 'Shown until the video loads.', directory: 'public/images/projects', publicPath: '/images/projects/' }),
                         steps: fields.array(
                           fields.object({
-                            image: image('Image (shown in a square, any picture)'),
+                            image: fields.image({ label: 'Image (shown in a square, any picture)', description: 'Not needed when the block has a reel video.', directory: 'public/images/projects', publicPath: '/images/projects/' }),
                             heading: fields.text({ label: 'Heading', ...required }),
                             text: fields.text({ label: 'Text', multiline: true }),
                           }),

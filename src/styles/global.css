@@ -316,6 +316,9 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 .lb-pin-img{position:sticky;top:calc(50vh - 240px);width:min(480px,100%);aspect-ratio:1/1;margin:0 auto;border-radius:var(--card-r);overflow:hidden}
 .lb-pin-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .6s var(--ease),transform 1s var(--ease)}
 .lb-pin-img img.on{opacity:1;transform:none}
+/* reel mode: a vertical 9:16 video pinned on the left, the steps scroll on the right */
+.has-video .lb-pin-img{--h:min(720px,80vh);top:calc(50vh - var(--h) / 2);width:calc(var(--h) * 9 / 16);max-width:100%;aspect-ratio:9/16;background:rgba(127,127,127,.15);box-shadow:0 30px 70px rgba(0,0,0,.25)}
+.lb-pin-img video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .lb-progress{position:absolute;left:12px;right:12px;top:10px;display:flex;gap:4px;z-index:2}
 .lb-progress i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.3);overflow:hidden;position:relative}
 .lb-progress i::after{content:"";position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
@@ -364,6 +367,7 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
   .lb-intro{grid-template-columns:1fr;gap:40px;padding-top:64px;padding-bottom:64px}.lb-statement{font-size:26px}.lb-meta{margin-top:0}
   .lb-zoom-fig{height:auto;clip-path:inset(4% 6% 4% 6% round 20px)}.lb-zoom-fig img{height:auto;object-fit:contain}
   .lb-pinned{padding-top:80px}.lb-pin-grid{grid-template-columns:1fr}.lb-pin-col{display:none}
+  .has-video .lb-pin-col{display:block;margin-bottom:36px}.has-video .lb-pin-img{position:relative;top:auto;--h:min(560px,74svh)}.has-video .lb-progress{display:none}
   .lb-steps{padding:0}.lb-step{min-height:0;opacity:1;padding:0 0 48px}
   .lb-step-img{display:block;width:100%;margin:20px 0 0;aspect-ratio:1/1;object-fit:cover;border-radius:var(--card-r)}
   .lb-stories{padding-top:72px}.lb-fan{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:20px 20px 40px}

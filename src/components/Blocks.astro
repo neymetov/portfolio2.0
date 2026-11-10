@@ -44,20 +44,22 @@ const still = { draggable: 'false' } as const;
     const b = block.value;
     if (!b.steps.length) return null;
     return (
-      <section class="lb-pinned lb-pad">
-        <h2 class="lb-h2">{b.title}</h2>
+      <section class:list={['lb-pinned', 'lb-pad', { 'has-video': !!b.video }]}>
+        {b.title && <h2 class="lb-h2">{b.title}</h2>}
         <div class="lb-pin-grid">
           <div class="lb-pin-col">
             <div class="lb-pin-img">
-              {b.steps.map((step, i) => <img src={step.image} alt="" class={i ? '' : 'on'} {...still} />)}
+              {b.video
+                ? <video src={b.video} poster={b.poster || undefined} autoplay muted loop playsinline preload="metadata" disablepictureinpicture controlslist="nodownload noremoteplayback"></video>
+                : b.steps.map((step, i) => step.image && <img src={step.image} alt="" class={i ? '' : 'on'} {...still} />)}
               <div class="lb-progress">{b.steps.map(() => <i></i>)}</div>
             </div>
           </div>
           <ol class="lb-steps">
             {b.steps.map((step, i) => (
               <li class:list={['lb-step', { on: i === 0 }]}>
-                <h3>{step.heading}</h3><p>{step.text}</p>
-                <img class="lb-step-img" src={step.image} alt="" loading="lazy" {...still} />
+                <h3>{step.heading}</h3>{step.text && <p>{step.text}</p>}
+                {!b.video && step.image && <img class="lb-step-img" src={step.image} alt="" loading="lazy" {...still} />}
               </li>
             ))}
           </ol>
