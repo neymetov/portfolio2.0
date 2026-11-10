@@ -6,24 +6,24 @@
   "cv": "/cv/cv.pdf",
   "stories": [
     {
-      "title": "Leading a design team",
-      "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
+      "title": "Team Leadership",
+      "text": "I hire designers, match projects to their strengths, and give feedback through regular design reviews.",
+      "art": "compass"
+    },
+    {
+      "title": "Design Strategy",
+      "text": "I set design priorities based on business goals and user needs. I help the team decide what to tackle first and why.",
       "art": "knight"
     },
     {
-      "title": "Leading a design team",
-      "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
+      "title": "Brand & Product",
+      "text": "I bring product and marketing teams together so the way we talk about the product matches how it looks and works.",
       "art": "bridge"
     },
     {
-      "title": "Leading a design team",
-      "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
+      "title": "Design Systems",
+      "text": "I build reusable components and document when to use them, so teams can ship new features without redesigning common patterns.",
       "art": "folder"
-    },
-    {
-      "title": "Leading a design team",
-      "text": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
-      "art": "compass"
     }
   ],
   "experience": [
