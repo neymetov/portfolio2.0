@@ -40,8 +40,7 @@
         {
           "discriminant": "hero",
           "value": {
-            "video": "/images/projects/avenue-8-identity/landing/value/blocks/0/value/video.mp4",
-            "poster": "/images/projects/avenue-8-identity/landing/value/blocks/0/value/poster.jpg",
+            "poster": "/images/projects/avenue-8-identity/landing/value/blocks/0/value/poster.png",
             "title": "Avenue 8",
             "showSub": true,
             "sub": "Identity for a residential address on the Caspian coast"
