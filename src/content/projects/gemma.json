@@ -64,6 +64,25 @@
               }
             ]
           }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/gemma/landing/value/blocks/5/value/image.png",
+            "alt": "typography"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/gemma/landing/value/blocks/6/value/image.png"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/gemma/landing/value/blocks/7/value/image.png"
+          }
         }
       ]
     }
