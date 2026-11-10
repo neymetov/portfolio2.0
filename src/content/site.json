@@ -68,6 +68,11 @@
       "color": "#111111"
     }
   ],
+  "featuredProjects": [
+    "avenue-8-identity",
+    "dosty-ui-icons",
+    "japanese-film-directors-festival-19"
+  ],
   "meetupText": "When a company doesn't have design yet, it hires one person — and everything depends on whether that person builds a system or just puts out fires one task at a time.",
   "meetupPhotos": [
     "/images/site/meetupPhotos/0.webp",

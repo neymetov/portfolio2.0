@@ -87,6 +87,15 @@ export default config({
           }),
           { label: 'Experience', itemLabel: (props) => props.fields.company.value || 'Company' },
         ),
+        featuredProjects: fields.array(
+          fields.relationship({ label: 'Project', collection: 'projects', validation: { isRequired: true } }),
+          {
+            label: 'Some big projects (up to 3, shown in this order)',
+            description: 'Pick the projects for the "some big projects" block on About. Drag to change the order.',
+            itemLabel: (props) => props.value || 'Choose a project',
+            validation: { length: { max: 3 } },
+          },
+        ),
         meetupText: fields.text({ label: 'Meetups description', multiline: true }),
         meetupPhotos: fields.array(siteImage('Photo'), {
           label: 'Meetups photos (5 work best)',
@@ -124,7 +133,6 @@ export default config({
         order: fields.integer({ label: 'Order', defaultValue: 1 }),
         summary: fields.text({ label: 'Short description (cards)', multiline: true }),
         description: fields.text({ label: 'Description (case page)', multiline: true }),
-        featured: fields.checkbox({ label: 'Show in "some big projects" on About', defaultValue: false }),
         cover: image('Cover image'),
         shareImage: fields.image({
           label: 'Share image (link preview)',

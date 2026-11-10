@@ -2,13 +2,15 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Services from '../components/Services.astro';
 import site from '../lib/site';
-import { featuredProjects } from '../lib/projects';
+import { projects } from '../lib/projects';
 import { yearsSince } from '../lib/years';
 
 export const prerender = true;
 
+/* picked in the admin (up to 3), shown in that order */
+const featuredProjects = (site.featuredProjects ?? []).flatMap((slug) => projects.find((project) => project.slug === slug) ?? []).slice(0, 3);
+
 const art = '/images/site';
-// The strip scrolls forever, so one pass must be wider than any screen: repeat the list until it holds at least 8 cards.
 const careerStart = site.careerStart || '2013-09-01';
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const stories = site.stories.map((story) => ({ title: story.title, text: story.text, art: story.art }));
@@ -78,10 +80,10 @@ const fan = [
 
     <section class="featured" id="works">
       <h2 class="display split">some <em>big</em> projects</h2>
-      <div class="items">
+      <div class="items" style={`--n:${Math.max(1, featuredProjects.length)}`}>
         {featuredProjects.map((project, index) => (
           <article class="f-item">
-            <div class:list={['stack', { mirror: index === 0 }]}>
+            <div class:list={['stack', { mirror: index % 2 === 0 }]}>
               <div class="slide back"><div class="face">{project.gallery[1]?.image && <img src={project.gallery[1].image} alt="" loading="lazy" />}<div class="glare"></div></div></div>
               <div class="slide front"><div class="face">{project.cover && <img src={project.cover} alt={project.title} loading="lazy" />}<div class="glare"></div></div></div>
             </div>

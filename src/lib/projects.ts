@@ -27,7 +27,6 @@ export interface Project {
   order: number;
   summary: string;
   description: string;
-  featured: boolean;
   cover: string;
   shareImage?: string;
   coverVideo: string;
@@ -48,7 +47,6 @@ export const projects: Project[] = Object.entries(modules)
     order: 0,
     summary: '',
     description: '',
-    featured: false,
     cover: '',
     coverVideo: '',
     gallery: [],
@@ -57,9 +55,6 @@ export const projects: Project[] = Object.entries(modules)
   }))
   .sort((a, b) => Number(a.order) - Number(b.order));
 
-/** Newest first; projects without a date count as the oldest. */
-
-export const featuredProjects = projects.filter((project) => project.featured).slice(0, 2);
 
 export const nextProject = (slug: string) => {
   const index = projects.findIndex((project) => project.slug === slug);

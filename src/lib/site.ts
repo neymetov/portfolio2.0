@@ -2,7 +2,8 @@ import data from '../content/site.json';
 
 /** Keystatic leaves empty fields out of the JSON when saving, so everything it may omit is optional here. */
 type Raw = typeof data;
-interface Site extends Omit<Raw, 'cv' | 'whatsapp' | 'telegram' | 'socials' | 'whatsappChat' | 'telegramChat'> {
+interface Site extends Omit<Raw, 'featuredProjects' | 'cv' | 'whatsapp' | 'telegram' | 'socials' | 'whatsappChat' | 'telegramChat'> {
+  featuredProjects?: string[];
   cv?: string;
   whatsapp?: string;
   telegram?: string;
