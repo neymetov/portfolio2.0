@@ -7,6 +7,22 @@
   "coverVideo": "/images/projects/gemma/coverVideo.mp4",
   "gallery": [],
   "landing": {
-    "discriminant": false
+    "discriminant": true,
+    "value": {
+      "theme": {
+        "discriminant": "dark"
+      },
+      "blocks": [
+        {
+          "discriminant": "hero",
+          "value": {
+            "poster": "/images/projects/gemma/landing/value/blocks/0/value/poster.png",
+            "title": "gemma",
+            "showSub": true,
+            "sub": "An award-winning, social-first creative agency helping brands grow through content, social media and community."
+          }
+        }
+      ]
+    }
   }
 }
