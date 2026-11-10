@@ -232,9 +232,10 @@ export default config({
                       }),
                     },
                     wide: {
-                      label: 'Wide image',
+                      label: 'Wide image or video',
                       schema: fields.object({
-                        image: fields.image({ label: 'Image', directory: 'public/images/projects', publicPath: '/images/projects/', validation: { isRequired: true } }),
+                        image: fields.image({ label: 'Image', description: 'Shown when there is no video. With a video it is the poster until the video loads.', directory: 'public/images/projects', publicPath: '/images/projects/' }),
+                        video: fields.file({ label: 'Video (mp4, optional)', description: 'Plays silently on a loop in place of the image. Keep it web-optimised (Fast Start).', directory: 'public/images/projects', publicPath: '/images/projects/' }),
                         alt: fields.text({ label: 'Alt text' }),
                         caption: fields.text({ label: 'Caption' }),
                       }),

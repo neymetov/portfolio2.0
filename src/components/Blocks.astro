@@ -81,10 +81,12 @@ const still = { draggable: 'false' } as const;
   }
   if (block.discriminant === 'wide') {
     const b = block.value;
-    if (!b.image) return null;
+    if (!b.image && !b.video) return null;
     return (
       <section class="lb-wide lb-pad">
-        <figure class="lb-wide-fig"><img src={b.image} alt={b.alt} loading="lazy" {...still} /></figure>
+        <figure class="lb-wide-fig">
+          {b.video ? <video src={b.video} poster={b.image || undefined} autoplay muted loop playsinline preload="metadata" disablepictureinpicture controlslist="nodownload noremoteplayback"></video> : <img src={b.image} alt={b.alt} loading="lazy" {...still} />}
+        </figure>
         {b.caption && <figcaption class="lb-cap">{b.caption}</figcaption>}
       </section>
     );

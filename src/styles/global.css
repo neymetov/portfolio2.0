@@ -336,7 +336,7 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 /* on desktop a wide image spans the same width as the zoom image */
 @media (min-width:641px){.lb-wide.lb-pad{max-width:none;padding-left:0;padding-right:0}}
 .lb-wide-fig{margin:0}
-.lb-wide-fig img{width:100%;display:block}
+.lb-wide-fig img,.lb-wide-fig video{width:100%;height:auto;display:block}
 .lb-reels{padding-top:120px}
 .lb-reels .lb-h2{text-align:center}
 .lb-reels-row{display:flex;justify-content:center;gap:28px}
