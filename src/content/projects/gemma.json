@@ -41,28 +41,28 @@
           }
         },
         {
-          "discriminant": "gallery",
-          "value": {
-            "images": [
-              {
-                "image": "/images/projects/gemma/landing/value/blocks/2/value/images/0/image.png"
-              },
-              {
-                "image": "/images/projects/gemma/landing/value/blocks/2/value/images/1/image.png"
-              }
-            ]
-          }
-        },
-        {
           "discriminant": "wide",
           "value": {
-            "video": "/images/projects/gemma/landing/value/blocks/3/value/video.mp4"
+            "video": "/images/projects/gemma/landing/value/blocks/2/value/video.mp4"
           }
         },
         {
           "discriminant": "text",
           "value": {
             "text": "The logo is built around the transformation of two “m” letters into a spring — a metaphor for the agency’s creative energy and driving force. Just like a spring stores and releases energy, the agency transforms ideas into momentum, propelling brands forward and helping them reach new heights."
+          }
+        },
+        {
+          "discriminant": "gallery",
+          "value": {
+            "images": [
+              {
+                "image": "/images/projects/gemma/landing/value/blocks/4/value/images/0/image.png"
+              },
+              {
+                "image": "/images/projects/gemma/landing/value/blocks/4/value/images/1/image.png"
+              }
+            ]
           }
         }
       ]
