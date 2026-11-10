@@ -73,7 +73,13 @@
         {
           "discriminant": "zoom",
           "value": {
-            "image": "/images/projects/avenue-8-identity/landing/value/blocks/2/value/image.png",
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/2/value/image.png"
+          }
+        },
+        {
+          "discriminant": "zoom",
+          "value": {
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/3/value/image.png",
             "alt": "Avenue 8 towers"
           }
         },
@@ -83,22 +89,22 @@
             "title": "One voice across social",
             "steps": [
               {
-                "image": "/images/projects/avenue-8-identity/landing/value/blocks/3/value/steps/0/image.webp",
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/4/value/steps/0/image.webp",
                 "heading": "Architecture first",
                 "text": "The towers lead every sequence, framed by greenery and open sky."
               },
               {
-                "image": "/images/projects/avenue-8-identity/landing/value/blocks/3/value/steps/1/image.webp",
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/4/value/steps/1/image.webp",
                 "heading": "Navy as the night sea",
                 "text": "Wide-spaced capitals with a script word carry the message on the brand navy."
               },
               {
-                "image": "/images/projects/avenue-8-identity/landing/value/blocks/3/value/steps/2/image.webp",
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/4/value/steps/2/image.webp",
                 "heading": "Life on the water",
                 "text": "Lifestyle shots show what the address promises beyond the walls."
               },
               {
-                "image": "/images/projects/avenue-8-identity/landing/value/blocks/3/value/steps/3/image.webp",
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/4/value/steps/3/image.webp",
                 "heading": "Sand and script",
                 "text": "The warm sand colour closes the story with the same typographic rhythm."
               }
@@ -110,17 +116,17 @@
           "value": {
             "title": "Story templates",
             "images": [
-              "/images/projects/avenue-8-identity/landing/value/blocks/4/value/images/0.webp",
-              "/images/projects/avenue-8-identity/landing/value/blocks/4/value/images/1.webp",
-              "/images/projects/avenue-8-identity/landing/value/blocks/4/value/images/2.webp",
-              "/images/projects/avenue-8-identity/landing/value/blocks/4/value/images/3.webp"
+              "/images/projects/avenue-8-identity/landing/value/blocks/5/value/images/0.webp",
+              "/images/projects/avenue-8-identity/landing/value/blocks/5/value/images/1.webp",
+              "/images/projects/avenue-8-identity/landing/value/blocks/5/value/images/2.webp",
+              "/images/projects/avenue-8-identity/landing/value/blocks/5/value/images/3.webp"
             ]
           }
         },
         {
           "discriminant": "wide",
           "value": {
-            "image": "/images/projects/avenue-8-identity/landing/value/blocks/5/value/image.png",
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/image.png",
             "alt": "Stationary",
             "caption": "print materials"
           }
@@ -130,10 +136,10 @@
           "value": {
             "images": [
               {
-                "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/images/0/image.png"
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/7/value/images/0/image.png"
               },
               {
-                "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/images/1/image.png"
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/7/value/images/1/image.png"
               }
             ]
           }
@@ -141,7 +147,7 @@
         {
           "discriminant": "wide",
           "value": {
-            "image": "/images/projects/avenue-8-identity/landing/value/blocks/7/value/image.png",
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/8/value/image.png",
             "alt": "roomtour"
           }
         }
