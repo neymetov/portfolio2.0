@@ -52,6 +52,12 @@
               }
             ]
           }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "video": "/images/projects/gemma/landing/value/blocks/3/value/video.mp4"
+          }
         }
       ]
     }
