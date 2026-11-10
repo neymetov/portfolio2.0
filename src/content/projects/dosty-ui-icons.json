@@ -24,22 +24,21 @@
           "value": {
             "poster": "/images/projects/dosty-ui-icons/landing/value/blocks/0/value/poster.png",
             "title": "Dosty UI icons",
-            "showSub": true,
-            "sub": "The main goal was to create an icon set that would practically and aesthetically represent seemingly complex illnesses, habits, and other pet attributes in the app interface. "
+            "showSub": true
           }
         },
         {
           "discriminant": "intro",
           "value": {
-            "text": "Facts about the project",
+            "text": "The main goal was to create an icon set that would practically and aesthetically represent seemingly complex illnesses, habits, and other pet attributes in the app interface. ",
             "meta": [
               {
                 "label": "Year",
-                "value": "2020"
+                "value": "2021"
               },
               {
-                "label": "Take",
-                "value": "Over"
+                "label": "Client",
+                "value": "Kokon Agency"
               }
             ]
           }
