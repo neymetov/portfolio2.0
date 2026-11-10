@@ -84,23 +84,10 @@
           }
         },
         {
-          "discriminant": "fan",
-          "value": {
-            "title": "Story templates",
-            "images": [
-              "/images/projects/avenue-8-identity/landing/value/blocks/4/value/images/0.webp",
-              "/images/projects/avenue-8-identity/landing/value/blocks/4/value/images/1.webp",
-              "/images/projects/avenue-8-identity/landing/value/blocks/4/value/images/2.webp",
-              "/images/projects/avenue-8-identity/landing/value/blocks/4/value/images/3.webp"
-            ]
-          }
-        },
-        {
           "discriminant": "wide",
           "value": {
-            "image": "/images/projects/avenue-8-identity/landing/value/blocks/5/value/image.png",
-            "alt": "Stationary",
-            "caption": "print materials"
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/4/value/image.png",
+            "alt": "roomtour"
           }
         },
         {
@@ -108,10 +95,10 @@
           "value": {
             "images": [
               {
-                "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/images/0/image.png"
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/5/value/images/0/image.png"
               },
               {
-                "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/images/1/image.png"
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/5/value/images/1/image.png"
               }
             ]
           }
@@ -119,8 +106,21 @@
         {
           "discriminant": "wide",
           "value": {
-            "image": "/images/projects/avenue-8-identity/landing/value/blocks/7/value/image.png",
-            "alt": "roomtour"
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/image.png",
+            "alt": "Stationary",
+            "caption": "print materials"
+          }
+        },
+        {
+          "discriminant": "fan",
+          "value": {
+            "title": "Story templates",
+            "images": [
+              "/images/projects/avenue-8-identity/landing/value/blocks/7/value/images/0.webp",
+              "/images/projects/avenue-8-identity/landing/value/blocks/7/value/images/1.webp",
+              "/images/projects/avenue-8-identity/landing/value/blocks/7/value/images/2.webp",
+              "/images/projects/avenue-8-identity/landing/value/blocks/7/value/images/3.webp"
+            ]
           }
         }
       ]
