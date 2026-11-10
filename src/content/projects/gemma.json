@@ -33,6 +33,26 @@
               }
             ]
           }
+        },
+        {
+          "discriminant": "intro",
+          "value": {
+            "text": "An award-winning, social-first creative agency helping brands grow through content, social media and community.",
+            "meta": [
+              {
+                "label": "Year",
+                "value": "2026"
+              },
+              {
+                "label": "Country",
+                "value": "Austria"
+              },
+              {
+                "label": "Client",
+                "value": "gemma"
+              }
+            ]
+          }
         }
       ]
     }
