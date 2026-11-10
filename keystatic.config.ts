@@ -240,6 +240,12 @@ export default config({
                         caption: fields.text({ label: 'Caption' }),
                       }),
                     },
+                    text: {
+                      label: 'Text',
+                      schema: fields.object({
+                        text: fields.text({ label: 'Text', description: 'Same size as the Intro statement, in a wider block. A new line starts a new paragraph.', multiline: true, validation: { isRequired: true } }),
+                      }),
+                    },
                     reels: {
                       label: 'Reels video (1080 × 1920)',
                       schema: fields.object({

@@ -91,6 +91,15 @@ const still = { draggable: 'false' } as const;
       </section>
     );
   }
+  if (block.discriminant === 'text') {
+    const paragraphs = block.value.text.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+    if (!paragraphs.length) return null;
+    return (
+      <section class="lb-text lb-pad">
+        {paragraphs.map((line) => <p class="lb-text-p">{line}</p>)}
+      </section>
+    );
+  }
   if (block.discriminant === 'reels') {
     const b = block.value;
     const videos = b.videos.filter((item) => item.video);

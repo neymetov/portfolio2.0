@@ -101,6 +101,7 @@ const landing = (view: HTMLElement) => {
     reveal('.lb-statement', { y: 40, opacity: 0 }, null, 'top 80%', { duration: 1.2 });
     reveal('.lb-meta > div', { y: 24, opacity: 0 }, '.lb-meta', 'top 85%', { duration: 1, stagger: 0.08 });
     reveal('.lb-story', { y: 120, rotate: 0, opacity: 0 }, '.lb-fan', 'top 85%', { duration: 1.2, stagger: 0.08, clearProps: 'transform,opacity' });
+    reveal('.lb-text-p', { y: 40, opacity: 0 }, '.lb-text', 'top 85%', { duration: 1.2, stagger: 0.1 });
     reveal('.lb-reel', { y: 60, opacity: 0 }, '.lb-reels-row', 'top 88%', { duration: 1.2, stagger: 0.12 });
     reveal('.lb-wide-fig', { y: 60, opacity: 0 }, null, 'top 90%', { duration: 1.2 });
     reveal('figure', { y: 60, opacity: 0 }, '.lb-gallery-grid', 'top 85%', { duration: 1.2, stagger: 0.1 });
