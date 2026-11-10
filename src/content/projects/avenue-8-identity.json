@@ -41,7 +41,7 @@
           "discriminant": "hero",
           "value": {
             "poster": "/images/projects/avenue-8-identity/landing/value/blocks/0/value/poster.png",
-            "title": "Avenue 8",
+            "title": " ",
             "showSub": true,
             "sub": "Identity for a residential address on the Caspian coast"
           }
@@ -126,23 +126,23 @@
           }
         },
         {
-          "discriminant": "wide",
-          "value": {
-            "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/image.png",
-            "alt": "roomtour"
-          }
-        },
-        {
           "discriminant": "gallery",
           "value": {
             "images": [
               {
-                "image": "/images/projects/avenue-8-identity/landing/value/blocks/7/value/images/0/image.png"
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/images/0/image.png"
               },
               {
-                "image": "/images/projects/avenue-8-identity/landing/value/blocks/7/value/images/1/image.png"
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/images/1/image.png"
               }
             ]
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/7/value/image.png",
+            "alt": "roomtour"
           }
         }
       ]
