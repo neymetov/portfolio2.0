@@ -66,7 +66,7 @@
               },
               {
                 "label": "Year",
-                "value": "—"
+                "value": "2025"
               }
             ]
           }
@@ -74,7 +74,7 @@
         {
           "discriminant": "zoom",
           "value": {
-            "image": "/images/projects/avenue-8-identity/landing/value/blocks/2/value/image.webp",
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/2/value/image.png",
             "alt": "Avenue 8 towers"
           }
         },
@@ -121,9 +121,29 @@
         {
           "discriminant": "wide",
           "value": {
-            "image": "/images/projects/avenue-8-identity/landing/value/blocks/5/value/image.webp",
-            "alt": "Avenue 8 social layouts",
-            "caption": "The full set of Instagram stories"
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/5/value/image.png",
+            "alt": "Stationary",
+            "caption": "print materials"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/avenue-8-identity/landing/value/blocks/6/value/image.png",
+            "alt": "roomtour"
+          }
+        },
+        {
+          "discriminant": "gallery",
+          "value": {
+            "images": [
+              {
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/7/value/images/0/image.png"
+              },
+              {
+                "image": "/images/projects/avenue-8-identity/landing/value/blocks/7/value/images/1/image.png"
+              }
+            ]
           }
         }
       ]
