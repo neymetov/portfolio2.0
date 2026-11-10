@@ -85,11 +85,17 @@
           }
         },
         {
-          "discriminant": "reels",
+          "discriminant": "pinned",
           "value": {
-            "videos": [
+            "video": "/images/projects/gemma/landing/value/blocks/8/value/video.mp4",
+            "steps": [
               {
-                "video": "/images/projects/gemma/landing/value/blocks/8/value/videos/0/video.mp4"
+                "heading": "Content creation",
+                "text": "People don’t open social media to watch advertising. They open it to feel, laugh, discover and connect. We create content designed to exist naturally inside culture and attention spans."
+              },
+              {
+                "heading": "Social media",
+                "text": "Gemma turn your organic presence into your most powerful marketing channel. You should not chase trends, but rather build your own content ecosystem."
               }
             ]
           }
