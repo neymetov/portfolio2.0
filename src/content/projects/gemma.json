@@ -21,6 +21,19 @@
             "showSub": true,
             "sub": "An award-winning, social-first creative agency helping brands grow through content, social media and community."
           }
+        },
+        {
+          "discriminant": "gallery",
+          "value": {
+            "images": [
+              {
+                "image": "/images/projects/gemma/landing/value/blocks/1/value/images/0/image.png"
+              },
+              {
+                "image": "/images/projects/gemma/landing/value/blocks/1/value/images/1/image.png"
+              }
+            ]
+          }
         }
       ]
     }
