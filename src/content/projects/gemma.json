@@ -83,6 +83,16 @@
           "value": {
             "image": "/images/projects/gemma/landing/value/blocks/7/value/image.png"
           }
+        },
+        {
+          "discriminant": "reels",
+          "value": {
+            "videos": [
+              {
+                "video": "/images/projects/gemma/landing/value/blocks/8/value/videos/0/video.mp4"
+              }
+            ]
+          }
         }
       ]
     }
