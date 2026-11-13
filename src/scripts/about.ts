@@ -145,10 +145,10 @@ const experience = () => {
 
 const esc = (text: string) => text.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 
-/* ——— project stacks: tilt and glare on the front card, a click brings the back one forward ——— */
+/* ——— project stacks: tilt and glare on the front card, the card opens the project ——— */
 const stacks = () => {
   document.querySelectorAll<HTMLElement>('.stack').forEach((stack) => {
-    hoverCursor(stack, 'next');
+    hoverCursor(stack, 'open');
     const front = () => stack.querySelector<HTMLElement>('.slide.front .face')!;
     let bound: HTMLElement | null = null;
     let qx: gsap.QuickToFunc, qy: gsap.QuickToFunc;
@@ -179,14 +179,6 @@ const stacks = () => {
         }
       });
     }
-    listen(stack, 'click', () => {
-      const back = stack.querySelector('.slide.back')!;
-      const front = stack.querySelector('.slide.front')!;
-      back.classList.replace('back', 'front');
-      front.classList.replace('front', 'back');
-      if (bound) gsap.set(bound, { rotateX: 0, rotateY: 0 });
-      bound = null;
-    });
   });
 };
 

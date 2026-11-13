@@ -57,6 +57,24 @@ export const projects: Project[] = Object.entries(modules)
   .sort((a, b) => Number(a.order) - Number(b.order));
 
 
+/** Pictures that peek out from behind the cover on the home page: the project's own images, in the order
+ *  they appear on its page (landing blocks first, then the simple gallery), without the cover and without repeats. */
+export const previewImages = (project: Project, limit = 2): string[] => {
+  const found: string[] = [];
+  const blocks = project.landing.discriminant ? project.landing.value?.blocks ?? [] : [];
+  for (const block of blocks) {
+    if (block.discriminant === 'hero') found.push(block.value.poster);
+    else if (block.discriminant === 'zoom' || block.discriminant === 'wide') found.push(block.value.image ?? '');
+    else if (block.discriminant === 'pinned') found.push(block.value.poster ?? '', ...block.value.steps.map((step) => step.image ?? ''));
+    else if (block.discriminant === 'fan') found.push(...block.value.images);
+    else if (block.discriminant === 'reels') found.push(...block.value.videos.map((item) => item.poster));
+    else if (block.discriminant === 'gallery') found.push(...block.value.images.map((item) => item.image));
+  }
+  found.push(...project.gallery.map((item) => item.image));
+  const seen = new Set<string>([project.cover]);
+  return found.filter((src) => src && !seen.has(src) && seen.add(src) && !/\.(gif|mp4|webm|mov)$/i.test(src)).slice(0, limit);
+};
+
 export const nextProject = (slug: string) => {
   const index = projects.findIndex((project) => project.slug === slug);
   return projects[(index + 1) % projects.length];
