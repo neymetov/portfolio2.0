@@ -1,4 +1,4 @@
-import data from '../content/site.json';
+import data from '../data/site.json';
 
 /** Keystatic leaves empty fields out of the JSON when saving, so everything it may omit is optional here. */
 type Raw = typeof data;
@@ -16,6 +16,4 @@ const site = data as unknown as Site;
 
 export default site;
 
-export const telegramUrl = (username = '') => (username ? `https://t.me/${username.replace(/^@/, '')}` : '');
-/** Accepts a ready wa.me link or just a phone number. */
-export const whatsappUrl = (value = '') => (!value ? '' : /^https?:\/\//.test(value) ? value : `https://wa.me/${value.replace(/\D/g, '')}`);
+export { telegramUrl, whatsappUrl } from './links';

@@ -7,7 +7,7 @@ import type { Theme } from '../lib/theme';
 interface Props {
   title: string;
   heading: string;
-  page: 'about' | 'works' | 'case' | 'contacts';
+  page: 'about' | 'works' | 'case' | 'contacts' | 'notfound';
   description?: string;
   image?: string;
   theme?: Theme | null;
@@ -37,7 +37,7 @@ const tabs = [
   { id: 'about', label: 'About', href: '/' },
   { id: 'contacts', label: 'Contacts', href: '/contacts' },
 ] as const;
-const activeTab = page === 'case' ? 'works' : page;
+const activeTab = page === 'case' || page === 'notfound' ? 'works' : page;
 ---
 <!doctype html>
 <html lang="en" class:list={{ 'theme-dark': theme?.mode === 'dark' }} style={themeStyle}>
@@ -73,12 +73,12 @@ const activeTab = page === 'case' ? 'works' : page;
     <slot />
 
     <div class="todo-tip" id="todoTip" role="status"></div>
-    <div class="lb" id="lb" hidden role="dialog" aria-label="Image viewer">
+    <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
       <div class="lb-stage"></div>
-      <button class="lb-btn lb-prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
-      <button class="lb-btn lb-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
-      <button class="lb-btn lb-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      <span class="lb-count"></span>
+      <button class="lb-btn lb-prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button class="lb-btn lb-next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button class="lb-btn lb-close" aria-label="Close viewer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <span class="lb-count" aria-live="polite"></span>
     </div>
 
     <footer>
@@ -93,7 +93,7 @@ const activeTab = page === 'case' ? 'works' : page;
     </nav>
 
     <script>
-      import { gsap, reduce, runCleanups, lenis, ScrollTrigger } from '../scripts/core';
+      import { gsap, reduce, runCleanups, scrollKit } from '../scripts/core';
       import { mountShell, setupShell } from '../scripts/shell';
 
       const body = () => document.body.dataset.page;
@@ -136,15 +136,15 @@ const activeTab = page === 'case' ? 'works' : page;
 
       document.addEventListener('astro:before-swap', () => {
         runCleanups();
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-        lenis?.start();
+        scrollKit.current?.ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        scrollKit.current?.lenis?.start();
       });
 
       /* keep the new page invisible until its entrance animation has set its start state */
       document.addEventListener('astro:after-swap', () => {
         const main = document.querySelector<HTMLElement>('main');
         if (main && !reduce) main.style.visibility = 'hidden';
-        if (lenis) lenis.scrollTo(0, { immediate: true });
+        if (scrollKit.current?.lenis) scrollKit.current.lenis.scrollTo(0, { immediate: true });
         else scrollTo(0, 0);
       });
 
@@ -163,7 +163,7 @@ const activeTab = page === 'case' ? 'works' : page;
           else if (page === 'contacts') (await import('../scripts/contacts')).init();
         } finally {
           if (main) main.style.visibility = '';
-          ScrollTrigger.refresh();
+          scrollKit.current?.ScrollTrigger.refresh();
         }
       });
     </script>

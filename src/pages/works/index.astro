@@ -23,7 +23,7 @@ const tabs = ['All', ...categories];
         <a class="w-card" href={`/works/${project.slug}`} data-category={project.category}>
           <div class="w-img">
             {project.coverVideo ? (
-              <video src={project.coverVideo} poster={project.cover || undefined} autoplay muted loop playsinline preload="metadata"></video>
+              <video data-src={project.coverVideo} poster={project.cover || undefined} data-play muted loop playsinline preload="none"></video>
             ) : project.cover ? (
               <img src={project.cover} alt="" loading="lazy" />
             ) : null}

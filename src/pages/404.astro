@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export const prerender = true;
+---
+<!-- Built to dist/404.html: Cloudflare Pages serves it, with a 404 status, for every address that does not exist. -->
+<BaseLayout title="Page not found — Elshan Neymatov" heading="Not found" page="notfound" description="This page does not exist.">
+  <main id="view-notfound" class="view contacts-view">
+    <section class="c-head">
+      <h1 class="display">Page not <em>found</em></h1>
+      <p>The address may be mistyped, or the project has moved.</p>
+      <a class="pill-btn" href="/works">See all works</a>
+    </section>
+  </main>
+</BaseLayout>

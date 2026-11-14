@@ -41,7 +41,7 @@ export default config({
   singletons: {
     site: singleton({
       label: 'Site content',
-      path: 'src/content/site',
+      path: 'src/data/site',
       format: { data: 'json' },
       schema: {
         name: fields.text({ label: 'Name' }),
@@ -123,7 +123,7 @@ export default config({
   collections: {
     projects: collection({
       label: 'Projects',
-      path: 'src/content/projects/*',
+      path: 'src/data/projects/*',
       slugField: 'title',
       format: { data: 'json' },
       columns: ['title', 'category', 'order'],

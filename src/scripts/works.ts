@@ -1,3 +1,4 @@
+import './scroll';
 import { big, enter, fine, gsap, hoverCursor, listen, onCleanup, reduce, refresh, scrollToY, tilt } from './core';
 
 export const init = () => {
@@ -63,7 +64,6 @@ export const init = () => {
 
   setFilter(active, true);
   history.replaceState(history.state, '', urlFor(active));
-  document.querySelectorAll('video').forEach((video) => void video.play().catch(() => {}));
 
   buttons.forEach((button) =>
     listen(button, 'click', () => {

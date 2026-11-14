@@ -39,7 +39,7 @@ export const setupShell = () => {
 
 const currentTab = () => {
   const page = document.body.dataset.page;
-  return page === 'case' ? 'works' : page || 'about';
+  return page === 'case' || page === 'notfound' ? 'works' : page || 'about';
 };
 
 export const setPill = (name: string) => {
@@ -73,6 +73,101 @@ const refreshDates = () => {
   });
 };
 
+/* ——— looping videos ———
+   Videos marked data-play have no src in the HTML, only data-src: nothing is requested until the video comes
+   near the screen. Then the file is attached, loads and plays, and it pauses again when it leaves.
+   The hero video (autoplay, with a real src) is already in view, so it just plays. */
+const attach = (video: HTMLVideoElement) => {
+  if (!video.getAttribute('src') && video.dataset.src) {
+    video.src = video.dataset.src;
+    video.load();
+  }
+};
+
+const mountVideos = () => {
+  const videos = [...document.querySelectorAll<HTMLVideoElement>('video[data-play], video[autoplay]')];
+  if (!videos.length) return;
+
+  if (reduce) {
+    /* reduced motion: nothing moves. A video without a poster would stay blank, so once it is near the screen it
+       loads just enough to show its first frame. */
+    videos.forEach((video) => {
+      video.removeAttribute('autoplay');
+      video.pause();
+    });
+    if (!('IntersectionObserver' in window)) return;
+    const still = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const video = entry.target as HTMLVideoElement;
+        still.unobserve(video);
+        attach(video);
+        video.preload = 'auto';
+        const frame = () => {
+          video.currentTime = 0.05;
+        };
+        if (video.readyState >= 2) frame();
+        else video.addEventListener('loadeddata', frame, { once: true });
+      }),
+      { rootMargin: '250px 0px' },
+    );
+    videos.forEach((video) => still.observe(video));
+    onCleanup(() => still.disconnect());
+    return;
+  }
+
+  const timers = new Map<HTMLVideoElement, number>();
+  const tries = new WeakMap<HTMLVideoElement, number>();
+  const wanted = new WeakSet<HTMLVideoElement>();
+
+  const start = (video: HTMLVideoElement) => {
+    attach(video);
+    if (video.preload !== 'auto') video.preload = 'auto';
+    video.play().catch(() => {
+      /* autoplay refused or the file is not ready: try again once the browser has data, a couple of times at most */
+      const n = (tries.get(video) ?? 0) + 1;
+      tries.set(video, n);
+      if (n > 3 || !wanted.has(video)) return;
+      window.clearTimeout(timers.get(video));
+      timers.set(video, window.setTimeout(() => {
+        if (!wanted.has(video)) return;
+        if (video.error || video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) video.load();
+        start(video);
+      }, 800 * n));
+    });
+  };
+
+  const observer = 'IntersectionObserver' in window
+    ? new IntersectionObserver(
+        (entries) => entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            wanted.add(video);
+            tries.delete(video);
+            start(video);
+          } else {
+            wanted.delete(video);
+            window.clearTimeout(timers.get(video));
+            video.pause();
+          }
+        }),
+        { rootMargin: '250px 0px' },
+      )
+    : null;
+
+  videos.forEach((video) => {
+    if (observer) observer.observe(video);
+    else start(video);
+  });
+
+  onCleanup(() => {
+    observer?.disconnect();
+    timers.forEach((timer) => window.clearTimeout(timer));
+    timers.clear();
+    videos.forEach((video) => video.pause());
+  });
+};
+
 export const mountShell = () => {
   setPill(currentTab());
   refreshDates();
@@ -93,29 +188,7 @@ export const mountShell = () => {
       });
   }
 
-  /* looping covers sometimes stall (slow network, many videos at once, a swapped page): nudge any
-     video that has not got data yet, and keep the ones on screen playing */
-  const videos = [...document.querySelectorAll<HTMLVideoElement>('video[autoplay]')];
-  if (videos.length) {
-    const kick = (video: HTMLVideoElement) => {
-      if (video.readyState < 2 && video.networkState !== HTMLMediaElement.NETWORK_LOADING) video.load();
-      video.play().catch(() => {});
-    };
-    videos.forEach((video) => {
-      video.preload = 'auto';
-      listen(video, 'error', () => setTimeout(() => kick(video), 800));
-      listen(video, 'stalled', () => kick(video));
-    });
-    const watch = 'IntersectionObserver' in window
-      ? new IntersectionObserver((entries) => entries.forEach((entry) => {
-          const video = entry.target as HTMLVideoElement;
-          if (entry.isIntersecting) kick(video);
-        }), { rootMargin: '200px' })
-      : null;
-    videos.forEach((video) => watch?.observe(video));
-    const retry = setInterval(() => videos.forEach((video) => { if (video.readyState < 2) kick(video); }), 2500);
-    onCleanup(() => { watch?.disconnect(); clearInterval(retry); });
-  }
+  mountVideos();
 
   /* rows with a hover preview that follows the cursor */
   const preview = document.querySelector<HTMLElement>('.preview');

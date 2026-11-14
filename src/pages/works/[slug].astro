@@ -36,9 +36,9 @@ const style = theme ? `--t-bg:${theme.bg};--t-surface:${theme.surface};--t-text:
         <section class="cs-gallery">
           {(project.gallery.length ? project.gallery : [{}, {}, {}, {}]).map((item: any, index) => (
             <figure class:list={['cs-tile', { wide: item.wide }]} data-k={index}>
-              <div class="cs-media">
+              <div class="cs-media" {...(item.video || item.image ? { role: 'button', tabindex: 0, 'aria-label': `View larger: ${item.alt || project.title}`, 'aria-haspopup': 'dialog' } : {})}>
                 {item.video ? (
-                  <video src={item.video} poster={item.image || undefined} autoplay muted loop playsinline preload="metadata"></video>
+                  <video data-src={item.video} poster={item.image || undefined} data-play muted loop playsinline preload="none"></video>
                 ) : item.image ? (
                   <img src={item.image} alt={item.alt || project.title} loading="lazy" />
                 ) : null}
@@ -49,10 +49,12 @@ const style = theme ? `--t-bg:${theme.bg};--t-surface:${theme.surface};--t-text:
         </section>
       </>
     )}
-    <a class:list={['cs-next', { 'lb-pad-x': landing }]} href={`/works/${next.slug}`}>
-      <span class="cs-next-label">Next project</span>
-      <span class="cs-next-title">{next.title}</span>
-      <span class="arr"><Fragment set:html={arrow} /></span>
-    </a>
+    {next && (
+      <a class:list={['cs-next', { 'lb-pad-x': landing }]} href={`/works/${next.slug}`}>
+        <span class="cs-next-label">Next project</span>
+        <span class="cs-next-title">{next.title}</span>
+        <span class="arr"><Fragment set:html={arrow} /></span>
+      </a>
+    )}
   </main>
 </BaseLayout>

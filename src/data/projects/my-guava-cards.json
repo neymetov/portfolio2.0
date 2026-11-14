@@ -1,0 +1,71 @@
+{
+  "title": "MyGuava Cards",
+  "category": "Print",
+  "order": 7,
+  "summary": "MyGuava Cards",
+  "description": "Cards for MyGuava users",
+  "coverVideo": "/images/projects/my-guava-cards/coverVideo.mp4",
+  "gallery": [],
+  "landing": {
+    "discriminant": true,
+    "value": {
+      "theme": {
+        "discriminant": "custom",
+        "value": {
+          "frame": "#9cf300",
+          "bg": "#ffffff",
+          "text": "#141414",
+          "accent": "#9cf300"
+        }
+      },
+      "blocks": [
+        {
+          "discriminant": "hero",
+          "value": {
+            "poster": "/images/projects/my-guava-cards/landing/value/blocks/0/value/poster.webp",
+            "title": "MyGuava",
+            "showSub": true,
+            "sub": "Cards for MyGuava"
+          }
+        },
+        {
+          "discriminant": "intro",
+          "value": {
+            "text": "MyGuava is the app",
+            "meta": [
+              {
+                "label": "Auditory",
+                "value": "Retail and Business"
+              }
+            ]
+          }
+        },
+        {
+          "discriminant": "zoom",
+          "value": {
+            "image": "/images/projects/my-guava-cards/landing/value/blocks/2/value/image.webp"
+          }
+        },
+        {
+          "discriminant": "gallery",
+          "value": {
+            "images": [
+              {
+                "image": "/images/projects/my-guava-cards/landing/value/blocks/3/value/images/0/image.webp"
+              },
+              {
+                "image": "/images/projects/my-guava-cards/landing/value/blocks/3/value/images/1/image.webp"
+              }
+            ]
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/my-guava-cards/landing/value/blocks/4/value/image.webp"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -23,6 +23,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .hero{position:relative;height:100vh;min-height:860px;overflow:hidden}
 #ring{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
 #ring.grabbing{cursor:grabbing}
+#ring:focus-visible{outline:2px solid currentColor;outline-offset:-6px}
+html.modal-open{overflow:hidden}
+.cs-media:focus-visible,.lb-btn:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 .hero-text{position:relative;z-index:2;text-align:center;padding-top:calc(64px + clamp(40px,6vh,72px));pointer-events:none}
 .hero-text>*{pointer-events:auto}
 .avatar{display:block;width:80px;height:80px;margin:0 auto 16px;border-radius:24px;box-shadow:0 12px 30px rgba(0,0,0,.12);transition:transform .5s var(--spring)}
@@ -344,6 +347,8 @@ footer small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 @media (min-width:641px){.lb-wide.lb-pad{max-width:none;padding-left:0;padding-right:0}}
 .lb-wide-fig{margin:0}
 .lb-wide-fig img,.lb-wide-fig video{width:100%;height:auto;display:block}
+/* a video that has not been fetched yet has no size of its own: hold a 16:9 box until it knows its real shape */
+.lb-wide-fig video{aspect-ratio:auto 16/9}
 .lb-text{max-width:1520px;padding-top:120px;padding-bottom:20px}
 .lb-text-p{font-size:clamp(28px,3vw,44px);line-height:1.15;letter-spacing:-.02em;font-weight:500;text-wrap:pretty}
 .lb-text-p+.lb-text-p{margin-top:.8em}

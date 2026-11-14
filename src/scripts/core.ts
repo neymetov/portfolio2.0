@@ -1,23 +1,18 @@
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
+import type Lenis from 'lenis';
+import type { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
-export { gsap, ScrollTrigger };
+export { gsap };
 
 export const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 export const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
 
-/** Smooth scrolling is shared by every page and survives client-side navigation. */
-export const lenis: Lenis | null = reduce ? null : new Lenis({ lerp: 0.09 });
-if (lenis) {
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
-}
+/** Smooth scrolling and scroll-linked animation live in ./scroll, which only the pages that need them load.
+ *  Once loaded it registers itself here, so shared code can use it when it exists and skip it when it does not. */
+export const scrollKit: { current: { lenis: Lenis | null; ScrollTrigger: typeof ScrollTrigger } | null } = { current: null };
 
 export const scrollToY = (y: number, immediate = false) => {
+  const lenis = scrollKit.current?.lenis;
   if (lenis) lenis.scrollTo(y, immediate ? { immediate: true } : { duration: 1.2 });
   else scrollTo({ top: y, behavior: immediate ? 'instant' : 'smooth' });
 };
@@ -107,7 +102,7 @@ export const tilt = (area: Element, target: HTMLElement, amount: number) => {
   });
 };
 
-export const refresh = () => ScrollTrigger.refresh();
+export const refresh = () => scrollKit.current?.ScrollTrigger.refresh();
 
 export const enter = (targets: gsap.TweenTarget, vars: gsap.TweenVars = {}) => {
   if (reduce) return;

@@ -1,0 +1,106 @@
+{
+  "title": "gemma",
+  "category": "Branding",
+  "order": 1,
+  "summary": "Award-winning, social-first creative agency helping brands grow through content, social media and community.",
+  "coverVideo": "/images/projects/gemma/coverVideo.mp4",
+  "gallery": [],
+  "landing": {
+    "discriminant": true,
+    "value": {
+      "theme": {
+        "discriminant": "dark"
+      },
+      "blocks": [
+        {
+          "discriminant": "hero",
+          "value": {
+            "poster": "/images/projects/gemma/landing/value/blocks/0/value/poster.webp",
+            "title": "gemma",
+            "showSub": true
+          }
+        },
+        {
+          "discriminant": "intro",
+          "value": {
+            "text": "An award-winning, social-first creative agency helping brands grow through content, social media and community.",
+            "meta": [
+              {
+                "label": "Year",
+                "value": "2026"
+              },
+              {
+                "label": "Country",
+                "value": "Austria"
+              },
+              {
+                "label": "Client",
+                "value": "gemma"
+              }
+            ]
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "video": "/images/projects/gemma/landing/value/blocks/2/value/video.mp4"
+          }
+        },
+        {
+          "discriminant": "text",
+          "value": {
+            "text": "The logo is built around the transformation of two “m” letters into a spring — a metaphor for the agency’s creative energy and driving force. Just like a spring stores and releases energy, the agency transforms ideas into momentum, propelling brands forward and helping them reach new heights."
+          }
+        },
+        {
+          "discriminant": "gallery",
+          "value": {
+            "images": [
+              {
+                "image": "/images/projects/gemma/landing/value/blocks/4/value/images/0/image.webp"
+              },
+              {
+                "image": "/images/projects/gemma/landing/value/blocks/4/value/images/1/image.png"
+              }
+            ]
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/gemma/landing/value/blocks/5/value/image.png",
+            "alt": "typography"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/gemma/landing/value/blocks/6/value/image.png"
+          }
+        },
+        {
+          "discriminant": "wide",
+          "value": {
+            "image": "/images/projects/gemma/landing/value/blocks/7/value/image.webp"
+          }
+        },
+        {
+          "discriminant": "pinned",
+          "value": {
+            "video": "/images/projects/gemma/landing/value/blocks/8/value/video.mp4",
+            "steps": [
+              {
+                "heading": "Content creation",
+                "text": "People don’t open social media to watch advertising. They open it to feel, laugh, discover and connect. We create content designed to exist naturally inside culture and attention spans."
+              },
+              {
+                "heading": "Social media",
+                "text": "Gemma turn your organic presence into your most powerful marketing channel. You should not chase trends, but rather build your own content ecosystem."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

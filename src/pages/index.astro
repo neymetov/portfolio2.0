@@ -26,7 +26,7 @@ const fan = [
 <BaseLayout title={`${site.name} — brand designer and Chapter Lead`} heading={site.name} page="about" description={`${site.heroLead} ${site.heroAccent}`}>
   <main id="view-about" class="view">
     <section class="hero" id="about">
-      <canvas id="ring" data-stories={JSON.stringify(stories)} aria-label="Story cards on a rotating ring. Swipe to turn, tap a card to read it"></canvas>
+      <canvas id="ring" data-stories={JSON.stringify(stories)} tabindex="0" role="button" aria-haspopup="dialog" aria-label="Story cards on a rotating ring. Arrow keys turn it, Enter opens the card in front. Swipe to turn, tap a card to read it"></canvas>
       <div class="ring-fallback" hidden>
         {stories.map((story) => (
           <article class="ring-card">
@@ -88,7 +88,7 @@ const fan = [
                 <div class:list={['slide', i ? 'back2' : 'back']}><div class="face"><img src={src} alt="" loading="lazy" draggable="false" /><div class="glare"></div></div></div>
               ))}
               <div class="slide front"><div class="face">
-                {project.cover ? <img src={project.cover} alt={project.title} loading="lazy" draggable="false" /> : project.coverVideo ? <video src={project.coverVideo} autoplay muted loop playsinline preload="metadata"></video> : null}
+                {project.cover ? <img src={project.cover} alt={project.title} loading="lazy" draggable="false" /> : project.coverVideo ? <video data-src={project.coverVideo} data-play muted loop playsinline preload="none"></video> : null}
                 <div class="glare"></div>
               </div></div>
             </a>
@@ -115,13 +115,13 @@ const fan = [
     )}
   </main>
 
-  <div class="story-sheet" id="storySheet" hidden role="dialog" aria-label="Story card">
+  <div class="story-sheet" id="storySheet" hidden role="dialog" aria-modal="true" aria-label="Story card">
     <div class="ss-card"><canvas></canvas></div>
     <div class="ss-nav">
-      <button class="lb-btn ss-prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
-      <span class="ss-count">1 / 4</span>
-      <button class="lb-btn ss-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button class="lb-btn ss-prev" aria-label="Previous story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <span class="ss-count" aria-live="polite">1 / 4</span>
+      <button class="lb-btn ss-next" aria-label="Next story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
-    <button class="lb-btn ss-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button class="lb-btn ss-close" aria-label="Close story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
 </BaseLayout>

@@ -1,4 +1,5 @@
-import { ScrollTrigger, fine, gsap, hoverCursor, listen, onCleanup, reduce, refresh, scrollToY, split } from './core';
+import { ScrollTrigger } from './scroll';
+import { fine, gsap, hoverCursor, listen, onCleanup, reduce, refresh, scrollToY, split } from './core';
 
 interface Job {
   year: string;

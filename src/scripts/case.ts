@@ -1,4 +1,6 @@
-import { ScrollTrigger, enter, fine, gsap, hoverCursor, lenis, listen, onCleanup, reduce, refresh, tilt } from './core';
+import { openModal, freeVideo } from './modal';
+import { ScrollTrigger } from './scroll';
+import { enter, fine, gsap, hoverCursor, listen, onCleanup, reduce, refresh, tilt } from './core';
 
 interface Media {
   img?: string;
@@ -30,7 +32,6 @@ export const init = () => {
   });
   listen(window, 'load', remeasure);
   onCleanup(() => clearTimeout(timer));
-  view.querySelectorAll('video').forEach((video) => void video.play().catch(() => {}));
 };
 
 /* ——— simple template: a gallery with tilt, glare and a lightbox ——— */
@@ -39,7 +40,7 @@ const simple = (view: HTMLElement) => {
   const items: Media[] = tiles.map((tile) => {
     const video = tile.querySelector('video');
     const image = tile.querySelector('img');
-    return { video: video?.getAttribute('src') ?? undefined, img: image?.getAttribute('src') ?? undefined, alt: image?.alt ?? '' };
+    return { video: video?.dataset.src ?? video?.getAttribute('src') ?? undefined, img: image?.getAttribute('src') ?? undefined, alt: image?.alt ?? '' };
   });
   tiles.forEach((tile, index) => {
     const media = tile.querySelector<HTMLElement>('.cs-media')!;
@@ -48,8 +49,18 @@ const simple = (view: HTMLElement) => {
       tilt(tile, media, 8);
       if (has) hoverCursor(tile, 'view');
     }
+    const open = () => {
+      const playable = items.filter((item) => item.img || item.video);
+      openLightbox(playable, playable.indexOf(items[index]));
+    };
     listen(tile, 'click', () => {
-      if (has) openLightbox(items.filter((item) => item.img || item.video), items.filter((item) => item.img || item.video).indexOf(items[index]));
+      if (has) open();
+    });
+    /* the tile is a button for keyboards: Enter and Space open it too */
+    listen(media, 'keydown', (event: KeyboardEvent) => {
+      if (!has || (event.key !== 'Enter' && event.key !== ' ')) return;
+      event.preventDefault();
+      open();
     });
   });
   enter(view.querySelectorAll('.cs-back, .cs-intro > *, .cs-tile, .cs-next'), { stagger: 0.07 });
@@ -117,17 +128,6 @@ const landing = (view: HTMLElement) => {
   }
 
   /* pinned: the phone stays, the active step swaps its screen and fills the progress bar */
-  /* reels only play while they are on screen */
-  const reels = all<HTMLVideoElement>('.lb-reel video');
-  if (reels.length && 'IntersectionObserver' in window) {
-    const watch = new IntersectionObserver((entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target instanceof HTMLVideoElement && entry.target.play().catch(() => {});
-      else (entry.target as HTMLVideoElement).pause();
-    }), { threshold: 0.25 });
-    reels.forEach((video) => watch.observe(video));
-    onCleanup(() => watch.disconnect());
-  }
-
   const steps = all('.lb-step');
   const shots = all('.lb-pin-img > img');
   const bars = all('.lb-progress i');
@@ -149,13 +149,20 @@ const openLightbox = (items: Media[], start: number) => {
   const count = box?.querySelector<HTMLElement>('.lb-count');
   if (!box || !stage || !count || !items.length) return;
   let index = Math.max(0, start);
+  let hideTimer = 0;
+  window.clearTimeout(hideTimer);
 
+  const clear = () => {
+    stage.querySelectorAll('video').forEach(freeVideo);
+    stage.innerHTML = '';
+  };
   const show = () => {
     const item = items[index];
-    stage.innerHTML = '';
+    clear();
     const node = item.video ? document.createElement('video') : document.createElement('img');
     if (node instanceof HTMLVideoElement) {
-      Object.assign(node, { src: item.video, autoplay: true, muted: true, loop: true, playsInline: true });
+      Object.assign(node, { src: item.video, autoplay: !reduce, muted: true, loop: true, playsInline: true });
+      node.setAttribute('aria-label', item.alt || 'Video');
     } else {
       node.src = item.img ?? '';
       node.alt = item.alt;
@@ -168,20 +175,20 @@ const openLightbox = (items: Media[], start: number) => {
     index = (index + dir + items.length) % items.length;
     show();
   };
-  const close = () => {
-    box.classList.remove('on');
-    removeEventListener('keydown', keys);
-    setTimeout(() => {
-      box.hidden = true;
-      stage.innerHTML = '';
-    }, 300);
-    lenis?.start();
-  };
   const keys = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') close();
     if (event.key === 'ArrowRight') step(1);
     if (event.key === 'ArrowLeft') step(-1);
   };
+  const close = () => {
+    removeEventListener('keydown', keys);
+    box.classList.remove('on');
+    stop();
+    hideTimer = window.setTimeout(() => {
+      box.hidden = true;
+      clear();
+    }, 300);
+  };
+  const stop = openModal(box, close, box.querySelector<HTMLElement>('.lb-close'));
 
   /* fresh handlers each time: assigning onclick replaces the previous ones */
   box.querySelector<HTMLElement>('.lb-close')!.onclick = close;
@@ -193,14 +200,21 @@ const openLightbox = (items: Media[], start: number) => {
     event.stopPropagation();
     step(1);
   };
+  /* with a single picture there is nothing to step through */
+  box.querySelectorAll<HTMLElement>('.lb-prev, .lb-next').forEach((button) => (button.style.display = items.length < 2 ? 'none' : ''));
   box.onclick = (event) => {
     if (event.target === box || event.target === stage) close();
   };
   addEventListener('keydown', keys);
-  onCleanup(() => removeEventListener('keydown', keys));
+  onCleanup(() => {
+    removeEventListener('keydown', keys);
+    window.clearTimeout(hideTimer);
+    box.hidden = true;
+    box.classList.remove('on');
+    clear();
+  });
 
   box.hidden = false;
   requestAnimationFrame(() => box.classList.add('on'));
   show();
-  lenis?.stop();
 };

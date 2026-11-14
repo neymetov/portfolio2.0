@@ -1,3 +1,4 @@
+import { openModal } from './modal';
 import {
   CanvasTexture,
   Color,
@@ -15,7 +16,8 @@ import {
   WebGLRenderTarget,
   WebGLRenderer,
 } from 'three';
-import { ScrollTrigger, fine, gsap, lenis, reduce } from './core';
+import { ScrollTrigger, lenis } from './scroll';
+import { fine, gsap, reduce } from './core';
 
 /* The story cards sit on the inside of a cylinder. Each card is painted into a 2D canvas (same layout as the
    mobile story card) and used as a texture; a post pass adds the prismatic blur toward the left and right edges. */
@@ -393,19 +395,23 @@ export const mountRing = (canvas: HTMLCanvasElement): (() => void) | null => {
     sheetTick();
     sCount.textContent = `${sIdx + 1} / ${stories.length}`;
   };
+  let releaseSheet: (() => void) | null = null;
+  let hideTimer = 0;
   const openSheet = (idx: number) => {
     if (idx < 0 || !cards[idx]) return;
+    window.clearTimeout(hideTimer);
     sheet.hidden = false;
     requestAnimationFrame(() => sheet.classList.add('on'));
     sheetShow(cards[idx].s);
-    lenis?.stop();
+    releaseSheet = openModal(sheet, closeSheet, sheet.querySelector<HTMLElement>('.ss-close'));
   };
   const closeSheet = () => {
     sheet.classList.remove('on');
-    setTimeout(() => {
+    releaseSheet?.();
+    releaseSheet = null;
+    hideTimer = window.setTimeout(() => {
       sheet.hidden = true;
     }, 300);
-    lenis?.start();
   };
   /* bring the nearest card of this story to the front */
   const goTo = (story: number) => {
@@ -447,7 +453,6 @@ export const mountRing = (canvas: HTMLCanvasElement): (() => void) | null => {
   });
   on(window, 'keydown', (event) => {
     if (sheet.hidden) return;
-    if (event.key === 'Escape') closeSheet();
     if (event.key === 'ArrowRight') sheet.querySelector<HTMLElement>('.ss-next')!.click();
     if (event.key === 'ArrowLeft') sheet.querySelector<HTMLElement>('.ss-prev')!.click();
   });
@@ -479,6 +484,18 @@ export const mountRing = (canvas: HTMLCanvasElement): (() => void) | null => {
       openSheet(activeIdx);
     }
   };
+  /* keyboards: arrows turn the ring one card, Enter or Space reads the card in front */
+  on(canvas, 'keydown', (event: KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openSheet(activeIdx);
+    } else if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+      event.preventDefault();
+      vel = 0;
+      snapTarget = (Math.round(angle / STEP) + (event.key === 'ArrowRight' ? -1 : 1)) * STEP;
+      idleUntil = performance.now() + 5000;
+    }
+  });
   on(canvas, 'pointerup', up);
   on(canvas, 'pointercancel', up);
   canvas.style.touchAction = 'pan-y';
@@ -555,6 +572,8 @@ export const mountRing = (canvas: HTMLCanvasElement): (() => void) | null => {
     cleanups.forEach((fn) => fn());
     observer.disconnect();
     trigger.kill();
+    window.clearTimeout(hideTimer);
+    releaseSheet?.();
     sheet.hidden = true;
     sheet.classList.remove('on');
     cards.forEach((card) => {
